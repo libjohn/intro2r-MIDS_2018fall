@@ -32,7 +32,7 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
 1. Data Structure & Data Types (brief)
 
-1. `[dplyr](http://dplyr.tidyverse.org/)` -- part of tidyverse
+1. [`dplyr`](http://dplyr.tidyverse.org/) -- part of tidyverse
 
     a. `filter` rows
     b. `arrange` rows by variables

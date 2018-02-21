@@ -32,7 +32,7 @@ Outline
 
 3.  Data Structure & Data Types (brief)
 
-4.  `[dplyr](http://dplyr.tidyverse.org/)` -- part of tidyverse
+4.  [`dplyr`](http://dplyr.tidyverse.org/) -- part of tidyverse
 
     1.  `filter` rows
     2.  `arrange` rows by variables
