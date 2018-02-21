@@ -18,6 +18,8 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
+*Ctrl+Shift+M*:  Generates a pipe -- ` %>% ` -- between functions (When you use the `tidyerse` package.)
+
 
 ```{r}
 library(tidyverse)
@@ -41,8 +43,6 @@ I have some great hurricane data to process
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
-
-
 ```
 
 ```{r echo=FALSE}
