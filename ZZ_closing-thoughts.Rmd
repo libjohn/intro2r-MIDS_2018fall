@@ -1,0 +1,9 @@
+---
+title: "Closing Thoughts"
+author: "John Little"
+date: "`r Sys.Date()`"
+---
+
+- alter `output:` in YAML header and knit an MS Word docx.
+
+- Affect code chunk outputs:  supress warnings, or show output only, etc.

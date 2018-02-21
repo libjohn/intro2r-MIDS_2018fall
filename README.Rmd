@@ -15,3 +15,25 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
 - our *guide* can be found at our [Rfun site](https://rfun.library.duke.edu/intro2r/).
 
+
+## Outline
+
+1. New R Notebook
+
+    a. Render
+    b. Literate Coding
+        i. New Code Chunk:  *Ctrl+Alt+I*
+        i. R Markdown, intro
+    c. [tidyverse](https://tidyverse.org)
+    d. Hello World
+    e. R Markdown, basic
+        i. headings
+        i. italics, bold
+        i. links, lists
+
+2. Load & View Tibble (data frame)
+
+1. Data Structure & Data Types (brief)
+
+1. dplyr -- part of tidyverse
+
