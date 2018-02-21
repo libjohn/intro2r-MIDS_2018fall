@@ -45,3 +45,14 @@ Outline
     4.  `mutate` derive cells / new variables
     5.  `count` column totals
     6.  `summarize` grouping reports
+
+5.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
+
+6.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
+
+7.  Mapping in R
+
+8.  Our Workshops
+
+    1.  R we having fun yet‽ <https://rfun.library.duke.edu>
+    2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)

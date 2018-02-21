@@ -44,5 +44,16 @@ This repository contains [supporting datasets and files](https://rfun.library.du
     e. `count` column totals
     f. `summarize` grouping reports
     
+1. Before we go on...  [final thoughts](ZZ_closing-thoughts.Rmd)
+
+1. Visualize with `ggvis`  (syntactically simpler than ggplot2, but...)
+
+1. Mapping in R
+
+1. Our Workshops
+
+    a. R we having fun yet‽  https://rfun.library.duke.edu
+    b. Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
+    
     
 
