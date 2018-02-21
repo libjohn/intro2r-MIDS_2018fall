@@ -1,8 +1,6 @@
 ---
 title: "GIS"
-output: html_document
-#  html_notebook:
-#    css: duke.css
+output: html_notebook
 ---
 
 We offer a separate workshop on mapping in R.  Please see our [*Mapping with R* guide](/map/) for more information.  

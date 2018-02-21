@@ -1,8 +1,6 @@
 ---
 title: "Visualization"
-output: html_document
-#  html_notebook:
-#    css: duke.css
+output: html_notebook
 ---
 
 When in the data exploratory phase, you can quickly generate very basic visualizations with minimal effort.   
