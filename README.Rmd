@@ -11,7 +11,7 @@ Supporting datasets and files for our Intro to R workshop.
 
 This repository contains [supporting datasets and files](https://rfun.library.duke.edu/intro2r/) for our **Intro to R** workshop by the [Data & Visualization Services Department](http://library.duke.edu/data), Duke University Libraries.  You can find more information about our future and past [workshops](http://library.duke.edu/data/news) 
 
-- data are in the [data](data) directory of this Repo
+- data are in the [data](data) directory of this repository
 
 - our *guide* can be found at our [Rfun site](https://rfun.library.duke.edu/intro2r/).
 
@@ -35,5 +35,14 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
 1. Data Structure & Data Types (brief)
 
-1. `dplyr` -- part of tidyverse
+1. `[dplyr](http://dplyr.tidyverse.org/)` -- part of tidyverse
+
+    a. `filter` rows
+    b. `arrange` rows by variables
+    c. `select` columns
+    d. `mutate` derive cells / new variables
+    e. `count` column totals
+    f. `summarize` grouping reports
+    
+    
 
