@@ -1,6 +1,6 @@
 Intro to R; Revised
 ================
-John Little & Joel Herndon
+@libjohn & Joel Herndon
 2018-02-21
 
 README

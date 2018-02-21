@@ -1,6 +1,6 @@
 ---
 title: "Intro to R; Revised"
-author: "John Little & Joel Herndon"
+author: "@libjohn & Joel Herndon"
 date: "`r Sys.Date()`"
 output: github_document
 ---
