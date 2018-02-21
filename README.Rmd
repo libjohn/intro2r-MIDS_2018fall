@@ -58,5 +58,7 @@ This repository contains [supporting datasets and files](https://rfun.library.du
     
 1. Questions:  [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
     
-    
+## License
+
+Shareable via Creative Commons: [CC-BY-NC](https://creativecommons.org/licenses/by-nc/4.0/)
 
