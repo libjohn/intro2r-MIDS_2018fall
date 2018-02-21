@@ -4,9 +4,6 @@ author: "John Little & Joel Herndon"
 date: "`r Sys.Date()`"
 output: github_document
 ---
-# Intro2R
-Supporting datasets and files for our Intro to R workshop.
-
 # README
 
 This repository contains [supporting datasets and files](https://rfun.library.duke.edu/intro2r/) for our **Intro to R** workshop by the [Data & Visualization Services Department](http://library.duke.edu/data), Duke University Libraries.  You can find more information about our future and past [workshops](http://library.duke.edu/data/news) 
@@ -54,6 +51,8 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
     a. R we having fun yet‽  https://rfun.library.duke.edu
     b. Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
+    
+1. Questions:  [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
     
     
 

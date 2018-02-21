@@ -3,11 +3,6 @@ Intro to R; Revised
 John Little & Joel Herndon
 2018-02-21
 
-Intro2R
-=======
-
-Supporting datasets and files for our Intro to R workshop.
-
 README
 ======
 
@@ -56,3 +51,5 @@ Outline
 
     1.  R we having fun yet‽ <https://rfun.library.duke.edu>
     2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
+
+9.  Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
