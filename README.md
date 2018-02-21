@@ -57,3 +57,8 @@ Outline
     2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
 
 9.  Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
+
+License
+-------
+
+Shareable via Creative Commons: [CC-BY-NC](https://creativecommons.org/licenses/by-nc/4.0/)
