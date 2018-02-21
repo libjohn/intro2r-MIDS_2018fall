@@ -45,7 +45,11 @@ Outline
 
 6.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
+    1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
+
 7.  Mapping in R
+
+    1.  <https://rfun.library.duke.edu/intro2r/gis.html>
 
 8.  Our Workshops
 

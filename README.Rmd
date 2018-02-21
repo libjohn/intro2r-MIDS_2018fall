@@ -45,7 +45,11 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
 1. Visualize with `ggvis`  (syntactically simpler than ggplot2, but...)
 
+    a. https://rfun.library.duke.edu/intro2r/visualization.html
+
 1. Mapping in R
+
+    b. https://rfun.library.duke.edu/intro2r/gis.html
 
 1. Our Workshops
 
