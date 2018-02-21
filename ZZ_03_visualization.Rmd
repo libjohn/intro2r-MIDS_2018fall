@@ -1,0 +1,114 @@
+---
+title: "Visualization"
+output: html_document
+#  html_notebook:
+#    css: duke.css
+---
+
+When in the data exploratory phase, you can quickly generate very basic visualizations with minimal effort.   
+
+For this introductory section on visualization we use the `ggvis` package because it works seamlessly with pipes (i.e. `%>%`).  You can do a lot with [ggvis](http://ggvis.rstudio.com/).  You can do even more with [ggplot2](http://ggplot2.tidyverse.org/).  We offer a [separate workshop on ggplot2](https://rfun.library.duke.edu/2017/09/26/visualization-in-r-using-ggplot2-workshop-fall-2017/).
+
+```{r loadPackages, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggvis)
+```
+
+## Wrangle Data
+
+Create a data frame without Jabba
+```{r not_jabba}
+not_jabba <- starwars %>% 
+  filter(!is.na(mass),
+         !is.na(height),
+         mass < 400)
+```
+
+Subset the Species list to six species.
+
+```{r ggvis_prepare_bargraph}
+
+starwars_species_small <- starwars %>% 
+  filter(!is.na(mass),
+         !is.na(height),
+         !is.na(birth_year),
+         !is.na(species),
+         mass < 400,
+         species == "Human" | 
+           species == "Droid" | 
+           species == "Gungan" |
+           species == "Mirialan" |
+           species == "Ewok" |
+           species == "Wookiee")
+
+levels <- starwars_species_small %>%
+  group_by(species) %>% 
+  count() %>% 
+  arrange(-n) #%>% 
+  #.[1]
+
+starwars_species_small_as_fctr  <-  starwars_species_small %>% 
+  mutate(species = parse_factor(species, levels$species))
+
+```
+
+## Scatter Plot
+Linear model and 95% confidence interval
+
+```{r ggvis-scatter}
+not_jabba %>% 
+  ggvis(~height, ~mass) %>% 
+  layer_points() %>% 
+  layer_model_predictions(model = "lm", se = TRUE)
+
+```
+[More information on ggvis scatterplots](http://ggvis.rstudio.com/cookbook.html#scatterplots) | [line graphs](http://ggvis.rstudio.com/cookbook.html#line-graphs)
+
+## Bar Graph
+
+
+```{r ggvis_bargraph}
+
+starwars_species_small_as_fctr %>%   
+  ggvis(~species) %>% 
+  layer_bars()
+```
+[More information on ggvis bar graphs](http://ggvis.rstudio.com/cookbook.html#bar-graphs)
+
+## Histogram
+
+```{r ggvis-hist, message=FALSE}
+starwars %>% 
+  ggvis(~birth_year) %>% 
+  layer_histograms()
+```
+[More information on ggvis histograms](http://ggvis.rstudio.com/cookbook.html#histograms)
+
+## Grouping data points
+
+```{r}
+starwars_species_small_as_fctr %>% 
+  ggvis(~height, ~mass) %>% 
+  group_by(species) %>% 
+  layer_points(~height, ~mass, 
+               stroke := "black", 
+               fill = ~species,
+               size := ~birth_year, 
+               opacity := 0.7)
+```
+
+&nbsp;
+
+## BoxPlot
+
+```{r, message=FALSE, warning=FALSE}
+starwars_species_small_as_fctr %>% 
+  filter(species != "Ewok" &
+           species != "Wookiee" &
+           species != "Gungan") %>% 
+  ggvis(~parse_factor(species, species), ~mass) %>% 
+  layer_boxplots()
+```
+
+
+[More information on box plots](http://ggvis.rstudio.com/cookbook.html)
