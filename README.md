@@ -26,7 +26,7 @@ Outline
     2.  Literate Coding
         1.  New Code Chunk: *Ctrl+Alt+I*
         2.  R Markdown, intro
-    3.  [tidyverse](https://tidyverse.org)
+    3.  [`library(tidyverse)`](https://tidyverse.org)
     4.  Hello World
     5.  R Markdown, basic
         1.  headings
@@ -37,4 +37,4 @@ Outline
 
 3.  Data Structure & Data Types (brief)
 
-4.  dplyr -- part of tidyverse
+4.  `dplyr` -- part of tidyverse

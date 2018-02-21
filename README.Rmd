@@ -24,7 +24,7 @@ This repository contains [supporting datasets and files](https://rfun.library.du
     b. Literate Coding
         i. New Code Chunk:  *Ctrl+Alt+I*
         i. R Markdown, intro
-    c. [tidyverse](https://tidyverse.org)
+    c. [`library(tidyverse)`](https://tidyverse.org)
     d. Hello World
     e. R Markdown, basic
         i. headings
@@ -35,5 +35,5 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 
 1. Data Structure & Data Types (brief)
 
-1. dplyr -- part of tidyverse
+1. `dplyr` -- part of tidyverse
 
