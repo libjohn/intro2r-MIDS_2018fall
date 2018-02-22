@@ -20,10 +20,17 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 *Ctrl+Shift+M*:  Generates a pipe -- ` %>% ` -- between functions (When you use the `tidyerse` package.)
 
+###### https://rmarkdown.rstudio.com/r_notebooks.html
+
+## Packages and the Tidyverse
+
+###### https://tidyverse.org
 
 ```{r}
 library(tidyverse)
 ```
+
+
 
 ## Hello World
 
@@ -35,11 +42,16 @@ My^[My Full Name Here ;-] *favorite **search** engines* are
 3. [Yahoo](http://yahoo.com)
 2. [Bing](http://bing.com)
 
+###### https://rmarkdown.rstudio.com/
+
 ## Let's get Rrrrready to [R]umble
 
 ## Load Data
 
 I have some great hurricane data to process
+
+##### https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-RStudio
+##### https://www.rstudio.com/resources/webinars/importing-data-into-r/
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
@@ -51,14 +63,17 @@ canes
 
 have a look at the data structres and data types
 
+##### http://r4ds.had.co.nz/tibbles.html
+
 ```{r}
 class(canes)
 ```
 
+##### http://r4ds.had.co.nz/vectors.html
+
 ```{r}
 glimpse(canes)
 ```
-
 
 
 ## Dplyr
@@ -69,6 +84,9 @@ glimpse(canes)
 - mutate (change cell values)
 - Count
 - Summarize
+
+##### http://r4ds.had.co.nz/transform.html#introduction-2
+##### http://dplyr.tidyverse.org/
 
 ```{r}
 starwars
@@ -140,3 +158,7 @@ starwars %>%
   arrange(desc(Count))
 ```
 
+
+## More information
+
+https://rfun.library.duke.edu/intro2r
