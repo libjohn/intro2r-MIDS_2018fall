@@ -6,4 +6,15 @@ date: "`r Sys.Date()`"
 
 - alter `output:` in YAML header and knit an MS Word docx.
 
+```{}
+title: "my first notebook"
+author: "\u203d"
+date: "today's date"
+output: 
+  html_notebook: 
+    toc: yes
+    toc_float: yes
+```
+
+
 - Affect code chunk outputs:  supress warnings, or show output only, etc.
