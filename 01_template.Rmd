@@ -1,12 +1,19 @@
 ---
 title: "my first notebook"
-author: "john"
-date: "today"
+author: "‽"
+date: "today's date"
+output:
+  html_notebook:
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+This is an [R Notebook](https://rmarkdown.rstudio.com/r_notebooks.html) illustrating [literate programming](https://en.wikipedia.org/wiki/Literate_programming) techniques with R code **inside** *code chunks* and incorporating explanations (enhanced via [R Markdown](http://rmarkdown.rstudio.com/)) **outside** the *code chunks*. You can execute code within the R Notebook. Results appear beneath the code will also be integrated into the output documents identified in the [YAML](https://en.wikipedia.org/wiki/YAML) header .
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+Try executing the code chunk, below, by clicking the green-arrow *Run* button (within the chunk), or by placing your cursor inside the chunk and pressing *Ctrl+Shift+Enter.*
+
 
 ```{r}
 plot(cars)
@@ -22,21 +29,21 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 ###### https://rmarkdown.rstudio.com/r_notebooks.html
 
-## Packages and the Tidyverse
+# Packages and the Tidyverse
 
 ###### https://tidyverse.org
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
 
 
-## Hello World
+# Hello World
 
 This is my very first R Notebook.  
 
-My^[My Full Name Here ;-] *favorite **search** engines* are 
+My^[Your Name Here ;-j] *favorite **search** engines* are 
 
 1. [Google](http://google.com)
 3. [Yahoo](http://yahoo.com)
@@ -44,14 +51,12 @@ My^[My Full Name Here ;-] *favorite **search** engines* are
 
 ###### https://rmarkdown.rstudio.com/
 
-## Let's get Rrrrready to [R]umble
+# Load Data
 
-## Load Data
+###### https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-RStudio
+###### https://www.rstudio.com/resources/webinars/importing-data-into-r/
 
-I have some great hurricane data to process
-
-##### https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-RStudio
-##### https://www.rstudio.com/resources/webinars/importing-data-into-r/
+### Hurricane data from github
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
@@ -61,22 +66,22 @@ canes <- read_csv("https://is.gd/bigstorms")
 canes
 ```
 
-have a look at the data structres and data types
+have a look at the data structures and data types
 
-##### http://r4ds.had.co.nz/tibbles.html
+###### http://r4ds.had.co.nz/tibbles.html
 
 ```{r}
 class(canes)
 ```
 
-##### http://r4ds.had.co.nz/vectors.html
+###### http://r4ds.had.co.nz/vectors.html
 
 ```{r}
 glimpse(canes)
 ```
 
 
-## Dplyr
+# dplyr
 
 - filter  (rows)
 - arrange (sort rows by variables)
@@ -85,21 +90,21 @@ glimpse(canes)
 - Count
 - Summarize
 
-##### http://r4ds.had.co.nz/transform.html#introduction-2
-##### http://dplyr.tidyverse.org/
+###### http://r4ds.had.co.nz/transform.html#introduction-2
+###### http://dplyr.tidyverse.org/
 
 ```{r}
 starwars
 ```
 
-### Filter
+## Filter
 
 ```{r}
 starwars_small <- starwars %>% 
   filter(!is.na(mass), !is.na(height))
 ```
 
-### Arrange
+## Arrange
 
 ```{r}
 starwars_small %>% 
@@ -159,6 +164,6 @@ starwars %>%
 ```
 
 
-## More information
+# More information
 
 https://rfun.library.duke.edu/intro2r
