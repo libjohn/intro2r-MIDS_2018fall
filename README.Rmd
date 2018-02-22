@@ -41,6 +41,12 @@ This repository contains [supporting datasets and files](https://rfun.library.du
     e. `count` column totals
     f. `summarize` grouping reports
     
+1. **Now You Try It.**  Hands on exercises.
+
+    1. [exercise_01.Rmd](exercise_01.Rmd)
+    1. [exercise_02.Rmd](exercise_02.Rmd
+    1. [answers.Rmd](answers.Rmd)
+
 1. Before we go on...  [final thoughts](ZZ_closing-thoughts.Rmd)
 
 1. Visualize with `ggvis`  (syntactically simpler than ggplot2, but...)

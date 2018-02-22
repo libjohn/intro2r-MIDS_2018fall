@@ -1,7 +1,7 @@
 Intro to R; Revised
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-02-21
+2018-02-22
 
 README
 ======
@@ -41,22 +41,28 @@ Outline
     5.  `count` column totals
     6.  `summarize` grouping reports
 
-5.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
+5.  **Now You Try It.** Hands on exercises.
 
-6.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
+    1.  [exercise\_01.Rmd](exercise_01.Rmd)
+    2.  \[exercise\_02.Rmd\](exercise\_02.Rmd
+    3.  [answers.Rmd](answers.Rmd)
+
+6.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
+
+7.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
     1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
 
-7.  Mapping in R
+8.  Mapping in R
 
     1.  <https://rfun.library.duke.edu/intro2r/gis.html>
 
-8.  Our Workshops
+9.  Our Workshops
 
     1.  R we having fun yet‽ <https://rfun.library.duke.edu>
     2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
 
-9.  Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
+10. Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
 
 License
 -------
