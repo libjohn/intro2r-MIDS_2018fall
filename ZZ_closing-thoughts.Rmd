@@ -20,3 +20,9 @@ output:
 
 
 - Affect code chunk outputs:  supress warnings, or show output only, etc.
+
+lines:
+
+- 37 : no warnings
+- 62 : no warnings ; "show nothing (run code)"
+- 66 : show output only
