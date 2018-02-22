@@ -1,11 +1,13 @@
 ---
 title: "my first notebook"
-author: "\u203d"
+author: "‽"
 date: "today's date"
-output: 
-  html_notebook: 
+output:
+  html_notebook:
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
 
 This is an [R Notebook](https://rmarkdown.rstudio.com/r_notebooks.html) illustrating [literate programming](https://en.wikipedia.org/wiki/Literate_programming) techniques with R code **inside** *code chunks* and incorporating explanations (enhanced via [R Markdown](http://rmarkdown.rstudio.com/)) **outside** the *code chunks*. You can execute code within the R Notebook. Results appear beneath the code will also be integrated into the output documents identified in the [YAML](https://en.wikipedia.org/wiki/YAML) header .
@@ -41,7 +43,7 @@ library(tidyverse)
 
 This is my very first R Notebook.  
 
-My^[My Full Name Here ;-] *favorite **search** engines* are 
+My^[Your Name Here ;-j] *favorite **search** engines* are 
 
 1. [Google](http://google.com)
 3. [Yahoo](http://yahoo.com)
