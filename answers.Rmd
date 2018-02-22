@@ -39,7 +39,7 @@ brodhead %>%
 ```
 
 
-3. At the Brodheat Center, how many of the entrees (found in the `menuType` variable) cost eight dollars?
+3. At the Brodhead Center, how many of the entrees (found in the `menuType` variable) cost eight dollars?
 
 ```{r}
 brodhead %>% 
