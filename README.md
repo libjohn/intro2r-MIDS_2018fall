@@ -44,7 +44,7 @@ Outline
 5.  **Now You Try It.** Hands on exercises.
 
     1.  [exercise\_01.Rmd](exercise_01.Rmd)
-    2.  \[exercise\_02.Rmd\](exercise\_02.Rmd
+    2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
 6.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
