@@ -19,6 +19,15 @@ output:
 ```
 
 
+```{}
+starwars_small %>% 
+  arrange(desc(height), desc(name)) %>% 
+  select(1:4) %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+
 - Affect code chunk outputs:  supress warnings, or show output only, etc.
 
 lines:
