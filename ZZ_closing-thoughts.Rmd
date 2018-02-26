@@ -28,7 +28,7 @@ starwars %>%
 ```
 
 
-- Affect code chunk outputs:  supress warnings, or show output only, etc.
+- Affect code chunk outputs:  suppress warnings, or show output only, etc.
 
 lines:
 
