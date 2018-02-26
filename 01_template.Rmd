@@ -58,6 +58,8 @@ My^[Your Name Here ;-j] *favorite **search** engines* are
 
 ### Hurricane data from github
 
+(Do you want to copy/paste the code?  https://is.gd/rrev2018)
+
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
 ```

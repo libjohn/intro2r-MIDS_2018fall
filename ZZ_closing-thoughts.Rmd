@@ -20,7 +20,7 @@ output:
 
 
 ```{}
-starwars_small %>% 
+starwars %>% 
   arrange(desc(height), desc(name)) %>% 
   select(1:4) %>% 
   head() %>% 
