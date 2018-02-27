@@ -6,8 +6,6 @@ output:
   html_notebook:
     toc: yes
     toc_float: yes
-  word_document:
-    toc: yes
 ---
 
 This is an [R Notebook](https://rmarkdown.rstudio.com/r_notebooks.html) illustrating [literate programming](https://en.wikipedia.org/wiki/Literate_programming) techniques with R code **inside** *code chunks* and incorporating explanations (enhanced via [R Markdown](http://rmarkdown.rstudio.com/)) **outside** the *code chunks*. You can execute code within the R Notebook. Results appear beneath the code will also be integrated into the output documents identified in the [YAML](https://en.wikipedia.org/wiki/YAML) header .
@@ -58,7 +56,7 @@ My^[Your Name Here ;-j] *favorite **search** engines* are
 
 ### Hurricane data from github
 
-(Do you want to copy/paste the code?  https://is.gd/rrev2018)
+(Do you want to copy/paste the code?  https://is.gd/rcode)
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
@@ -110,8 +108,7 @@ starwars_small <- starwars %>%
 
 ```{r}
 starwars_small %>% 
-  arrange(desc(height), desc(name)) %>% 
-  head()
+  arrange(desc(height), desc(name))
 ```
 
 ## Select
@@ -127,8 +124,7 @@ starwars_small %>%
 starwars_small %>% 
   select(name, species, height, mass, birth_year) %>% 
   arrange(species, desc(height), mass, name) %>% 
-  filter(species == "Human") %>% 
-  arrange(birth_year)
+  filter(species == "Human") 
   
 ```
 

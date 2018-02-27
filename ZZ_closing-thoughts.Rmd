@@ -1,32 +1,59 @@
 ---
 title: "Closing Thoughts"
-author: "John Little"
 date: "`r Sys.Date()`"
----
-
-- alter `output:` in YAML header and knit an MS Word docx.
-
-```{}
-title: "my first notebook"
-author: "\u203d"
-date: "today's date"
+author: "by Anton Chigurh \u203d"
 output: 
   html_notebook: 
     toc: yes
     toc_float: yes
   word_document:
     toc: yes  
+---
+
+# Load Packages
+
+```{r include=FALSE}
+library(tidyverse)
+library(knitr)
 ```
 
+This document uses two packages
 
-```{}
+- `library(tidyverse)`
+- `library(knitr)`
+
+# Alter `output:` in YAML header 
+
+```
+---
+title: "Closing Thoughts"
+date: "`r Sys.Date()`"
+author: "\u203d"
+output: 
+  html_notebook: 
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes  
+---
+```
+
+# Example Table 
+
+`kable` works in both HTML & MS Word.  Note that an interactive HTML table does not print very nicely to a Word file.  An alternative is `xtable`.
+
+
+```{r}
 starwars %>% 
   arrange(desc(height), desc(name)) %>% 
-  select(1:4) %>% 
-  head() %>% 
+  select(1:6) %>% 
+  head(15) %>% 
   knitr::kable()
 ```
 
+> Reading this report as a MS Word document, it should be obvious why an interactive HTML table does not work very well
+
+# Alter settings inside code chunks
 
 - Affect code chunk outputs:  suppress warnings, or show output only, etc.
 

@@ -1,12 +1,13 @@
 Intro to R; Revised
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-02-26
+2018-02-27
 
 README
 ======
 
-<https://is.gd/rrev2018>
+-   [template code](https://is.gd/rcode)
+-   [rrev repo](https://is.gd/rrev2018)
 
 This repository contains [supporting datasets and files](https://rfun.library.duke.edu/intro2r/) for our **Intro to R** workshop by the [Data & Visualization Services Department](http://library.duke.edu/data), Duke University Libraries. You can find more information about our future and past [workshops](http://library.duke.edu/data/news)
 
