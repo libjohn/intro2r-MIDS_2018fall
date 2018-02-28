@@ -9,6 +9,8 @@ output: html_notebook
 
 Several students wanted to know how to isolate the data from the data structure.  In other words, How to can I report, dynamically, an answer derived programatically? 
 
+This relates to the [*intro to R* workshop] for which documentation can be found in the [intro2r.rev GitHub repository](https://github.com/data-and-visualization/intro2r.rev).
+
 ## Example Question
 
 1. Which restaurant, in the Brodhead Center, has the most expensive item(s)?  What are those item(s)?
