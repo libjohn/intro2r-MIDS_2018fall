@@ -1,7 +1,6 @@
 ---
 title: "Answers"
 date: "`r Sys.Date()`"
-output: html_notebook
 ---
 
 ## PART ONE: Loading Data & Data Wrangling
@@ -16,7 +15,7 @@ library(tidyverse)
 # Load Data
 
 ```{r}
-broadhead <- read_csv("data/broadheadCenter.csv")
+brodhead <- read_csv("data/brodheadCenter.csv")
 ```
 
 # Exercises: Data Wrangling
@@ -38,6 +37,26 @@ brodhead %>%
   select(name, type, itemName, cost)
 ```
 
+##### Alternative Answer
+
+```{r include=FALSE}
+answer <- brodhead %>% 
+  arrange(desc(cost)) %>% 
+  filter(type == "restaurant") %>% 
+  select(name, type, itemName, cost) %>% 
+  head(1) %>% 
+  unclass()
+
+answer2 <- brodhead %>% 
+  select(name, type, itemName, cost) %>% 
+  filter(type == "restaurant",
+         cost == max(cost)) 
+```
+
+
+The **`r answer$name`** *`r answer$type`* has the most expensive item(s) at $`r answer$cost`.  Those item(s) are `r answer$itemName`.
+
+The **`r answer2$name[1]`** *`r answer2$type[1]`* has the most expensive item(s) @ $`r answer2$cost[1]`.  Those item(s) are `r answer2$itemName`.
 
 3. At the Brodhead Center, how many of the entrees (found in the `menuType` variable) cost eight dollars?
 

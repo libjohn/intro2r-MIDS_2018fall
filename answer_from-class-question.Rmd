@@ -1,0 +1,84 @@
+---
+title: "Answer to Class Question"
+author: "John Little"
+date: "`r Sys.Date()`"
+output: html_notebook
+---
+
+# Question
+
+Several students wanted to know how to isolate the data from the data structure.  In other words, How to can I report, dynamically, an answer derived programatically? 
+
+## Example Question
+
+1. Which restaurant, the in the Brodhead Center, has the most expensive item(s)?  What are those item(s)?
+
+# Packages
+
+Again, let's load the tidyverse package.  I've removed the code chunk warnings so they do not show up in my report.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+# Load Data
+
+I'll load the brodheadCenter.csv file into an object in memory using the `readr::read_csf()` function.  `reader` is automatically attached as a package when I loaded the `tidyverse` package.
+
+```{r include=FALSE}
+brodhead <- read_csv("data/brodheadCenter.csv")
+```
+
+# Derive Answer
+
+In the code chunk, below, I'll transform the data in two different ways, then assign the answers to unique objects.  In the next section I will report those answers dynamically
+
+```{r echo=TRUE}
+answer <- brodhead %>% 
+  arrange(desc(cost)) %>% 
+  filter(type == "restaurant") %>% 
+  select(name, type, itemName, cost) %>% 
+  head(1) %>% 
+  unclass()
+
+answer2 <- brodhead %>% 
+  select(name, type, itemName, cost) %>% 
+  filter(type == "restaurant",
+         cost == max(cost)) 
+```
+
+##  Look at the derived data 
+
+One object is a tibble -- a modern data frame --, the other is a list.
+
+```{r}
+answer
+answer2
+```
+
+- `answer` is a `r class(answer)`.  
+- `answer2` is a `r class(answer2)` consisting of 
+`r nrow(answer2)` rows and `r ncol(answer2)` variables.  Each column is a vector.  I will only use the first row to answer some parts of the question since the values in the vector are identical. The `itemName` vector, however, has different values.
+
+## Compose the Answer 
+
+The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](answers_from-class-question.Rmd) file.
+
+
+### Integrated Prose and Code
+
+The **`r answer$name`** *`r answer$type`* has the most expensive item(s) at $`r answer$cost`.  Those item(s) are 
+`r answer$itemName`.
+
+The **`r answer2$name[1]`** *`r answer2$type[1]`* has the most expensive item(s) at $`r answer2$cost[1]`.  Those item(s) are 
+`r answer2$itemName`.
+
+### Further Varitions
+
+There are additional function which can manage the insertion of additional test and sympbols between the vector values, i.e. commas, conjunctions, Symbols, etc. (e.g. $, the oxford comma, etc.).  Those functions include `glue::glue`, `paste`, `paste0`, and `print`.  For the moment let's call this question answered. Because, part of the **fun** in [R] is learning more about [R].  
+
+https://rfun.library.duke.edu
+
+
+
+
