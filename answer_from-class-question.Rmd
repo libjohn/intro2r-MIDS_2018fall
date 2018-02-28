@@ -7,7 +7,7 @@ output: html_notebook
 
 # Question
 
-Several workshop attendees asked how to isolate the data from the data structure.  In other words, How to can I report, dynamically, an answer derived programatically? 
+Several workshop attendees asked how to isolate the data from the data structure.  In other words, How can I report, dynamically, an answer derived programatically? 
 
 This relates to the *Intro to R* workshop for which documentation can be found in the [intro2r.rev GitHub repository](https://github.com/data-and-visualization/intro2r.rev).
 
