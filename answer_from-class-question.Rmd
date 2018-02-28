@@ -97,6 +97,8 @@ The **`r answer$name`** *`r answer$type`* has the most expensive item(s) at $`r 
 The **`r answer2$name[1]`** *`r answer2$type[1]`* has the most expensive item(s) at $`r answer2$cost[1]`.  Those item(s) are 
 `r answer2$itemName`.
 
+To see how this is done, review the integrated R Markdown and R code in the R Notebook:  [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd)
+
 ## Further Variations
 
 There are additional function which can manage the insertion of additional text and symbols between the vector values, i.e. commas, conjunctions, symbols, etc. (e.g. $, the oxford comma, etc.).  Those functions include `glue::glue`, `paste`, `paste0`, and `print`.  For the moment let's call this question answered. Because, part of the **fun** in [R] is learning more about [R].  
