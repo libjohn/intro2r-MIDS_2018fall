@@ -11,6 +11,10 @@ Several workshop attendees asked how to isolate the data from the data structure
 
 This relates to the *Intro to R* workshop for which documentation can be found in the [intro2r.rev GitHub repository](https://github.com/data-and-visualization/intro2r.rev).
 
+## TL;DR Answer
+
+> answer$itemName
+
 ## Example Question
 
 1. Which restaurant, in the Brodhead Center, has the most expensive item(s)?  What are those item(s)?
@@ -33,15 +37,14 @@ brodhead <- read_csv("data/brodheadCenter.csv")
 
 # Derive Answer
 
-In the code chunk, below, I'll transform the data in two different ways, then assign the answers to unique objects.  In the next section I will report those answers dynamically
+In the code chunk, below, let's transform the data in two different ways.  Assign the answers to unique objects names:  `answer` and `answer2`.  The difference in the two answers is that one response is a Tibble of 1 row and 4 columns, the other is a data frame of 3 rows and 4 columns.  In the next section we will report those answers dynamically.
 
 ```{r echo=TRUE}
 answer <- brodhead %>% 
   arrange(desc(cost)) %>% 
   filter(type == "restaurant") %>% 
   select(name, type, itemName, cost) %>% 
-  head(1) %>% 
-  unclass()
+  head(1) 
 
 answer2 <- brodhead %>% 
   select(name, type, itemName, cost) %>% 
@@ -51,20 +54,37 @@ answer2 <- brodhead %>%
 
 ##  Look at the derived data 
 
-One object is a tibble -- a modern data frame --, the other is a list.
-
 ```{r}
 answer
 answer2
 ```
 
-- `answer` is a `r class(answer)`.  
-- `answer2` is a `r class(answer2)` consisting of 
-`r nrow(answer2)` rows and `r ncol(answer2)` variables.  Each column is a vector.  I will only use the first row to answer some parts of the question since the values in the vector are identical. The `itemName` vector, however, has different values.
+- `answer` has a data structure class of: `r class(answer)`.  
+- `answer2` has a data structure class of: `r class(answer2)` consisting of `r nrow(answer2)` rows and `r ncol(answer2)` variables.  Each column is a vector.  I want only the first row to answer some parts of the question -- since the values in the vector are identical. The `itemName` vector, however, has different values and I want all three values.
 
 ## Compose the Answer 
 
 The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd) file.
+
+
+### Notation
+
+It's possible to isolate the rows and columns of a data frame using the bracket notation `[` `]`.  An alternative to isolating a column within a data frame is to preceded the column name by a `$`, which is preceded by the data frame name.
+
+>  answer2[1,4]
+
+This code will take the first row, of the fourth column.  Alternatively....
+
+> answer2$cost[1]
+
+And, since `itemName` is a vector of 3 elements, it's also possible to present each element of the vector.  Outside of the R Notebook -- e.g. in an HTML derived report (i.e. an html_notebook) -- the default behavior is to present the vector as a comma separated list.  While, inside the R Notebook the value of the vector can be seen as follows.
+
+> answer2$itemName
+
+```{r}
+answer2$itemName
+```
+
 
 
 ### Integrated Prose and Code
