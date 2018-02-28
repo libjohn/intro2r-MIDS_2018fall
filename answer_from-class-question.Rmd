@@ -11,7 +11,7 @@ Several students wanted to know how to isolate the data from the data structure.
 
 ## Example Question
 
-1. Which restaurant, the in the Brodhead Center, has the most expensive item(s)?  What are those item(s)?
+1. Which restaurant, in the Brodhead Center, has the most expensive item(s)?  What are those item(s)?
 
 # Packages
 
@@ -62,7 +62,7 @@ answer2
 
 ## Compose the Answer 
 
-The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](answers_from-class-question.Rmd) file.
+The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd) file.
 
 
 ### Integrated Prose and Code
@@ -75,7 +75,7 @@ The **`r answer2$name[1]`** *`r answer2$type[1]`* has the most expensive item(s)
 
 ### Further Varitions
 
-There are additional function which can manage the insertion of additional test and sympbols between the vector values, i.e. commas, conjunctions, Symbols, etc. (e.g. $, the oxford comma, etc.).  Those functions include `glue::glue`, `paste`, `paste0`, and `print`.  For the moment let's call this question answered. Because, part of the **fun** in [R] is learning more about [R].  
+There are additional function which can manage the insertion of additional text and sympbols between the vector values, i.e. commas, conjunctions, symbols, etc. (e.g. $, the oxford comma, etc.).  Those functions include `glue::glue`, `paste`, `paste0`, and `print`.  For the moment let's call this question answered. Because, part of the **fun** in [R] is learning more about [R].  
 
 https://rfun.library.duke.edu
 
