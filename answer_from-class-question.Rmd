@@ -11,7 +11,7 @@ output:
 
 # Question
 
-Several workshop attendees asked how to isolate the data from the data structure.  In other words, How can I report, dynamically, an answer derived programatically? 
+Several workshop attendees asked how to isolate the data from the data structure.  In other words, How can I get the data value from a single variable cell.  A closely related question is how to report, dynamically, a data value derived programatically? 
 
 > Which restaurant has the most expensive item(s)?  What are those item(s)?
 
@@ -23,23 +23,27 @@ This relates to the *Intro to R* workshop for which documentation can be found i
 
 # Packages
 
-Again, let's load the tidyverse package.  I've removed the code chunk warnings so they do not show up in my report.
+Load the tidyverse package.  
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
+In the code chunk, above, I also used the following arguments to suppress warnings, because I do not want code warnings in my report.
+
+`{r message=FALSE, warning=FALSE}`
+
 # Load Data
 
-I'll load the brodheadCenter.csv file into an object in memory using the `readr::read_csf()` function.  `reader` is automatically attached as a package when I loaded the `tidyverse` package.
+I'll load the brodheadCenter.csv file and assign that object in memory.  This is done using the `readr::read_csf()` function.  `reader` is automatically attached by attaching the `tidyverse` package, above.
 
-```{r include=FALSE}
+```{r message=FALSE, warning=FALSE}
 brodhead <- read_csv("data/brodheadCenter.csv")
 ```
 
 # Derive Answer
 
-In the code chunk, below, let's transform the data in two different ways.  Assign the answers to unique objects names:  `answer` and `answer2`.  The difference in the two answers is that one response is a Tibble of 1 row and 4 columns, the other is a Tibble 3 rows and 4 columns.  Ideally, we want to only display the value of one "cell".  In the next section we will report those answers dynamically.
+In the code chunk, below, let's transform the data in two different ways.  Assign the answers to unique objects names:  `answer` and `answer2`.  There are a few differences in the two Tibble answers.  
 
 ```{r echo=TRUE}
 answer <- brodhead %>% 
@@ -54,6 +58,12 @@ answer2 <- brodhead %>%
          cost == max(cost)) 
 ```
 
+The first Tibble, `answer`, consists of 1 row and 4 columns.  That's sufficient to answer the first part of the question:  "Which restaurant has the most expensive item(s)?"
+
+The other Tibble, `answer2`, consists of 3 rows and 4 columns.  This is necessary to answer the question, "What are those item(s)?".  Just to be clear, we don't need both tibbles, because all of the information in `answer` is also in `answer2`.  This redundancy is only useful to illustrate that R supports different approaches to data wrangling.
+
+In the next section we will report those answers dynamically.
+
 ##  Look at the derived data 
 
 ```{r}
@@ -66,20 +76,32 @@ answer2
 
 # Compose the Answer 
 
-The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd) file.
+To answer the question, "Which restaurant", simply call the `name` variable in the single row Tibble, `answer`.  For example...
 
 
-## Notation
+```{r}
+answer$name
+```
 
-It's possible to isolate the rows and columns of a data frame using the bracket notation `[` `]`.  An alternative to isolating a column within a data frame is to preceded the column name by a `$`, which is preceded by the data frame name.
+## Subsetting 
+
+It's possible to isolate the rows and columns of a Tibble (data frame) using bracket notation `[` `]`.  You can use numeric values to identify rows, and then columns.  
 
 >  answer2[1,4]
 
-This code will take the first row, of the fourth column.  Alternatively....
+This code will take the first row, of the fourth column.  
 
-> answer2$cost[1]
+Alternatively, isolate a column variable within a Tibble using a `$`, to separate the Tibble name from the variable name.  
 
-And, since `itemName` is a vector of 3 elements, it's also possible to present each element of the vector.  Outside of the R Notebook -- e.g. in an HTML derived report (i.e. an html_notebook) -- the default behavior is to present the vector as a comma separated list.  While, inside the R Notebook the value of the vector can be seen as follows.
+> answer2$cost
+
+Both methods return a vector.  And now you may need to subset the vector.
+
+`answer2$itemName` is a vector of 3 elements.  It's simple to reference a single element using bracket notation surrounding the position of the element.  Or you can reference a range of vector elements, e.g. `answer2$itemsName[2:3]`
+
+> answer2$itemName[2]
+
+To present all elements in the vector, simply reference the variable name as follows
 
 > answer2$itemName
 
@@ -87,7 +109,10 @@ And, since `itemName` is a vector of 3 elements, it's also possible to present e
 answer2$itemName
 ```
 
+The vector elements are displayed differently, depending on whether you are viewing the code chunk (or console) output, or viewing the report output.  Outside of the R Notebook -- e.g. in an MS Word or  HTML derived report -- the default behavior presents the vector as comma separated values.  Inside an R Notebook the value of the vector can be seen above.
 
+
+###### http://r4ds.had.co.nz/vectors.html#vector-subsetting
 
 ## Integrated Prose and Code
 
@@ -98,6 +123,8 @@ The **`r answer2$name[1]`** *`r answer2$type[1]`* has the most expensive item(s)
 `r answer2$itemName`.
 
 > To see how this is done, review the integrated R Markdown and R code in the R Notebook: [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd)
+
+The answers above are derived dynamically (or programatically) and integrated into the report (i.e. this is "literate code").  This means the outcome of the report changes as the data changes.  Meanwhile, the prose remains the same.  To see how this is done, look at the [`answers_from-class-question.Rmd`](https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd) file.
 
 ## Further Variations
 

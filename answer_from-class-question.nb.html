@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Little" />
 
-<meta name="date" content="2018-02-28" />
+<meta name="date" content="2018-03-01" />
 
 <title>Answer to Class Question</title>
 
@@ -269,7 +269,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Answer to Class Question</h1>
 <h4 class="author"><em>John Little</em></h4>
-<h4 class="date"><em>2018-02-28</em></h4>
+<h4 class="date"><em>2018-03-01</em></h4>
 
 </div>
 
@@ -277,7 +277,7 @@ div.tocify {
 <!-- rnb-text-begin -->
 <div id="question" class="section level1">
 <h1><span class="header-section-number">1</span> Question</h1>
-<p>Several workshop attendees asked how to isolate the data from the data structure. In other words, How can I report, dynamically, an answer derived programatically?</p>
+<p>Several workshop attendees asked how to isolate the data from the data structure. In other words, How can I get the data value from a single variable cell. A closely related question is how to report, dynamically, a data value derived programatically?</p>
 <blockquote>
 <p>Which restaurant has the most expensive item(s)? What are those item(s)?</p>
 </blockquote>
@@ -291,7 +291,7 @@ div.tocify {
 </div>
 <div id="packages" class="section level1">
 <h1><span class="header-section-number">2</span> Packages</h1>
-<p>Again, let’s load the tidyverse package. I’ve removed the code chunk warnings so they do not show up in my report.</p>
+<p>Load the tidyverse package.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
@@ -299,16 +299,23 @@ div.tocify {
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>In the code chunk, above, I also used the following arguments to suppress warnings, because I do not want code warnings in my report.</p>
+<p><code>{r message=FALSE, warning=FALSE}</code></p>
 </div>
 <div id="load-data" class="section level1">
 <h1><span class="header-section-number">3</span> Load Data</h1>
-<p>I’ll load the brodheadCenter.csv file into an object in memory using the <code>readr::read_csf()</code> function. <code>reader</code> is automatically attached as a package when I loaded the <code>tidyverse</code> package.</p>
+<p>I’ll load the brodheadCenter.csv file and assign that object in memory. This is done using the <code>readr::read_csf()</code> function. <code>reader</code> is automatically attached by attaching the <code>tidyverse</code> package, above.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnJvZGhlYWQgPC0gcmVhZF9jc3YoXCJkYXRhL2Jyb2RoZWFkQ2VudGVyLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>brodhead &lt;- read_csv(&quot;data/brodheadCenter.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="derive-answer" class="section level1">
 <h1><span class="header-section-number">4</span> Derive Answer</h1>
-<p>In the code chunk, below, let’s transform the data in two different ways. Assign the answers to unique objects names: <code>answer</code> and <code>answer2</code>. The difference in the two answers is that one response is a Tibble of 1 row and 4 columns, the other is a Tibble 3 rows and 4 columns. Ideally, we want to only display the value of one “cell”. In the next section we will report those answers dynamically.</p>
+<p>In the code chunk, below, let’s transform the data in two different ways. Assign the answers to unique objects names: <code>answer</code> and <code>answer2</code>. There are a few differences in the two Tibble answers.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5zd2VyIDwtIGJyb2RoZWFkICU+JSBcbiAgYXJyYW5nZShkZXNjKGNvc3QpKSAlPiUgXG4gIGZpbHRlcih0eXBlID09IFwicmVzdGF1cmFudFwiKSAlPiUgXG4gIHNlbGVjdChuYW1lLCB0eXBlLCBpdGVtTmFtZSwgY29zdCkgJT4lIFxuICBoZWFkKDEpIFxuYW5zd2VyMiA8LSBicm9kaGVhZCAlPiUgXG4gIHNlbGVjdChuYW1lLCB0eXBlLCBpdGVtTmFtZSwgY29zdCkgJT4lIFxuICBmaWx0ZXIodHlwZSA9PSBcInJlc3RhdXJhbnRcIixcbiAgICAgICAgIGNvc3QgPT0gbWF4KGNvc3QpKSBcbmBgYCJ9 -->
@@ -324,6 +331,9 @@ answer2 &lt;- brodhead %&gt;%
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>The first Tibble, <code>answer</code>, consists of 1 row and 4 columns. That’s sufficient to answer the first part of the question: “Which restaurant has the most expensive item(s)?”</p>
+<p>The other Tibble, <code>answer2</code>, consists of 3 rows and 4 columns. This is necessary to answer the question, “What are those item(s)?”. Just to be clear, we don’t need both tibbles, because all of the information in <code>answer</code> is also in <code>answer2</code>. This redundancy is only useful to illustrate that R supports different approaches to data wrangling.</p>
+<p>In the next section we will report those answers dynamically.</p>
 <div id="look-at-the-derived-data" class="section level2">
 <h2><span class="header-section-number">4.1</span> Look at the derived data</h2>
 <!-- rnb-text-end -->
@@ -331,7 +341,7 @@ answer2 &lt;- brodhead %&gt;%
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5zd2VyXG5gYGAifQ== -->
 <pre class="r"><code>answer</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ5MjdESUJCY1k5d2tWbDlTZnlBL0VCOHE5UTk2N3FIcUlkZU5UVm9ybUxVQUsrMnRYNTUwY1VHeVFBS1cyV0ZnZHQ5Zjk4LzF2Z1lBQWFVc1FKUWNTc0ZMQVJJMllmOEdLSjhDeXZOeGtWaDlvT21JYkFiWFZqbVBrMFhqODR6RzRiQTlrUjJRVDNkekJ1QTJlNjlxTlRxWFgrM1FZM08wT0tpY2JoaExkQmxCR2NBVSs1OHh4ZXZlcStGdGtXdkorVXh3WStuY0pOSHdTZkhMeTVVSGI1ZU12S0xSOTJTWUtrS0pxdXpiUlY2Y2g4a0U2VzdYZmszbXRIc0oxbUlkWUZHVFloSEwveWZMYTVTcW90U05NcCs5U1U0cWpRZWw0K0dlTGN3T210SDIzSWJVR0RxN3hwUEh4S3RiMGdtWnZjSGxEeGVtZFhnUUFnQUEifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJsMVJ5MjdESUJCY1k5d2tWbDlTZnlBL0VCK3Fma0xQUFZROTVMcXhTV3NGc3haZ3BiMzF5NU11TGtnV1NNQXlPd3pNN3Z2ci9ybmUxd0Fnb0pRRmlKSkRLWGdwUU1JbTdOOEE1Vk5BZVQ0dUVxc1BOQjJSemVEYUt1ZHhzbWg4bnRFNEhMWW5zZ1B5Nlc3T0FOeG03MVd0UnVmeXF4MTZiSTRXQjVYVERXT0pMaU1vQTVoaS96T21lTjE3TmJ3dGNpMDVud2x1TEoyYkpCbytLWDU1dWZMZzdaS1JWelQ2bmd4VFJTaFJsWDI3eUl2ek1Ka2czZTNhcjhtY2RpL0JXcXdETEdwU0xHTDUvMlI1alZKVmxMcFI1ck0zeVVtbDhhQjBQTnl6aGRsQk05cWUyNUFhUTJmWGVQS1llSFZMT2lHek43ajhBVFdFS3hzUUFnQUEifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["itemName"],"name":[3],"type":["chr"],"align":["left"]},{"label":["cost"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Tandoor","2":"restaurant","3":"lamb korma","4":"12"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
@@ -341,7 +351,7 @@ answer2 &lt;- brodhead %&gt;%
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5zd2VyMlxuYGBgIn0= -->
 <pre class="r"><code>answer2</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMlJ3VkxESUJDR040RllHNjA2NHd2MEJacURNNzZCWncrT2gxNDNDYldaSnBBQk10V2JMMjdqa3NMWWNyR1pXVmkrWFg3NHc5dkwraWxmNXdDUUF1TUpwSXhTbnRLUUFJZTVtejhCMktPakZBOFV6QmRtN3locnBmUS95L05OdVJiRzRxQlIyb3RJdEx2RnJsenVsTzdRazV0U2lNMnkzQTRTalVjTHM5Vk4xd2RJWUZJQXVQMkxNNGRaMWFJeC9xZ0E4eG90Rmh1Tm5ZamJKYkhRemoza0RvYmNmdlVodjI2czZGNVBhcFV5TmhLY2E3VXZncWk3YlBwTnd6aU9QelFkb3VhWjZtMmpKTFdtN2xHeTZOcUpqc0Q5SUoxMHZhcm9kK3hXejg3YVZENStDNSt6azV3ZmoyU2psOHE4MUpXUUg0ME1UcklXUzlINnhSMVptQndVdlc1T0hsTHRUV0dWeGRDWFY2b05aUElHaDE5eG9BZENnZ0lBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6NCwibnJvdyI6M30sInJkZiI6Ikg0c0lBQUFBQUFBQUJvMlJ3VkxESUJDR040RllHNjA2NHd2MEJacUQ0eU40OXVCNDZIV1RVSnRwQWhrZ1U3MzU0all1S1l3dEY1dVpoZVhiNVljL3ZMMnNuL0oxRGdBcE1KNUF5aWpsS1EwSmNKaTcrUk9BUFRwSzhVREJmR0gyanJKV1N2K3pQTitVYTJFc0RocWx2WWhFdTF2c3l1Vk82UTQ5dVNtRjJDekw3U0RSZUxRd1c5MTBmWUFFSmdXQTI3ODRjNWhWTFJyamp3b3dyOUZpc2RIWWliaGRFZ3Z0M0VQdVlNanRWeC95NjhhSzd2V2tWaWxqSThHNVZ2c2lpTHJMcHQ4MGpPUDRROU1oYXA2cDNqWktVbXZxSGlXTHJwM29DTndQMGtuWHE0cCt4MjcxN0t4TjVlTzM4RGs3eWZueFNEWjZxY3hMWFFuNTBjamdKR3V4RksxZjNKR0Z5VUhSNitia0lkWGVGRlpaREgxNXBkcEFKbTl3K0FWVGdsa2hnZ0lBQUE9PSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["itemName"],"name":[3],"type":["chr"],"align":["left"]},{"label":["cost"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Tandoor","2":"restaurant","3":"lamb korma","4":"12"},{"1":"Tandoor","2":"restaurant","3":"beef bhunas","4":"12"},{"1":"Tandoor","2":"restaurant","3":"shrimp bhunas","4":"12"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
@@ -359,18 +369,34 @@ answer2 &lt;- brodhead %&gt;%
 </div>
 <div id="compose-the-answer" class="section level1">
 <h1><span class="header-section-number">5</span> Compose the Answer</h1>
-<p>The answer is derived dynamically (or programatically) and integrated into the report (i.e. this is “literate code”). This means the outcome of the report changes as the data changes. Meanwhile, the prose remains the same. To see how this is done, look at the <a href="https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd"><code>answers_from-class-question.Rmd</code></a> file.</p>
-<div id="notation" class="section level2">
-<h2><span class="header-section-number">5.1</span> Notation</h2>
-<p>It’s possible to isolate the rows and columns of a data frame using the bracket notation <code>[</code> <code>]</code>. An alternative to isolating a column within a data frame is to preceded the column name by a <code>$</code>, which is preceded by the data frame name.</p>
+<p>To answer the question, “Which restaurant”, simply call the <code>name</code> variable in the single row Tibble, <code>answer</code>. For example…</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5zd2VyJG5hbWVcbmBgYCJ9 -->
+<pre class="r"><code>answer$name</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVGFuZG9vclwiXG4ifQ== -->
+<pre><code>[1] &quot;Tandoor&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="subsetting" class="section level2">
+<h2><span class="header-section-number">5.1</span> Subsetting</h2>
+<p>It’s possible to isolate the rows and columns of a Tibble (data frame) using bracket notation <code>[</code> <code>]</code>. You can use numeric values to identify rows, and then columns.</p>
 <blockquote>
 <p>answer2[1,4]</p>
 </blockquote>
-<p>This code will take the first row, of the fourth column. Alternatively….</p>
+<p>This code will take the first row, of the fourth column.</p>
+<p>Alternatively, isolate a column variable within a Tibble using a <code>$</code>, to separate the Tibble name from the variable name.</p>
 <blockquote>
-<p>answer2$cost[1]</p>
+<p>answer2$cost</p>
 </blockquote>
-<p>And, since <code>itemName</code> is a vector of 3 elements, it’s also possible to present each element of the vector. Outside of the R Notebook – e.g. in an HTML derived report (i.e. an html_notebook) – the default behavior is to present the vector as a comma separated list. While, inside the R Notebook the value of the vector can be seen as follows.</p>
+<p>Both methods return a vector. And now you may need to subset the vector.</p>
+<p><code>answer2$itemName</code> is a vector of 3 elements. It’s simple to reference a single element using bracket notation surrounding the position of the element. Or you can reference a range of vector elements, e.g. <code>answer2$itemsName[2:3]</code></p>
+<blockquote>
+<p>answer2$itemName[2]</p>
+</blockquote>
+<p>To present all elements in the vector, simply reference the variable name as follows</p>
 <blockquote>
 <p>answer2$itemName</p>
 </blockquote>
@@ -384,6 +410,10 @@ answer2 &lt;- brodhead %&gt;%
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>The vector elements are displayed differently, depending on whether you are viewing the code chunk (or console) output, or viewing the report output. Outside of the R Notebook – e.g. in an MS Word or HTML derived report – the default behavior presents the vector as comma separated values. Inside an R Notebook the value of the vector can be seen above.</p>
+<div id="httpr4ds.had.co.nzvectors.htmlvector-subsetting" class="section level6">
+<h6><span class="header-section-number">5.1.0.0.0.1</span> <a href="http://r4ds.had.co.nz/vectors.html#vector-subsetting" class="uri">http://r4ds.had.co.nz/vectors.html#vector-subsetting</a></h6>
+</div>
 </div>
 <div id="integrated-prose-and-code" class="section level2">
 <h2><span class="header-section-number">5.2</span> Integrated Prose and Code</h2>
@@ -392,6 +422,7 @@ answer2 &lt;- brodhead %&gt;%
 <blockquote>
 <p>To see how this is done, review the integrated R Markdown and R code in the R Notebook: <a href="https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd"><code>answers_from-class-question.Rmd</code></a></p>
 </blockquote>
+<p>The answers above are derived dynamically (or programatically) and integrated into the report (i.e. this is “literate code”). This means the outcome of the report changes as the data changes. Meanwhile, the prose remains the same. To see how this is done, look at the <a href="https://raw.githubusercontent.com/data-and-visualization/intro2r.rev/master/answer_from-class-question.Rmd"><code>answers_from-class-question.Rmd</code></a> file.</p>
 </div>
 <div id="further-variations" class="section level2">
 <h2><span class="header-section-number">5.3</span> Further Variations</h2>
@@ -401,7 +432,7 @@ answer2 &lt;- brodhead %&gt;%
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuc3dlciB0byBDbGFzcyBRdWVzdGlvbiINCmF1dGhvcjogIkpvaG4gTGl0dGxlIg0KZGF0ZTogImByIFN5cy5EYXRlKClgIg0Kb3V0cHV0OiANCiAgaHRtbF9ub3RlYm9vazogDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgICB0b2M6IHllcw0KICAgIHRvY19mbG9hdDogeWVzDQotLS0NCg0KIyBRdWVzdGlvbg0KDQpTZXZlcmFsIHdvcmtzaG9wIGF0dGVuZGVlcyBhc2tlZCBob3cgdG8gaXNvbGF0ZSB0aGUgZGF0YSBmcm9tIHRoZSBkYXRhIHN0cnVjdHVyZS4gIEluIG90aGVyIHdvcmRzLCBIb3cgY2FuIEkgcmVwb3J0LCBkeW5hbWljYWxseSwgYW4gYW5zd2VyIGRlcml2ZWQgcHJvZ3JhbWF0aWNhbGx5PyANCg0KPiBXaGljaCByZXN0YXVyYW50IGhhcyB0aGUgbW9zdCBleHBlbnNpdmUgaXRlbShzKT8gIFdoYXQgYXJlIHRob3NlIGl0ZW0ocyk/DQoNClRoaXMgcmVsYXRlcyB0byB0aGUgKkludHJvIHRvIFIqIHdvcmtzaG9wIGZvciB3aGljaCBkb2N1bWVudGF0aW9uIGNhbiBiZSBmb3VuZCBpbiB0aGUgW2ludHJvMnIucmV2IEdpdEh1YiByZXBvc2l0b3J5XShodHRwczovL2dpdGh1Yi5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLnJldikuDQoNCiMjIFRMO0RSIEFuc3dlcg0KDQo+IGFuc3dlciRpdGVtTmFtZQ0KDQojIFBhY2thZ2VzDQoNCkFnYWluLCBsZXQncyBsb2FkIHRoZSB0aWR5dmVyc2UgcGFja2FnZS4gIEkndmUgcmVtb3ZlZCB0aGUgY29kZSBjaHVuayB3YXJuaW5ncyBzbyB0aGV5IGRvIG5vdCBzaG93IHVwIGluIG15IHJlcG9ydC4NCg0KYGBge3IgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCiMgTG9hZCBEYXRhDQoNCkknbGwgbG9hZCB0aGUgYnJvZGhlYWRDZW50ZXIuY3N2IGZpbGUgaW50byBhbiBvYmplY3QgaW4gbWVtb3J5IHVzaW5nIHRoZSBgcmVhZHI6OnJlYWRfY3NmKClgIGZ1bmN0aW9uLiAgYHJlYWRlcmAgaXMgYXV0b21hdGljYWxseSBhdHRhY2hlZCBhcyBhIHBhY2thZ2Ugd2hlbiBJIGxvYWRlZCB0aGUgYHRpZHl2ZXJzZWAgcGFja2FnZS4NCg0KYGBge3IgaW5jbHVkZT1GQUxTRX0NCmJyb2RoZWFkIDwtIHJlYWRfY3N2KCJkYXRhL2Jyb2RoZWFkQ2VudGVyLmNzdiIpDQpgYGANCg0KIyBEZXJpdmUgQW5zd2VyDQoNCkluIHRoZSBjb2RlIGNodW5rLCBiZWxvdywgbGV0J3MgdHJhbnNmb3JtIHRoZSBkYXRhIGluIHR3byBkaWZmZXJlbnQgd2F5cy4gIEFzc2lnbiB0aGUgYW5zd2VycyB0byB1bmlxdWUgb2JqZWN0cyBuYW1lczogIGBhbnN3ZXJgIGFuZCBgYW5zd2VyMmAuICBUaGUgZGlmZmVyZW5jZSBpbiB0aGUgdHdvIGFuc3dlcnMgaXMgdGhhdCBvbmUgcmVzcG9uc2UgaXMgYSBUaWJibGUgb2YgMSByb3cgYW5kIDQgY29sdW1ucywgdGhlIG90aGVyIGlzIGEgVGliYmxlIDMgcm93cyBhbmQgNCBjb2x1bW5zLiAgSWRlYWxseSwgd2Ugd2FudCB0byBvbmx5IGRpc3BsYXkgdGhlIHZhbHVlIG9mIG9uZSAiY2VsbCIuICBJbiB0aGUgbmV4dCBzZWN0aW9uIHdlIHdpbGwgcmVwb3J0IHRob3NlIGFuc3dlcnMgZHluYW1pY2FsbHkuDQoNCmBgYHtyIGVjaG89VFJVRX0NCmFuc3dlciA8LSBicm9kaGVhZCAlPiUgDQogIGFycmFuZ2UoZGVzYyhjb3N0KSkgJT4lIA0KICBmaWx0ZXIodHlwZSA9PSAicmVzdGF1cmFudCIpICU+JSANCiAgc2VsZWN0KG5hbWUsIHR5cGUsIGl0ZW1OYW1lLCBjb3N0KSAlPiUgDQogIGhlYWQoMSkgDQoNCmFuc3dlcjIgPC0gYnJvZGhlYWQgJT4lIA0KICBzZWxlY3QobmFtZSwgdHlwZSwgaXRlbU5hbWUsIGNvc3QpICU+JSANCiAgZmlsdGVyKHR5cGUgPT0gInJlc3RhdXJhbnQiLA0KICAgICAgICAgY29zdCA9PSBtYXgoY29zdCkpIA0KYGBgDQoNCiMjICBMb29rIGF0IHRoZSBkZXJpdmVkIGRhdGEgDQoNCmBgYHtyfQ0KYW5zd2VyDQphbnN3ZXIyDQpgYGANCg0KLSBgYW5zd2VyYCBoYXMgYSBkYXRhIHN0cnVjdHVyZSBjbGFzcyBvZjogYHIgY2xhc3MoYW5zd2VyKWAuICANCi0gYGFuc3dlcjJgIGhhcyBhIGRhdGEgc3RydWN0dXJlIGNsYXNzIG9mOiBgciBjbGFzcyhhbnN3ZXIyKWAgY29uc2lzdGluZyBvZiBgciBucm93KGFuc3dlcjIpYCByb3dzIGFuZCBgciBuY29sKGFuc3dlcjIpYCB2YXJpYWJsZXMuICBFYWNoIGNvbHVtbiBpcyBhIHZlY3Rvci4gIEkgd2FudCBvbmx5IHRoZSBmaXJzdCByb3cgdG8gYW5zd2VyIHNvbWUgcGFydHMgb2YgdGhlIHF1ZXN0aW9uIC0tIHNpbmNlIHRoZSB2YWx1ZXMgaW4gdGhlIHZlY3RvciBhcmUgaWRlbnRpY2FsLiBUaGUgYGl0ZW1OYW1lYCB2ZWN0b3IsIGhvd2V2ZXIsIGhhcyBkaWZmZXJlbnQgdmFsdWVzIGFuZCBJIHdhbnQgYWxsIHRocmVlIHZhbHVlcy4NCg0KIyBDb21wb3NlIHRoZSBBbnN3ZXIgDQoNClRoZSBhbnN3ZXIgaXMgZGVyaXZlZCBkeW5hbWljYWxseSAob3IgcHJvZ3JhbWF0aWNhbGx5KSBhbmQgaW50ZWdyYXRlZCBpbnRvIHRoZSByZXBvcnQgKGkuZS4gdGhpcyBpcyAibGl0ZXJhdGUgY29kZSIpLiAgVGhpcyBtZWFucyB0aGUgb3V0Y29tZSBvZiB0aGUgcmVwb3J0IGNoYW5nZXMgYXMgdGhlIGRhdGEgY2hhbmdlcy4gIE1lYW53aGlsZSwgdGhlIHByb3NlIHJlbWFpbnMgdGhlIHNhbWUuICBUbyBzZWUgaG93IHRoaXMgaXMgZG9uZSwgbG9vayBhdCB0aGUgW2BhbnN3ZXJzX2Zyb20tY2xhc3MtcXVlc3Rpb24uUm1kYF0oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2RhdGEtYW5kLXZpc3VhbGl6YXRpb24vaW50cm8yci5yZXYvbWFzdGVyL2Fuc3dlcl9mcm9tLWNsYXNzLXF1ZXN0aW9uLlJtZCkgZmlsZS4NCg0KDQojIyBOb3RhdGlvbg0KDQpJdCdzIHBvc3NpYmxlIHRvIGlzb2xhdGUgdGhlIHJvd3MgYW5kIGNvbHVtbnMgb2YgYSBkYXRhIGZyYW1lIHVzaW5nIHRoZSBicmFja2V0IG5vdGF0aW9uIGBbYCBgXWAuICBBbiBhbHRlcm5hdGl2ZSB0byBpc29sYXRpbmcgYSBjb2x1bW4gd2l0aGluIGEgZGF0YSBmcmFtZSBpcyB0byBwcmVjZWRlZCB0aGUgY29sdW1uIG5hbWUgYnkgYSBgJGAsIHdoaWNoIGlzIHByZWNlZGVkIGJ5IHRoZSBkYXRhIGZyYW1lIG5hbWUuDQoNCj4gIGFuc3dlcjJbMSw0XQ0KDQpUaGlzIGNvZGUgd2lsbCB0YWtlIHRoZSBmaXJzdCByb3csIG9mIHRoZSBmb3VydGggY29sdW1uLiAgQWx0ZXJuYXRpdmVseS4uLi4NCg0KPiBhbnN3ZXIyJGNvc3RbMV0NCg0KQW5kLCBzaW5jZSBgaXRlbU5hbWVgIGlzIGEgdmVjdG9yIG9mIDMgZWxlbWVudHMsIGl0J3MgYWxzbyBwb3NzaWJsZSB0byBwcmVzZW50IGVhY2ggZWxlbWVudCBvZiB0aGUgdmVjdG9yLiAgT3V0c2lkZSBvZiB0aGUgUiBOb3RlYm9vayAtLSBlLmcuIGluIGFuIEhUTUwgZGVyaXZlZCByZXBvcnQgKGkuZS4gYW4gaHRtbF9ub3RlYm9vaykgLS0gdGhlIGRlZmF1bHQgYmVoYXZpb3IgaXMgdG8gcHJlc2VudCB0aGUgdmVjdG9yIGFzIGEgY29tbWEgc2VwYXJhdGVkIGxpc3QuICBXaGlsZSwgaW5zaWRlIHRoZSBSIE5vdGVib29rIHRoZSB2YWx1ZSBvZiB0aGUgdmVjdG9yIGNhbiBiZSBzZWVuIGFzIGZvbGxvd3MuDQoNCj4gYW5zd2VyMiRpdGVtTmFtZQ0KDQpgYGB7cn0NCmFuc3dlcjIkaXRlbU5hbWUNCmBgYA0KDQoNCg0KIyMgSW50ZWdyYXRlZCBQcm9zZSBhbmQgQ29kZQ0KDQpUaGUgKipgciBhbnN3ZXIkbmFtZWAqKiAqYHIgYW5zd2VyJHR5cGVgKiBoYXMgdGhlIG1vc3QgZXhwZW5zaXZlIGl0ZW0ocykgYXQgJGByIGFuc3dlciRjb3N0YC4gIFRob3NlIGl0ZW0ocykgYXJlIA0KYHIgYW5zd2VyJGl0ZW1OYW1lYC4NCg0KVGhlICoqYHIgYW5zd2VyMiRuYW1lWzFdYCoqICpgciBhbnN3ZXIyJHR5cGVbMV1gKiBoYXMgdGhlIG1vc3QgZXhwZW5zaXZlIGl0ZW0ocykgYXQgJGByIGFuc3dlcjIkY29zdFsxXWAuICBUaG9zZSBpdGVtKHMpIGFyZSANCmByIGFuc3dlcjIkaXRlbU5hbWVgLg0KDQo+IFRvIHNlZSBob3cgdGhpcyBpcyBkb25lLCByZXZpZXcgdGhlIGludGVncmF0ZWQgUiBNYXJrZG93biBhbmQgUiBjb2RlIGluIHRoZSBSIE5vdGVib29rOiBbYGFuc3dlcnNfZnJvbS1jbGFzcy1xdWVzdGlvbi5SbWRgXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLnJldi9tYXN0ZXIvYW5zd2VyX2Zyb20tY2xhc3MtcXVlc3Rpb24uUm1kKQ0KDQojIyBGdXJ0aGVyIFZhcmlhdGlvbnMNCg0KVGhlcmUgYXJlIGFkZGl0aW9uYWwgZnVuY3Rpb24gd2hpY2ggY2FuIG1hbmFnZSB0aGUgaW5zZXJ0aW9uIG9mIGFkZGl0aW9uYWwgdGV4dCBhbmQgc3ltYm9scyBiZXR3ZWVuIHRoZSB2ZWN0b3IgdmFsdWVzLCBpLmUuIGNvbW1hcywgY29uanVuY3Rpb25zLCBzeW1ib2xzLCBldGMuIChlLmcuICQsIHRoZSBveGZvcmQgY29tbWEsIGV0Yy4pLiAgVGhvc2UgZnVuY3Rpb25zIGluY2x1ZGUgYGdsdWU6OmdsdWVgLCBgcGFzdGVgLCBgcGFzdGUwYCwgYW5kIGBwcmludGAuICBGb3IgdGhlIG1vbWVudCBsZXQncyBjYWxsIHRoaXMgcXVlc3Rpb24gYW5zd2VyZWQuIEJlY2F1c2UsIHBhcnQgb2YgdGhlICoqZnVuKiogaW4gW1JdIGlzIGxlYXJuaW5nIG1vcmUgYWJvdXQgW1JdLiAgDQoNCmh0dHBzOi8vcmZ1bi5saWJyYXJ5LmR1a2UuZWR1DQoNCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuc3dlciB0byBDbGFzcyBRdWVzdGlvbiINCmF1dGhvcjogIkpvaG4gTGl0dGxlIg0KZGF0ZTogImByIFN5cy5EYXRlKClgIg0Kb3V0cHV0OiANCiAgaHRtbF9ub3RlYm9vazogDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgICB0b2M6IHllcw0KICAgIHRvY19mbG9hdDogeWVzDQotLS0NCg0KIyBRdWVzdGlvbg0KDQpTZXZlcmFsIHdvcmtzaG9wIGF0dGVuZGVlcyBhc2tlZCBob3cgdG8gaXNvbGF0ZSB0aGUgZGF0YSBmcm9tIHRoZSBkYXRhIHN0cnVjdHVyZS4gIEluIG90aGVyIHdvcmRzLCBIb3cgY2FuIEkgZ2V0IHRoZSBkYXRhIHZhbHVlIGZyb20gYSBzaW5nbGUgdmFyaWFibGUgY2VsbC4gIEEgY2xvc2VseSByZWxhdGVkIHF1ZXN0aW9uIGlzIGhvdyB0byByZXBvcnQsIGR5bmFtaWNhbGx5LCBhIGRhdGEgdmFsdWUgZGVyaXZlZCBwcm9ncmFtYXRpY2FsbHk/IA0KDQo+IFdoaWNoIHJlc3RhdXJhbnQgaGFzIHRoZSBtb3N0IGV4cGVuc2l2ZSBpdGVtKHMpPyAgV2hhdCBhcmUgdGhvc2UgaXRlbShzKT8NCg0KVGhpcyByZWxhdGVzIHRvIHRoZSAqSW50cm8gdG8gUiogd29ya3Nob3AgZm9yIHdoaWNoIGRvY3VtZW50YXRpb24gY2FuIGJlIGZvdW5kIGluIHRoZSBbaW50cm8yci5yZXYgR2l0SHViIHJlcG9zaXRvcnldKGh0dHBzOi8vZ2l0aHViLmNvbS9kYXRhLWFuZC12aXN1YWxpemF0aW9uL2ludHJvMnIucmV2KS4NCg0KIyMgVEw7RFIgQW5zd2VyDQoNCj4gYW5zd2VyJGl0ZW1OYW1lDQoNCiMgUGFja2FnZXMNCg0KTG9hZCB0aGUgdGlkeXZlcnNlIHBhY2thZ2UuICANCg0KYGBge3IgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCkluIHRoZSBjb2RlIGNodW5rLCBhYm92ZSwgSSBhbHNvIHVzZWQgdGhlIGZvbGxvd2luZyBhcmd1bWVudHMgdG8gc3VwcHJlc3Mgd2FybmluZ3MsIGJlY2F1c2UgSSBkbyBub3Qgd2FudCBjb2RlIHdhcm5pbmdzIGluIG15IHJlcG9ydC4NCg0KYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9YA0KDQojIExvYWQgRGF0YQ0KDQpJJ2xsIGxvYWQgdGhlIGJyb2RoZWFkQ2VudGVyLmNzdiBmaWxlIGFuZCBhc3NpZ24gdGhhdCBvYmplY3QgaW4gbWVtb3J5LiAgVGhpcyBpcyBkb25lIHVzaW5nIHRoZSBgcmVhZHI6OnJlYWRfY3NmKClgIGZ1bmN0aW9uLiAgYHJlYWRlcmAgaXMgYXV0b21hdGljYWxseSBhdHRhY2hlZCBieSBhdHRhY2hpbmcgdGhlIGB0aWR5dmVyc2VgIHBhY2thZ2UsIGFib3ZlLg0KDQpgYGB7ciBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfQ0KYnJvZGhlYWQgPC0gcmVhZF9jc3YoImRhdGEvYnJvZGhlYWRDZW50ZXIuY3N2IikNCmBgYA0KDQojIERlcml2ZSBBbnN3ZXINCg0KSW4gdGhlIGNvZGUgY2h1bmssIGJlbG93LCBsZXQncyB0cmFuc2Zvcm0gdGhlIGRhdGEgaW4gdHdvIGRpZmZlcmVudCB3YXlzLiAgQXNzaWduIHRoZSBhbnN3ZXJzIHRvIHVuaXF1ZSBvYmplY3RzIG5hbWVzOiAgYGFuc3dlcmAgYW5kIGBhbnN3ZXIyYC4gIFRoZXJlIGFyZSBhIGZldyBkaWZmZXJlbmNlcyBpbiB0aGUgdHdvIFRpYmJsZSBhbnN3ZXJzLiAgDQoNCmBgYHtyIGVjaG89VFJVRX0NCmFuc3dlciA8LSBicm9kaGVhZCAlPiUgDQogIGFycmFuZ2UoZGVzYyhjb3N0KSkgJT4lIA0KICBmaWx0ZXIodHlwZSA9PSAicmVzdGF1cmFudCIpICU+JSANCiAgc2VsZWN0KG5hbWUsIHR5cGUsIGl0ZW1OYW1lLCBjb3N0KSAlPiUgDQogIGhlYWQoMSkgDQoNCmFuc3dlcjIgPC0gYnJvZGhlYWQgJT4lIA0KICBzZWxlY3QobmFtZSwgdHlwZSwgaXRlbU5hbWUsIGNvc3QpICU+JSANCiAgZmlsdGVyKHR5cGUgPT0gInJlc3RhdXJhbnQiLA0KICAgICAgICAgY29zdCA9PSBtYXgoY29zdCkpIA0KYGBgDQoNClRoZSBmaXJzdCBUaWJibGUsIGBhbnN3ZXJgLCBjb25zaXN0cyBvZiAxIHJvdyBhbmQgNCBjb2x1bW5zLiAgVGhhdCdzIHN1ZmZpY2llbnQgdG8gYW5zd2VyIHRoZSBmaXJzdCBwYXJ0IG9mIHRoZSBxdWVzdGlvbjogICJXaGljaCByZXN0YXVyYW50IGhhcyB0aGUgbW9zdCBleHBlbnNpdmUgaXRlbShzKT8iDQoNClRoZSBvdGhlciBUaWJibGUsIGBhbnN3ZXIyYCwgY29uc2lzdHMgb2YgMyByb3dzIGFuZCA0IGNvbHVtbnMuICBUaGlzIGlzIG5lY2Vzc2FyeSB0byBhbnN3ZXIgdGhlIHF1ZXN0aW9uLCAiV2hhdCBhcmUgdGhvc2UgaXRlbShzKT8iLiAgSnVzdCB0byBiZSBjbGVhciwgd2UgZG9uJ3QgbmVlZCBib3RoIHRpYmJsZXMsIGJlY2F1c2UgYWxsIG9mIHRoZSBpbmZvcm1hdGlvbiBpbiBgYW5zd2VyYCBpcyBhbHNvIGluIGBhbnN3ZXIyYC4gIFRoaXMgcmVkdW5kYW5jeSBpcyBvbmx5IHVzZWZ1bCB0byBpbGx1c3RyYXRlIHRoYXQgUiBzdXBwb3J0cyBkaWZmZXJlbnQgYXBwcm9hY2hlcyB0byBkYXRhIHdyYW5nbGluZy4NCg0KSW4gdGhlIG5leHQgc2VjdGlvbiB3ZSB3aWxsIHJlcG9ydCB0aG9zZSBhbnN3ZXJzIGR5bmFtaWNhbGx5Lg0KDQojIyAgTG9vayBhdCB0aGUgZGVyaXZlZCBkYXRhIA0KDQpgYGB7cn0NCmFuc3dlcg0KYW5zd2VyMg0KYGBgDQoNCi0gYGFuc3dlcmAgaGFzIGEgZGF0YSBzdHJ1Y3R1cmUgY2xhc3Mgb2Y6IGByIGNsYXNzKGFuc3dlcilgLiAgDQotIGBhbnN3ZXIyYCBoYXMgYSBkYXRhIHN0cnVjdHVyZSBjbGFzcyBvZjogYHIgY2xhc3MoYW5zd2VyMilgIGNvbnNpc3Rpbmcgb2YgYHIgbnJvdyhhbnN3ZXIyKWAgcm93cyBhbmQgYHIgbmNvbChhbnN3ZXIyKWAgdmFyaWFibGVzLiAgRWFjaCBjb2x1bW4gaXMgYSB2ZWN0b3IuICBJIHdhbnQgb25seSB0aGUgZmlyc3Qgcm93IHRvIGFuc3dlciBzb21lIHBhcnRzIG9mIHRoZSBxdWVzdGlvbiAtLSBzaW5jZSB0aGUgdmFsdWVzIGluIHRoZSB2ZWN0b3IgYXJlIGlkZW50aWNhbC4gVGhlIGBpdGVtTmFtZWAgdmVjdG9yLCBob3dldmVyLCBoYXMgZGlmZmVyZW50IHZhbHVlcyBhbmQgSSB3YW50IGFsbCB0aHJlZSB2YWx1ZXMuDQoNCiMgQ29tcG9zZSB0aGUgQW5zd2VyIA0KDQpUbyBhbnN3ZXIgdGhlIHF1ZXN0aW9uLCAiV2hpY2ggcmVzdGF1cmFudCIsIHNpbXBseSBjYWxsIHRoZSBgbmFtZWAgdmFyaWFibGUgaW4gdGhlIHNpbmdsZSByb3cgVGliYmxlLCBgYW5zd2VyYC4gIEZvciBleGFtcGxlLi4uDQoNCg0KYGBge3J9DQphbnN3ZXIkbmFtZQ0KYGBgDQoNCiMjIFN1YnNldHRpbmcgDQoNCkl0J3MgcG9zc2libGUgdG8gaXNvbGF0ZSB0aGUgcm93cyBhbmQgY29sdW1ucyBvZiBhIFRpYmJsZSAoZGF0YSBmcmFtZSkgdXNpbmcgYnJhY2tldCBub3RhdGlvbiBgW2AgYF1gLiAgWW91IGNhbiB1c2UgbnVtZXJpYyB2YWx1ZXMgdG8gaWRlbnRpZnkgcm93cywgYW5kIHRoZW4gY29sdW1ucy4gIA0KDQo+ICBhbnN3ZXIyWzEsNF0NCg0KVGhpcyBjb2RlIHdpbGwgdGFrZSB0aGUgZmlyc3Qgcm93LCBvZiB0aGUgZm91cnRoIGNvbHVtbi4gIA0KDQpBbHRlcm5hdGl2ZWx5LCBpc29sYXRlIGEgY29sdW1uIHZhcmlhYmxlIHdpdGhpbiBhIFRpYmJsZSB1c2luZyBhIGAkYCwgdG8gc2VwYXJhdGUgdGhlIFRpYmJsZSBuYW1lIGZyb20gdGhlIHZhcmlhYmxlIG5hbWUuICANCg0KPiBhbnN3ZXIyJGNvc3QNCg0KQm90aCBtZXRob2RzIHJldHVybiBhIHZlY3Rvci4gIEFuZCBub3cgeW91IG1heSBuZWVkIHRvIHN1YnNldCB0aGUgdmVjdG9yLg0KDQpgYW5zd2VyMiRpdGVtTmFtZWAgaXMgYSB2ZWN0b3Igb2YgMyBlbGVtZW50cy4gIEl0J3Mgc2ltcGxlIHRvIHJlZmVyZW5jZSBhIHNpbmdsZSBlbGVtZW50IHVzaW5nIGJyYWNrZXQgbm90YXRpb24gc3Vycm91bmRpbmcgdGhlIHBvc2l0aW9uIG9mIHRoZSBlbGVtZW50LiAgT3IgeW91IGNhbiByZWZlcmVuY2UgYSByYW5nZSBvZiB2ZWN0b3IgZWxlbWVudHMsIGUuZy4gYGFuc3dlcjIkaXRlbXNOYW1lWzI6M11gDQoNCj4gYW5zd2VyMiRpdGVtTmFtZVsyXQ0KDQpUbyBwcmVzZW50IGFsbCBlbGVtZW50cyBpbiB0aGUgdmVjdG9yLCBzaW1wbHkgcmVmZXJlbmNlIHRoZSB2YXJpYWJsZSBuYW1lIGFzIGZvbGxvd3MNCg0KPiBhbnN3ZXIyJGl0ZW1OYW1lDQoNCmBgYHtyfQ0KYW5zd2VyMiRpdGVtTmFtZQ0KYGBgDQoNClRoZSB2ZWN0b3IgZWxlbWVudHMgYXJlIGRpc3BsYXllZCBkaWZmZXJlbnRseSwgZGVwZW5kaW5nIG9uIHdoZXRoZXIgeW91IGFyZSB2aWV3aW5nIHRoZSBjb2RlIGNodW5rIChvciBjb25zb2xlKSBvdXRwdXQsIG9yIHZpZXdpbmcgdGhlIHJlcG9ydCBvdXRwdXQuICBPdXRzaWRlIG9mIHRoZSBSIE5vdGVib29rIC0tIGUuZy4gaW4gYW4gTVMgV29yZCBvciAgSFRNTCBkZXJpdmVkIHJlcG9ydCAtLSB0aGUgZGVmYXVsdCBiZWhhdmlvciBwcmVzZW50cyB0aGUgdmVjdG9yIGFzIGNvbW1hIHNlcGFyYXRlZCB2YWx1ZXMuICBJbnNpZGUgYW4gUiBOb3RlYm9vayB0aGUgdmFsdWUgb2YgdGhlIHZlY3RvciBjYW4gYmUgc2VlbiBhYm92ZS4NCg0KDQojIyMjIyMgaHR0cDovL3I0ZHMuaGFkLmNvLm56L3ZlY3RvcnMuaHRtbCN2ZWN0b3Itc3Vic2V0dGluZw0KDQojIyBJbnRlZ3JhdGVkIFByb3NlIGFuZCBDb2RlDQoNClRoZSAqKmByIGFuc3dlciRuYW1lYCoqICpgciBhbnN3ZXIkdHlwZWAqIGhhcyB0aGUgbW9zdCBleHBlbnNpdmUgaXRlbShzKSBhdCAkYHIgYW5zd2VyJGNvc3RgLiAgVGhvc2UgaXRlbShzKSBhcmUgDQpgciBhbnN3ZXIkaXRlbU5hbWVgLg0KDQpUaGUgKipgciBhbnN3ZXIyJG5hbWVbMV1gKiogKmByIGFuc3dlcjIkdHlwZVsxXWAqIGhhcyB0aGUgbW9zdCBleHBlbnNpdmUgaXRlbShzKSBhdCAkYHIgYW5zd2VyMiRjb3N0WzFdYC4gIFRob3NlIGl0ZW0ocykgYXJlIA0KYHIgYW5zd2VyMiRpdGVtTmFtZWAuDQoNCj4gVG8gc2VlIGhvdyB0aGlzIGlzIGRvbmUsIHJldmlldyB0aGUgaW50ZWdyYXRlZCBSIE1hcmtkb3duIGFuZCBSIGNvZGUgaW4gdGhlIFIgTm90ZWJvb2s6IFtgYW5zd2Vyc19mcm9tLWNsYXNzLXF1ZXN0aW9uLlJtZGBdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9kYXRhLWFuZC12aXN1YWxpemF0aW9uL2ludHJvMnIucmV2L21hc3Rlci9hbnN3ZXJfZnJvbS1jbGFzcy1xdWVzdGlvbi5SbWQpDQoNClRoZSBhbnN3ZXJzIGFib3ZlIGFyZSBkZXJpdmVkIGR5bmFtaWNhbGx5IChvciBwcm9ncmFtYXRpY2FsbHkpIGFuZCBpbnRlZ3JhdGVkIGludG8gdGhlIHJlcG9ydCAoaS5lLiB0aGlzIGlzICJsaXRlcmF0ZSBjb2RlIikuICBUaGlzIG1lYW5zIHRoZSBvdXRjb21lIG9mIHRoZSByZXBvcnQgY2hhbmdlcyBhcyB0aGUgZGF0YSBjaGFuZ2VzLiAgTWVhbndoaWxlLCB0aGUgcHJvc2UgcmVtYWlucyB0aGUgc2FtZS4gIFRvIHNlZSBob3cgdGhpcyBpcyBkb25lLCBsb29rIGF0IHRoZSBbYGFuc3dlcnNfZnJvbS1jbGFzcy1xdWVzdGlvbi5SbWRgXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLnJldi9tYXN0ZXIvYW5zd2VyX2Zyb20tY2xhc3MtcXVlc3Rpb24uUm1kKSBmaWxlLg0KDQojIyBGdXJ0aGVyIFZhcmlhdGlvbnMNCg0KVGhlcmUgYXJlIGFkZGl0aW9uYWwgZnVuY3Rpb24gd2hpY2ggY2FuIG1hbmFnZSB0aGUgaW5zZXJ0aW9uIG9mIGFkZGl0aW9uYWwgdGV4dCBhbmQgc3ltYm9scyBiZXR3ZWVuIHRoZSB2ZWN0b3IgdmFsdWVzLCBpLmUuIGNvbW1hcywgY29uanVuY3Rpb25zLCBzeW1ib2xzLCBldGMuIChlLmcuICQsIHRoZSBveGZvcmQgY29tbWEsIGV0Yy4pLiAgVGhvc2UgZnVuY3Rpb25zIGluY2x1ZGUgYGdsdWU6OmdsdWVgLCBgcGFzdGVgLCBgcGFzdGUwYCwgYW5kIGBwcmludGAuICBGb3IgdGhlIG1vbWVudCBsZXQncyBjYWxsIHRoaXMgcXVlc3Rpb24gYW5zd2VyZWQuIEJlY2F1c2UsIHBhcnQgb2YgdGhlICoqZnVuKiogaW4gW1JdIGlzIGxlYXJuaW5nIG1vcmUgYWJvdXQgW1JdLiAgDQoNCmh0dHBzOi8vcmZ1bi5saWJyYXJ5LmR1a2UuZWR1DQoNCg0KDQoNCg==</div>
 
 
 </div>
