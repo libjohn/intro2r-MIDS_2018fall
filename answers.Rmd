@@ -44,8 +44,7 @@ answer <- brodhead %>%
   arrange(desc(cost)) %>% 
   filter(type == "restaurant") %>% 
   select(name, type, itemName, cost) %>% 
-  head(1) %>% 
-  unclass()
+  head(1) 
 
 answer2 <- brodhead %>% 
   select(name, type, itemName, cost) %>% 
