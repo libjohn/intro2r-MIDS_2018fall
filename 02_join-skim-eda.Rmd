@@ -20,47 +20,74 @@ Data are from fivethirtyeight.com.
 
 
 ```{r}
-sw_survey <- read_csv(
-  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv")[-1,]
+sw_characters_favorability <- read_csv(
+  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", skip = 1)[,16:29]
 
-sw_survey
+sw_characters_favorability <- sw_characters_favorability %>% 
+  mutate(han = fct_infreq(sw_characters_favorability$`Han Solo`)) %>% 
+  rename(luke = `Luke Skywalker`,
+         princess = `Princess Leia Organa`) %>% 
+  select(han, 2:14)
+
+sw_characters_favorability
+
 ```
+
 
 
 # Skim Data
 
 ```{r}
-class(sw_survey)
+class(sw_characters_favorability)
 
-glimpse(sw_survey)
+glimpse(sw_characters_favorability)
 
 
-skim(sw_survey)
+skim(sw_characters_favorability$han)
 ```
 
 
 ## Draft EDA
 
-simplify with rank
-
 
 ```{r}
-names(sw_survey)
+sw_characters_favorability %>% 
+  count(han)
 ```
 
 ```{r}
-sw_skinny <- sw_survey %>% 
-  rename(rid = "RespondentID",
-         rank = "Please rank the Star Wars films in order of preference with 1 being your favorite film in the franchise and 6 being your least favorite film.") %>% 
-  select(rid, rank)
-         
-sw_skinny
+sw_characters_favorability %>% 
+  select(luke) %>% 
+  transmute(luke = fct_infreq(luke)) %>% 
+  count(luke)
 ```
 
 ```{r}
-sw_skinny %>% 
-  drop_na() %>% 
-  count(rank) %>% 
-  arrange(-n)
+starwars
+```
+
+names()
+```{r}
+sw_characters_favorability
+
+```
+
+
+
+```{r}
+sw_char2 <- read_csv(
+  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", skip = 1)[,16:29]
+```
+
+
+```{r}
+char_vec <- names(sw_char2)
+char_vec
+```
+
+
+```{r}
+starwars %>% 
+  filter(name %in% char_vec)
 ```
 
