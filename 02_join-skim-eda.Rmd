@@ -1,0 +1,66 @@
+---
+title: "join, skim, EDA"
+output: html_notebook
+---
+
+# Load Packages
+
+```{r}
+library(tidyverse)
+library(skimr)
+```
+
+# Load Data
+
+Data are from fivethirtyeight.com.  
+
+- https://github.com/fivethirtyeight/data/tree/master/star-wars-survey
+- https://data.fivethirtyeight.com/
+- Unless otherwise noted, five thirty eight data sets are available under the Creative Commons Attribution 4.0 International License, and the code is available under the MIT License.
+
+
+```{r}
+sw_survey <- read_csv(
+  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv")[-1,]
+
+sw_survey
+```
+
+
+# Skim Data
+
+```{r}
+class(sw_survey)
+
+glimpse(sw_survey)
+
+
+skim(sw_survey)
+```
+
+
+## Draft EDA
+
+simplify with rank
+
+
+```{r}
+names(sw_survey)
+```
+
+```{r}
+sw_skinny <- sw_survey %>% 
+  rename(rid = "RespondentID",
+         rank = "Please rank the Star Wars films in order of preference with 1 being your favorite film in the franchise and 6 being your least favorite film.") %>% 
+  select(rid, rank)
+         
+sw_skinny
+```
+
+```{r}
+sw_skinny %>% 
+  drop_na() %>% 
+  count(rank) %>% 
+  arrange(-n)
+```
+

@@ -1,13 +1,13 @@
 Intro to R; Revised
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-02-28
+2018-03-20
 
 README
 ======
 
--   template code - <https://is.gd/rcode>
--   rrev repo - <https://is.gd/rrev2018>
+-   template code - <foo -- foo -- foo>
+-   rrev repo - <foo -- foo -- foo>
 
 This repository contains [supporting datasets and files](https://rfun.library.duke.edu/intro2r/) for our **Intro to R** workshop by the [Data & Visualization Services Department](http://library.duke.edu/data), Duke University Libraries. You can find more information about our future and past [workshops](http://library.duke.edu/data/news)
 
@@ -23,13 +23,8 @@ Outline
     1.  Render
     2.  Literate Coding
         1.  New Code Chunk: *Ctrl+Alt+I*
-        2.  R Markdown, intro
+        2.  R Markdown: brief explanation
     3.  [`library(tidyverse)`](https://tidyverse.org)
-    4.  Hello World
-    5.  R Markdown, basic
-        1.  headings
-        2.  italics, bold
-        3.  links, lists
 
 2.  Load & View Tibble (data frame)
 
@@ -50,19 +45,22 @@ Outline
     2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
-6.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
+6.  Basic Exploratory Data Analysis
 
-7.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
+    1.  `library(skimr)`
+
+7.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
+
+8.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
     1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
 
-8.  Mapping in R
+9.  Our Training Materials
 
-    1.  <https://rfun.library.duke.edu/intro2r/gis.html>
+    1.  R we having fun yet‽ <https://rfun.library.duke.edu>. Training materials for R.
 
-9.  Our Workshops
+        -   [2018 Workshops](http://rfun.library.duke.edu/2017/11/30/tidyverse-workshops-coming-in-january/): Intro to 2 / Visualization / Shiny / Mapping / Git / R Markdown
 
-    1.  R we having fun yet‽ <https://rfun.library.duke.edu>
     2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
 
 10. Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
