@@ -13,43 +13,23 @@ library(ggvis)
 
 # Load Data
 
-Star Wars character data are an onboard part of dplyr:  `dplyr::starwars`
+- Star Wars character data are an onboard part of dplyr:  `dplyr::starwars`
 
+- Star Wars survey data are from fivethirtyeight.com.  
 
-
-Star Wars survey data are from fivethirtyeight.com.  
-
-- https://github.com/fivethirtyeight/data/tree/master/star-wars-survey
-- https://data.fivethirtyeight.com/
-- Unless otherwise noted, five thirty eight data sets are available under the Creative Commons Attribution 4.0 International License, and the code is available under the MIT License.
-
-```{}
-sw_characters_favorability <- read_csv(
-  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", skip = 1)[,16:29]
-
-sw_characters_favorability <- sw_characters_favorability %>% 
-  mutate(han = fct_infreq(sw_characters_favorability$`Han Solo`)) %>% 
-  rename(luke = `Luke Skywalker`,
-         princess = `Princess Leia Organa`) %>% 
-  select(han, 2:14)
-
-sw_characters_favorability
-
-```
-
+    - https://github.com/fivethirtyeight/data/tree/master/star-wars-survey
+    - https://data.fivethirtyeight.com/
+    - Unless otherwise noted, five thirty eight data sets are available under the Creative Commons Attribution 4.0 International License, and the code is available under the MIT License.
+    - https://fivethirtyeight.com/features/americas-favorite-star-wars-movies-and-least-favorite-characters/
 
 Load the survey data that deals with character's favorability rating.  
 
 ```{r load_data}
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
-  skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
-
-sw_characters_favorability
+  skip = 1)[,16:29]   # Skip first line due to funky column headers.  
+                      # [,16:29] ingests columns 16 through 29.
 ```
-
-
-
 
 # Skim Data
 
@@ -65,8 +45,6 @@ starwars
 class(sw_characters_favorability)
 
 glimpse(sw_characters_favorability)
-
-# skim(sw_characters_favorability)
 ```
 
 ```{r show_sw-chars-tibble}
@@ -84,8 +62,8 @@ sw_characters_colnames
 
 ```{r transform-fav-data}
 
-favorability_popularity_rating <- 
-  map_dfr(sw_characters_favorability, fct_count) %>% 
+favorability_popularity_rating <- sw_characters_favorability %>% 
+  map_dfr(fct_count) %>% 
   filter(f == "Very favorably") %>% 
   add_column(name = sw_characters_colnames) %>% 
   select(name, fav_rating = n)
@@ -99,9 +77,8 @@ favorability_popularity_rating
 
 ```{r join-data}
 sw_joined <- starwars %>% 
-  left_join(favorability_popularity_rating, by = "name") %>% 
-  select(1, 14, 2:14) %>%
-  filter(!is.na(fav_rating))
+  inner_join(favorability_popularity_rating, by = "name") %>% 
+  select(1, 14, 2:14) 
 
 sw_joined %>% 
   arrange(desc(fav_rating))
@@ -118,13 +95,70 @@ skim(sw_joined)
 ```
 
 
-# Visualize
-
-```{r scatterplot-fav_rating}
-sw_joined %>% 
-  ggvis(~height, ~fav_rating)
+```{r}
+skim(starwars)
 ```
 
 
+# Visualize
 
+## Scatter Plot
+
+```{r scatterplot-fav_rating}
+sw_joined %>% 
+  ggvis(~height, ~fav_rating) %>% 
+  layer_points()
+```
+
+## Box Plot
+
+```{r}
+starwars %>% 
+  drop_na(species, mass) %>% 
+  filter(species == "Human" |
+           species == "Droid" |
+           species == "Mirialan") %>% 
+  ggvis(~species, ~mass) %>% 
+  layer_boxplots()
+```
+
+## Histogram
+
+```{r}
+starwars %>% 
+  ggvis(~birth_year) %>% 
+  layer_histograms()
+```
+
+
+```{r}
+starwars %>% 
+  ggvis(~height) %>% 
+  layer_histograms()
+```
+
+
+```{r}
+starwars %>%   
+  ggvis(~eye_color) %>% 
+  layer_bars()
+```
+
+
+```{r}
+fct_count(starwars$eye_color, sort = TRUE) %>% 
+  head() %>% 
+  ggvis(~f, ~n) %>% 
+  layer_bars() %>% 
+  add_axis("x", title = "Eye Color") %>% 
+  add_axis("y", title = "Frequency") %>% 
+  scale_ordinal('x', domain=c("brown", "blue", "yellow", "black", "orange", "red")) 
+```
+
+
+# Session Info
+
+```{r}
+devtools::session_info()
+```
 
