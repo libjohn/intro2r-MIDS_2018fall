@@ -145,3 +145,109 @@ sw_joined %>%
   select(1, 14, 2:10)
 ```
 
+```{}
+# square.it <- function(x) {
+#    square <- x * x
+#    return(square)
+#}
+
+favorize <- function(x) {
+  mutate(sw_char2, x = fct_infreq(x)) 
+  select(sw_char2, x) 
+  count(sw_char2, x)  
+  spread(sw_char2, n) 
+  mutate(sw_char2, name = x)  
+  select(sw_char2, 8, 1) %>% 
+  rename(sw_char2, favorability = `Very favorably`) 
+}
+
+favorize2 <- function(x) {
+  fct_count(foo[,x]) %>% 
+  arrange(-n)
+}
+  
+```
+
+```{}
+favorize(char_vec[1])
+
+favorize2(char_vec)
+```
+
+
+```{}
+
+lvls <- c("Very favorably", 
+            "Somewhat favorably", 
+            "Neither favorably nor unfavorably (neutral)", 
+            "Somewhat unfavorably", 
+            "Very unfavorably", 
+            "Unfamiliar (N/A)")
+
+foo <- sw_char2 %>% 
+  mutate_all(fct_infreq) %>% 
+  summarise_all(fct_count)
+  fct_count()
+  mutate_all(fct_un)
+  select(`Luke Skywalker`) %>% 
+  count(`Luke Skywalker`) %>% 
+  spread(`Luke Skywalker`, n) %>% 
+  mutate(name = "Luke Skywalker") %>% 
+  select(8, 1) %>% 
+  rename(favorability = `Very favorably`)
+
+luke 
+
+
+fct_count(foo$`Jar Jar Binks`) %>% 
+  arrange(-n)
+
+fct_count(sw_char2$`Jar Jar Binks`) %>% 
+  arrange(-n)
+
+
+fct_count(foo) 
+
+foo[,10]
+```
+
+```{r}
+
+favi <- map_dfr(sw_char2, fct_count) %>% 
+  filter(f == "Very favorably")
+
+favi 
+person <- as_tibble(names(sw_char2))
+person
+
+foo <- bind_cols(favi, person) %>% 
+  arrange(-n) %>% 
+  rename(name = value,
+         favorability = n) %>%  
+  select(name, favorability)
+
+foo
+
+
+```
+
+
+```{r}
+sw_joined <-  sw_tojoin %>% 
+  left_join(foo, by = "name")
+
+sw_joined %>% 
+  select(1, 14, 2:10) %>% 
+  arrange(-favorability)
+```
+
+
+```{r}
+library(ggvis)
+```
+
+```{r}
+sw_joined %>% 
+  ggvis(~height, ~favorability)
+```
+
