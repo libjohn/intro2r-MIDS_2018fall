@@ -1,5 +1,8 @@
 ---
-title: "join, skim, EDA"
+title: "Join, Skim, EDA, Visualize"
+author: "John Little"
+date: "`r Sys.Date()`"
+abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into the data in two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode."
 output: html_notebook
 ---
 
@@ -31,7 +34,7 @@ sw_characters_favorability <- read_csv(
                       # [,16:29] ingests columns 16 through 29.
 ```
 
-# Skim Data
+# Raw Data
 
 ## Star Wars Charactesr
 
@@ -60,6 +63,8 @@ sw_characters_colnames <- colnames(sw_characters_favorability)
 sw_characters_colnames
 ```
 
+Count the favorability data as factors, summarize as a data frame for joining to the other dplyr::starwars character data.
+
 ```{r transform-fav-data}
 
 favorability_popularity_rating <- sw_characters_favorability %>% 
@@ -73,6 +78,8 @@ favorability_popularity_rating
 
 
 ## Join Data
+
+There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation.  I chose an `inner_join` because I only want the data where there are matches.  This effectively drops 80 characters from the dataset.  For this transformation, I only want to analyze those data for which I have favorability ratings.
 
 
 ```{r join-data}
@@ -88,12 +95,17 @@ sw_joined %>%
 
 #  EDA
 
+Exploratory Data Analysis gives me a general sense of the data.  For example, what are the means, medians, distributions of each data variable.
+
 ## Skim
+
+Skim the joined data.  These data include the selected, transformed favorability data I gathered from fivethirtyeight.com.
 
 ```{r skim-joined}
 skim(sw_joined)
 ```
 
+Skim the `dplyr::starwars` raw data.
 
 ```{r}
 skim(starwars)
@@ -104,6 +116,8 @@ skim(starwars)
 
 ## Scatter Plot
 
+Is a character's favorability dependent on their individual height?
+
 ```{r scatterplot-fav_rating}
 sw_joined %>% 
   ggvis(~height, ~fav_rating) %>% 
@@ -112,7 +126,9 @@ sw_joined %>%
 
 ## Box Plot
 
-```{r}
+What is the distribution of the mass of three species:  Human, Droid, Mirialan?
+
+```{r species-boxplot}
 starwars %>% 
   drop_na(species, mass) %>% 
   filter(species == "Human" |
@@ -124,28 +140,31 @@ starwars %>%
 
 ## Histogram
 
-```{r}
+What is the distribution of the birth years of all the characters?
+
+```{r birth-year_histogram}
 starwars %>% 
   ggvis(~birth_year) %>% 
   layer_histograms()
 ```
 
+What is the distribution of the character's height?
 
-```{r}
+```{r height_histogram}
 starwars %>% 
   ggvis(~height) %>% 
   layer_histograms()
 ```
 
 
-```{r}
+```{r eye-color_barplot}
 starwars %>%   
   ggvis(~eye_color) %>% 
   layer_bars()
 ```
 
 
-```{r}
+```{r refine_barplot}
 fct_count(starwars$eye_color, sort = TRUE) %>% 
   head() %>% 
   ggvis(~f, ~n) %>% 
@@ -158,7 +177,12 @@ fct_count(starwars$eye_color, sort = TRUE) %>%
 
 # Session Info
 
-```{r}
+For reproducibility, it's always good to document the session info.
+
+```{r session_info}
 devtools::session_info()
 ```
 
+# License
+
+Creative Commons.  CC By-NC  https://creativecommons.org/licenses/by-nc/4.0/legalcode
