@@ -251,3 +251,8 @@ sw_joined %>%
   ggvis(~height, ~favorability)
 ```
 
+
+```{r}
+skim(sw_joined)
+```
+
