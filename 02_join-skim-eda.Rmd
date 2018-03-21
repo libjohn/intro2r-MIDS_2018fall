@@ -87,7 +87,61 @@ char_vec
 
 
 ```{r}
-starwars %>% 
+sw_tojoin <- starwars %>% 
   filter(name %in% char_vec)
+
+sw_tojoin
+```
+
+
+```{r}
+sw_char2
+```
+
+
+
+```{r}
+han <- sw_char2 %>% 
+  mutate(`Han Solo` = fct_infreq(`Han Solo`)) %>% 
+  select(`Han Solo`) %>% 
+  count(`Han Solo`) %>% 
+  spread(`Han Solo`, n) %>% 
+  mutate(name = "Han Solo") %>% 
+  select(8, 1) %>% 
+  rename(favorability = `Very favorably`)
+
+han
+  
+```
+
+
+```{r}
+luke <- sw_char2 %>% 
+  mutate(`Luke Skywalker` = fct_infreq(`Luke Skywalker`)) %>% 
+  select(`Luke Skywalker`) %>% 
+  count(`Luke Skywalker`) %>% 
+  spread(`Luke Skywalker`, n) %>% 
+  mutate(name = "Luke Skywalker") %>% 
+  select(8, 1) %>% 
+  rename(favorability = `Very favorably`)
+
+luke
+```
+
+
+```{r}
+sw_favorability <- bind_rows(han, luke)
+
+sw_favorability
+```
+
+
+
+```{r}
+sw_joined <-  sw_tojoin %>% 
+  left_join(sw_favorability, by = "name")
+
+sw_joined %>% 
+  select(1, 14, 2:10)
 ```
 
