@@ -8,18 +8,22 @@ output: html_notebook
 ```{r}
 library(tidyverse)
 library(skimr)
+library(ggvis)
 ```
 
 # Load Data
 
-Data are from fivethirtyeight.com.  
+Star Wars character data are an onboard part of dplyr:  `dplyr::starwars`
+
+
+
+Star Wars survey data are from fivethirtyeight.com.  
 
 - https://github.com/fivethirtyeight/data/tree/master/star-wars-survey
 - https://data.fivethirtyeight.com/
 - Unless otherwise noted, five thirty eight data sets are available under the Creative Commons Attribution 4.0 International License, and the code is available under the MIT License.
 
-
-```{r}
+```{}
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", skip = 1)[,16:29]
 
@@ -34,225 +38,93 @@ sw_characters_favorability
 ```
 
 
+Load the survey data that deals with character's favorability rating.  
+
+```{r load_data}
+sw_characters_favorability <- read_csv(
+  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
+  skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
+
+sw_characters_favorability
+```
+
+
+
 
 # Skim Data
 
-```{r}
+## Star Wars Charactesr
+
+```{r show_dplyr-starwars-tibble}
+starwars
+```
+
+## Favorability Data
+
+```{r class_glimpse}
 class(sw_characters_favorability)
 
 glimpse(sw_characters_favorability)
 
-
-skim(sw_characters_favorability$han)
+# skim(sw_characters_favorability)
 ```
 
-
-## Draft EDA
-
-
-```{r}
-sw_characters_favorability %>% 
-  count(han)
-```
-
-```{r}
-sw_characters_favorability %>% 
-  select(luke) %>% 
-  transmute(luke = fct_infreq(luke)) %>% 
-  count(luke)
-```
-
-```{r}
-starwars
-```
-
-names()
-```{r}
+```{r show_sw-chars-tibble}
 sw_characters_favorability
+```
 
+# Transform Favorability Data
+
+Get a list of the characters which happen to be the column names
+
+```{r get-colnames}
+sw_characters_colnames <- colnames(sw_characters_favorability)
+sw_characters_colnames
+```
+
+```{r transform-fav-data}
+
+favorability_popularity_rating <- 
+  map_dfr(sw_characters_favorability, fct_count) %>% 
+  filter(f == "Very favorably") %>% 
+  add_column(name = sw_characters_colnames) %>% 
+  select(name, fav_rating = n)
+
+favorability_popularity_rating
 ```
 
 
-
-```{r}
-sw_char2 <- read_csv(
-  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", skip = 1)[,16:29]
-```
+## Join Data
 
 
-```{r}
-char_vec <- names(sw_char2)
-char_vec
-```
-
-
-```{r}
-sw_tojoin <- starwars %>% 
-  filter(name %in% char_vec)
-
-sw_tojoin
-```
-
-
-```{r}
-sw_char2
-```
-
-
-
-```{r}
-han <- sw_char2 %>% 
-  mutate(`Han Solo` = fct_infreq(`Han Solo`)) %>% 
-  select(`Han Solo`) %>% 
-  count(`Han Solo`) %>% 
-  spread(`Han Solo`, n) %>% 
-  mutate(name = "Han Solo") %>% 
-  select(8, 1) %>% 
-  rename(favorability = `Very favorably`)
-
-han
-  
-```
-
-
-```{r}
-luke <- sw_char2 %>% 
-  mutate(`Luke Skywalker` = fct_infreq(`Luke Skywalker`)) %>% 
-  select(`Luke Skywalker`) %>% 
-  count(`Luke Skywalker`) %>% 
-  spread(`Luke Skywalker`, n) %>% 
-  mutate(name = "Luke Skywalker") %>% 
-  select(8, 1) %>% 
-  rename(favorability = `Very favorably`)
-
-luke
-```
-
-
-```{r}
-sw_favorability <- bind_rows(han, luke)
-
-sw_favorability
-```
-
-
-
-```{r}
-sw_joined <-  sw_tojoin %>% 
-  left_join(sw_favorability, by = "name")
+```{r join-data}
+sw_joined <- starwars %>% 
+  left_join(favorability_popularity_rating, by = "name") %>% 
+  select(1, 14, 2:14) %>%
+  filter(!is.na(fav_rating))
 
 sw_joined %>% 
-  select(1, 14, 2:10)
-```
-
-```{}
-# square.it <- function(x) {
-#    square <- x * x
-#    return(square)
-#}
-
-favorize <- function(x) {
-  mutate(sw_char2, x = fct_infreq(x)) 
-  select(sw_char2, x) 
-  count(sw_char2, x)  
-  spread(sw_char2, n) 
-  mutate(sw_char2, name = x)  
-  select(sw_char2, 8, 1) %>% 
-  rename(sw_char2, favorability = `Very favorably`) 
-}
-
-favorize2 <- function(x) {
-  fct_count(foo[,x]) %>% 
-  arrange(-n)
-}
-  
-```
-
-```{}
-favorize(char_vec[1])
-
-favorize2(char_vec)
+  arrange(desc(fav_rating))
 ```
 
 
-```{}
 
-lvls <- c("Very favorably", 
-            "Somewhat favorably", 
-            "Neither favorably nor unfavorably (neutral)", 
-            "Somewhat unfavorably", 
-            "Very unfavorably", 
-            "Unfamiliar (N/A)")
+#  EDA
 
-foo <- sw_char2 %>% 
-  mutate_all(fct_infreq) %>% 
-  summarise_all(fct_count)
-  fct_count()
-  mutate_all(fct_un)
-  select(`Luke Skywalker`) %>% 
-  count(`Luke Skywalker`) %>% 
-  spread(`Luke Skywalker`, n) %>% 
-  mutate(name = "Luke Skywalker") %>% 
-  select(8, 1) %>% 
-  rename(favorability = `Very favorably`)
+## Skim
 
-luke 
-
-
-fct_count(foo$`Jar Jar Binks`) %>% 
-  arrange(-n)
-
-fct_count(sw_char2$`Jar Jar Binks`) %>% 
-  arrange(-n)
-
-
-fct_count(foo) 
-
-foo[,10]
-```
-
-```{r}
-
-favi <- map_dfr(sw_char2, fct_count) %>% 
-  filter(f == "Very favorably")
-
-favi 
-person <- as_tibble(names(sw_char2))
-person
-
-foo <- bind_cols(favi, person) %>% 
-  arrange(-n) %>% 
-  rename(name = value,
-         favorability = n) %>%  
-  select(name, favorability)
-
-foo
-
-
-```
-
-
-```{r}
-sw_joined <-  sw_tojoin %>% 
-  left_join(foo, by = "name")
-
-sw_joined %>% 
-  select(1, 14, 2:10) %>% 
-  arrange(-favorability)
-```
-
-
-```{r}
-library(ggvis)
-```
-
-```{r}
-sw_joined %>% 
-  ggvis(~height, ~favorability)
-```
-
-
-```{r}
+```{r skim-joined}
 skim(sw_joined)
 ```
+
+
+# Visualize
+
+```{r scatterplot-fav_rating}
+sw_joined %>% 
+  ggvis(~height, ~fav_rating)
+```
+
+
+
 
