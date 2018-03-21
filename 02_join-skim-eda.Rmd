@@ -2,8 +2,11 @@
 title: "Join, Skim, EDA, Visualize"
 author: "John Little"
 date: "`r Sys.Date()`"
-abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into the data in two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode."
-output: html_notebook
+abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. Our Intro to R workshop can be found at https://rfun.library.duke.edu/intro2r/.  This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode."
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
 ---
 
 # Load Packages
@@ -16,7 +19,7 @@ library(ggvis)
 
 # Load Data
 
-- Star Wars character data are an onboard part of dplyr:  `dplyr::starwars`
+- Star Wars character data are an on-board part of dplyr:  `dplyr::starwars`
 
 - Star Wars survey data are from fivethirtyeight.com.  
 
@@ -30,8 +33,7 @@ Load the survey data that deals with character's favorability rating.
 ```{r load_data}
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
-  skip = 1)[,16:29]   # Skip first line due to funky column headers.  
-                      # [,16:29] ingests columns 16 through 29.
+  skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
 ```
 
 # Raw Data
@@ -77,7 +79,7 @@ favorability_popularity_rating
 ```
 
 
-## Join Data
+# Join Data
 
 There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation.  I chose an `inner_join` because I only want the data where there are matches.  This effectively drops 80 characters from the dataset.  For this transformation, I only want to analyze those data for which I have favorability ratings.
 
@@ -156,13 +158,16 @@ starwars %>%
   layer_histograms()
 ```
 
+## Bar Plot
 
 ```{r eye-color_barplot}
+order_eye <- as_vector(fct_count(starwars$eye_color, sort = TRUE) %>% select(f))
+
 starwars %>%   
   ggvis(~eye_color) %>% 
-  layer_bars()
+  layer_bars() %>% 
+  scale_ordinal("x", domain = order_eye)
 ```
-
 
 ```{r refine_barplot}
 fct_count(starwars$eye_color, sort = TRUE) %>% 
