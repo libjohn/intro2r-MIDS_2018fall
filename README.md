@@ -1,19 +1,25 @@
 Intro to R; Revised
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-03-20
+2018-03-23
 
 README
 ======
 
--   template code - <foo -- foo -- foo>
--   rrev repo - <foo -- foo -- foo>
+-   Code
+
+    -   <https://is.gd/datafest1>
+    -   <https://is.gd/datafest2>
+
+-   Repo -- Datafest Intro2R repo
+
+    -   <https://is.gd/datafest_r>
 
 This repository contains [supporting datasets and files](https://rfun.library.duke.edu/intro2r/) for our **Intro to R** workshop by the [Data & Visualization Services Department](http://library.duke.edu/data), Duke University Libraries. You can find more information about our future and past [workshops](http://library.duke.edu/data/news)
 
--   data are in the [data](data) directory of this repository
+-   our *guide* can be found at our [Rfun site](https://rfun.library.duke.edu/intro2r/)
 
--   our *guide* can be found at our [Rfun site](https://rfun.library.duke.edu/intro2r/).
+-   More on [R -- scroll down to R Resources](https://library.duke.edu/data/guides)
 
 Outline
 -------
@@ -45,15 +51,21 @@ Outline
     2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
-6.  Basic Exploratory Data Analysis
+6.  More on `dplyr` -- joint two datasets
+
+    1.  Read in new datasets
+    2.  Transform for join
+    3.  `left_join` to add data
+
+7.  Basic Exploratory Data Analysis
 
     1.  `library(skimr)`
+    2.  Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
 
-7.  Before we go on... [final thoughts](ZZ_closing-thoughts.Rmd)
-
-8.  Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
+8.  More Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
     1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
+    2.  Take the ggplot2 workshop, or see the [materials](https://github.com/data-and-visualization/ggplot2-S18)
 
 9.  Our Training Materials
 

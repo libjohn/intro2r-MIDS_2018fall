@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Little" />
 
-<meta name="date" content="2018-03-21" />
+<meta name="date" content="2018-03-23" />
 
 <title>Join, Skim, EDA, Visualize</title>
 
@@ -288,7 +288,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Join, Skim, EDA, Visualize</h1>
 <h4 class="author"><em>John Little</em></h4>
-<h4 class="date"><em>2018-03-21</em></h4>
+<h4 class="date"><em>2018-03-23</em></h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 This document is a tidyverse/dplyr tour using R/RStudio. The instructor will demonstrate how to undertake an initial investigation into two datasets. More information can be found at this repo: <a href="https://github.com/data-and-visualization/intro2r-2018-datafest" class="uri">https://github.com/data-and-visualization/intro2r-2018-datafest</a>. Our Intro to R workshop can be found at <a href="https://rfun.library.duke.edu/intro2r/" class="uri">https://rfun.library.duke.edu/intro2r/</a>. This document is covered by the CC BY-NC license: <a href="https://creativecommons.org/licenses/by-nc/4.0/legalcode" class="uri">https://creativecommons.org/licenses/by-nc/4.0/legalcode</a>.
@@ -302,41 +302,11 @@ This document is a tidyverse/dplyr tour using R/RStudio. The instructor will dem
 <h1>Load Packages</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHNraW1yKVxubGlicmFyeShnZ3ZpcylcbmBgYCJ9 -->
+<pre class="r"><code>library(tidyverse)
+library(skimr)
+library(ggvis)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSCRdGlkeXZlcnNlkiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNC4yXHUwMDFiWzM3bS0tIFx1MDAxYlsxbUF0dGFjaGluZyBwYWNrYWdlc1x1MDAxYlsyMm0gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZSAxLjIuMSAtLVx1MDAxYlszOW1cblx1MDAxYlszN21cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWdncGxvdDJcdTAwMWJbMzdtIDIuMi4xLlx1MDAxYlszMW05MDAwXHUwMDFiWzM3bSAgICAgXHUwMDFiWzMybXZcdTAwMWJbMzdtIFx1MDAxYlszNG1wdXJyciAgXHUwMDFiWzM3bSAwLjIuNCAgICAgXG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXRpYmJsZSBcdTAwMWJbMzdtIDEuNC4yICAgICAgICAgIFx1MDAxYlszMm12XHUwMDFiWzM3bSBcdTAwMWJbMzRtZHBseXIgIFx1MDAxYlszN20gMC43LjQgICAgIFxuXHUwMDFiWzMybXZcdTAwMWJbMzdtIFx1MDAxYlszNG10aWR5ciAgXHUwMDFiWzM3bSAwLjguMCAgICAgICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXN0cmluZ3JcdTAwMWJbMzdtIDEuMy4wICAgICBcblx1MDAxYlszMm12XHUwMDFiWzM3bSBcdTAwMWJbMzRtcmVhZHIgIFx1MDAxYlszN20gMS4xLjEgICAgICAgICAgXHUwMDFiWzMybXZcdTAwMWJbMzdtIFx1MDAxYlszNG1mb3JjYXRzXHUwMDFiWzM3bSAwLjMuMCAgICAgXHUwMDFiWzM5bVxucGFja2FnZSCRdGliYmxlkiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNC4zcGFja2FnZSCRdGlkeXKSIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy40LjNwYWNrYWdlIJFwdXJycpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjQuMnBhY2thZ2UgkWRwbHlykiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNC4ycGFja2FnZSCRc3RyaW5ncpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjQuM3BhY2thZ2UgkWZvcmNhdHOSIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy40LjNcdTAwMWJbMzdtLS0gXHUwMDFiWzFtQ29uZmxpY3RzXHUwMDFiWzIybSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gdGlkeXZlcnNlX2NvbmZsaWN0cygpIC0tXG5cdTAwMWJbMzFteFx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyXHUwMDFiWzM3bTo6XHUwMDFiWzMybWZpbHRlcigpXHUwMDFiWzM3bSBtYXNrcyBcdTAwMWJbMzRtc3RhdHNcdTAwMWJbMzdtOjpmaWx0ZXIoKVxuXHUwMDFiWzMxbXhcdTAwMWJbMzdtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszN206Olx1MDAxYlszMm1sYWcoKVx1MDAxYlszN20gICAgbWFza3MgXHUwMDFiWzM0bXN0YXRzXHUwMDFiWzM3bTo6bGFnKClcdTAwMWJbMzltXG4ifQ== -->
-<pre><code>package 㤼㸱tidyverse㤼㸲 was built under R version 3.4.2[37m-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.2.1 --[39m
-[37m[32mv[37m [34mggplot2[37m 2.2.1.[31m9000[37m     [32mv[37m [34mpurrr  [37m 0.2.4     
-[32mv[37m [34mtibble [37m 1.4.2          [32mv[37m [34mdplyr  [37m 0.7.4     
-[32mv[37m [34mtidyr  [37m 0.8.0          [32mv[37m [34mstringr[37m 1.3.0     
-[32mv[37m [34mreadr  [37m 1.1.1          [32mv[37m [34mforcats[37m 0.3.0     [39m
-package 㤼㸱tibble㤼㸲 was built under R version 3.4.3package 㤼㸱tidyr㤼㸲 was built under R version 3.4.3package 㤼㸱purrr㤼㸲 was built under R version 3.4.2package 㤼㸱dplyr㤼㸲 was built under R version 3.4.2package 㤼㸱stringr㤼㸲 was built under R version 3.4.3package 㤼㸱forcats㤼㸲 was built under R version 3.4.3[37m-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
-[31mx[37m [34mdplyr[37m::[32mfilter()[37m masks [34mstats[37m::filter()
-[31mx[37m [34mdplyr[37m::[32mlag()[37m    masks [34mstats[37m::lag()[39m</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShza2ltcilcbmBgYCJ9 -->
-<pre class="r"><code>library(skimr)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDjpLzjuLFza2ltcuOkvOO4siB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNC4zXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixc2tpbXLjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOmRwbHly46S847iyOlxuXG4gICAgY29udGFpbnMsIGVuZHNfd2l0aCwgZXZlcnl0aGluZywgbWF0Y2hlcywgbnVtX3JhbmdlLCBvbmVfb2YsIHN0YXJ0c193aXRoXG4ifQ== -->
-<pre><code>package 㤼㸱skimr㤼㸲 was built under R version 3.4.3
-Attaching package: 㤼㸱skimr㤼㸲
-
-The following objects are masked from 㤼㸱package:dplyr㤼㸲:
-
-    contains, ends_with, everything, matches, num_range, one_of, starts_with</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3ZpcylcbmBgYCJ9 -->
-<pre class="r"><code>library(ggvis)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixZ2d2aXPjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3QgaXMgbWFza2VkIGZyb20g46S847ixcGFja2FnZTpnZ3Bsb3Qy46S847iyOlxuXG4gICAgcmVzb2x1dGlvblxuIn0= -->
-<pre><code>
-Attaching package: 㤼㸱ggvis㤼㸲
-
-The following object is masked from 㤼㸱package:ggplot2㤼㸲:
-
-    resolution</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -360,20 +330,6 @@ The following object is masked from 㤼㸱package:ggplot2㤼㸲:
   &quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv&quot;, 
   skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTWlzc2luZyBjb2x1bW4gbmFtZXMgZmlsbGVkIGluOiAnWDEnIFsxXUR1cGxpY2F0ZWQgY29sdW1uIG5hbWVzIGRlZHVwbGljYXRlZDogJ1Jlc3BvbnNlJyA9PiAnUmVzcG9uc2VfMScgWzNdLCAnU3RhciBXYXJzOiBFcGlzb2RlIEkgIFRoZSBQaGFudG9tIE1lbmFjZScgPT4gJ1N0YXIgV2FyczogRXBpc29kZSBJICBUaGUgUGhhbnRvbSBNZW5hY2VfMScgWzEwXSwgJ1N0YXIgV2FyczogRXBpc29kZSBJSSAgQXR0YWNrIG9mIHRoZSBDbG9uZXMnID0+ICdTdGFyIFdhcnM6IEVwaXNvZGUgSUkgIEF0dGFjayBvZiB0aGUgQ2xvbmVzXzEnIFsxMV0sICdTdGFyIFdhcnM6IEVwaXNvZGUgSUlJICBSZXZlbmdlIG9mIHRoZSBTaXRoJyA9PiAnU3RhciBXYXJzOiBFcGlzb2RlIElJSSAgUmV2ZW5nZSBvZiB0aGUgU2l0aF8xJyBbMTJdLCAnU3RhciBXYXJzOiBFcGlzb2RlIElWICBBIE5ldyBIb3BlJyA9PiAnU3RhciBXYXJzOiBFcGlzb2RlIElWICBBIE5ldyBIb3BlXzEnIFsxM10sICdTdGFyIFdhcnM6IEVwaXNvZGUgViBUaGUgRW1waXJlIFN0cmlrZXMgQmFjaycgPT4gJ1N0YXIgV2FyczogRXBpc29kZSBWIFRoZSBFbXBpcmUgU3RyaWtlcyBCYWNrXzEnIFsxNF0sICdTdGFyIFdhcnM6IEVwaXNvZGUgVkkgUmV0dXJuIG9mIHRoZSBKZWRpJyA9PiAnU3RhciBXYXJzOiBFcGlzb2RlIFZJIFJldHVybiBvZiB0aGUgSmVkaV8xJyBbMTVdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV8yJyBbMzBdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV8zJyBbMzFdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV80JyBbMzJdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV81JyBbMzNdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV82JyBbMzRdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV83JyBbMzVdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV84JyBbMzZdLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV85JyBbMzddLCAnUmVzcG9uc2UnID0+ICdSZXNwb25zZV8xMCcgWzM4XVBhcnNlZCB3aXRoIGNvbHVtbiBzcGVjaWZpY2F0aW9uOlxuY29scyhcbiAgLmRlZmF1bHQgPSBjb2xfY2hhcmFjdGVyKCksXG4gIFgxID0gY29sX2RvdWJsZSgpLFxuICBgU3RhciBXYXJzOiBFcGlzb2RlIEkgIFRoZSBQaGFudG9tIE1lbmFjZV8xYCA9IGNvbF9pbnRlZ2VyKCksXG4gIGBTdGFyIFdhcnM6IEVwaXNvZGUgSUkgIEF0dGFjayBvZiB0aGUgQ2xvbmVzXzFgID0gY29sX2ludGVnZXIoKSxcbiAgYFN0YXIgV2FyczogRXBpc29kZSBJSUkgIFJldmVuZ2Ugb2YgdGhlIFNpdGhfMWAgPSBjb2xfaW50ZWdlcigpLFxuICBgU3RhciBXYXJzOiBFcGlzb2RlIElWICBBIE5ldyBIb3BlXzFgID0gY29sX2ludGVnZXIoKSxcbiAgYFN0YXIgV2FyczogRXBpc29kZSBWIFRoZSBFbXBpcmUgU3RyaWtlcyBCYWNrXzFgID0gY29sX2ludGVnZXIoKSxcbiAgYFN0YXIgV2FyczogRXBpc29kZSBWSSBSZXR1cm4gb2YgdGhlIEplZGlfMWAgPSBjb2xfaW50ZWdlcigpXG4pXG5TZWUgc3BlYyguLi4pIGZvciBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9ucy5cbiJ9 -->
-<pre><code>Missing column names filled in: 'X1' [1]Duplicated column names deduplicated: 'Response' =&gt; 'Response_1' [3], 'Star Wars: Episode I  The Phantom Menace' =&gt; 'Star Wars: Episode I  The Phantom Menace_1' [10], 'Star Wars: Episode II  Attack of the Clones' =&gt; 'Star Wars: Episode II  Attack of the Clones_1' [11], 'Star Wars: Episode III  Revenge of the Sith' =&gt; 'Star Wars: Episode III  Revenge of the Sith_1' [12], 'Star Wars: Episode IV  A New Hope' =&gt; 'Star Wars: Episode IV  A New Hope_1' [13], 'Star Wars: Episode V The Empire Strikes Back' =&gt; 'Star Wars: Episode V The Empire Strikes Back_1' [14], 'Star Wars: Episode VI Return of the Jedi' =&gt; 'Star Wars: Episode VI Return of the Jedi_1' [15], 'Response' =&gt; 'Response_2' [30], 'Response' =&gt; 'Response_3' [31], 'Response' =&gt; 'Response_4' [32], 'Response' =&gt; 'Response_5' [33], 'Response' =&gt; 'Response_6' [34], 'Response' =&gt; 'Response_7' [35], 'Response' =&gt; 'Response_8' [36], 'Response' =&gt; 'Response_9' [37], 'Response' =&gt; 'Response_10' [38]Parsed with column specification:
-cols(
-  .default = col_character(),
-  X1 = col_double(),
-  `Star Wars: Episode I  The Phantom Menace_1` = col_integer(),
-  `Star Wars: Episode II  Attack of the Clones_1` = col_integer(),
-  `Star Wars: Episode III  Revenge of the Sith_1` = col_integer(),
-  `Star Wars: Episode IV  A New Hope_1` = col_integer(),
-  `Star Wars: Episode V The Empire Strikes Back_1` = col_integer(),
-  `Star Wars: Episode VI Return of the Jedi_1` = col_integer()
-)
-See spec(...) for full column specifications.</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -409,23 +365,23 @@ See spec(...) for full column specifications.</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSlcbmBgYCJ9 -->
 <pre class="r"><code>glimpse(sw_characters_favorability)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiT2JzZXJ2YXRpb25zOiAxLDE4NlxuVmFyaWFibGVzOiAxNFxuJCBgSGFuIFNvbG9gICAgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiU29tZXdoYXQgZmF2b3JhYmx5XCIsIFwiVmVyeSBmYXZvcmFibC4uLlxuJCBgTHVrZSBTa3l3YWxrZXJgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiU29tZXdoYXQgZmF2b3JhYmx5XCIsIFwiVmVyeSBmYXZvcmFibC4uLlxuJCBgUHJpbmNlc3MgTGVpYSBPcmdhbmFgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiU29tZXdoYXQgZmF2b3JhYmx5XCIsIFwiVmVyeSBmYXZvcmFibC4uLlxuJCBgQW5ha2luIFNreXdhbGtlcmAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiU29tZXdoYXQgZmF2b3JhYmx5XCIsIFwiVmVyeSBmYXZvcmFibC4uLlxuJCBgT2JpIFdhbiBLZW5vYmlgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiU29tZXdoYXQgZmF2b3JhYmx5XCIsIFwiVmVyeSBmYXZvcmFibC4uLlxuJCBgRW1wZXJvciBQYWxwYXRpbmVgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiVW5mYW1pbGlhciAoTi9BKVwiLCBcIlNvbWV3aGF0IGZhdm9yYS4uLlxuJCBgRGFydGggVmFkZXJgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiVW5mYW1pbGlhciAoTi9BKVwiLCBcIlZlcnkgZmF2b3JhYmx5XCIuLi5cbiQgYExhbmRvIENhbHJpc3NpYW5gICAgICA8Y2hyPiBcIlVuZmFtaWxpYXIgKE4vQSlcIiwgTkEsIFwiVW5mYW1pbGlhciAoTi9BKVwiLCBcIlNvbWV3aGF0IGZhdm8uLi5cbiQgYEJvYmEgRmV0dGAgICAgICAgICAgICA8Y2hyPiBcIlVuZmFtaWxpYXIgKE4vQSlcIiwgTkEsIFwiVW5mYW1pbGlhciAoTi9BKVwiLCBcIlNvbWV3aGF0IHVuZmEuLi5cbiQgYEMtM1AwYCAgICAgICAgICAgICAgICA8Y2hyPiBcIlZlcnkgZmF2b3JhYmx5XCIsIE5BLCBcIlVuZmFtaWxpYXIgKE4vQSlcIiwgXCJWZXJ5IGZhdm9yYWJseVwiLi4uXG4kIGBSMiBEMmAgICAgICAgICAgICAgICAgPGNocj4gXCJWZXJ5IGZhdm9yYWJseVwiLCBOQSwgXCJVbmZhbWlsaWFyIChOL0EpXCIsIFwiVmVyeSBmYXZvcmFibHlcIi4uLlxuJCBgSmFyIEphciBCaW5rc2AgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTkEsIFwiVW5mYW1pbGlhciAoTi9BKVwiLCBcIlZlcnkgZmF2b3JhYmx5XCIuLi5cbiQgYFBhZG1lIEFtaWRhbGFgICAgICAgICA8Y2hyPiBcIlZlcnkgZmF2b3JhYmx5XCIsIE5BLCBcIlVuZmFtaWxpYXIgKE4vQSlcIiwgXCJWZXJ5IGZhdm9yYWJseVwiLi4uXG4kIFlvZGEgICAgICAgICAgICAgICAgICAgPGNocj4gXCJWZXJ5IGZhdm9yYWJseVwiLCBOQSwgXCJVbmZhbWlsaWFyIChOL0EpXCIsIFwiVmVyeSBmYXZvcmFibHlcIi4uLlxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiT2JzZXJ2YXRpb25zOiAxLDE4NlxuVmFyaWFibGVzOiAxNFxuJCBgSGFuIFNvbG9gICAgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgTHVrZSBTa3l3YWxrZXJgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgUHJpbmNlc3MgTGVpYSBPcmdhbmFgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgQW5ha2luIFNreXdhbGtlcmAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgT2JpIFdhbiBLZW5vYmlgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgRW1wZXJvciBQYWxwYXRpbmVgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgRGFydGggVmFkZXJgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgTGFuZG8gQ2Fscmlzc2lhbmAgICAgIDxjaHI+IFwiVW5mYW1pbGlhciAoTi9BKVwiLC4uLlxuJCBgQm9iYSBGZXR0YCAgICAgICAgICAgIDxjaHI+IFwiVW5mYW1pbGlhciAoTi9BKVwiLC4uLlxuJCBgQy0zUDBgICAgICAgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgUjIgRDJgICAgICAgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgSmFyIEphciBCaW5rc2AgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBgUGFkbWUgQW1pZGFsYWAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuJCBZb2RhICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiVmVyeSBmYXZvcmFibHlcIiwgTi4uLlxuIn0= -->
 <pre><code>Observations: 1,186
 Variables: 14
-$ `Han Solo`             &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Somewhat favorably&quot;, &quot;Very favorabl...
-$ `Luke Skywalker`       &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Somewhat favorably&quot;, &quot;Very favorabl...
-$ `Princess Leia Organa` &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Somewhat favorably&quot;, &quot;Very favorabl...
-$ `Anakin Skywalker`     &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Somewhat favorably&quot;, &quot;Very favorabl...
-$ `Obi Wan Kenobi`       &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Somewhat favorably&quot;, &quot;Very favorabl...
-$ `Emperor Palpatine`    &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Somewhat favora...
-$ `Darth Vader`          &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...
-$ `Lando Calrissian`     &lt;chr&gt; &quot;Unfamiliar (N/A)&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Somewhat favo...
-$ `Boba Fett`            &lt;chr&gt; &quot;Unfamiliar (N/A)&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Somewhat unfa...
-$ `C-3P0`                &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...
-$ `R2 D2`                &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...
-$ `Jar Jar Binks`        &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...
-$ `Padme Amidala`        &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...
-$ Yoda                   &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfamiliar (N/A)&quot;, &quot;Very favorably&quot;...</code></pre>
+$ `Han Solo`             &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Luke Skywalker`       &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Princess Leia Organa` &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Anakin Skywalker`     &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Obi Wan Kenobi`       &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Emperor Palpatine`    &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Darth Vader`          &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Lando Calrissian`     &lt;chr&gt; &quot;Unfamiliar (N/A)&quot;,...
+$ `Boba Fett`            &lt;chr&gt; &quot;Unfamiliar (N/A)&quot;,...
+$ `C-3P0`                &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `R2 D2`                &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Jar Jar Binks`        &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ `Padme Amidala`        &lt;chr&gt; &quot;Very favorably&quot;, N...
+$ Yoda                   &lt;chr&gt; &quot;Very favorably&quot;, N...</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -454,11 +410,13 @@ $ Yoda                   &lt;chr&gt; &quot;Very favorably&quot;, NA, &quot;Unfam
 <pre class="r"><code>sw_characters_colnames &lt;- colnames(sw_characters_favorability)
 sw_characters_colnames</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkhhbiBTb2xvXCIgICAgICAgICAgICAgXCJMdWtlIFNreXdhbGtlclwiICAgICAgIFwiUHJpbmNlc3MgTGVpYSBPcmdhbmFcIlxuIFs0XSBcIkFuYWtpbiBTa3l3YWxrZXJcIiAgICAgXCJPYmkgV2FuIEtlbm9iaVwiICAgICAgIFwiRW1wZXJvciBQYWxwYXRpbmVcIiAgIFxuIFs3XSBcIkRhcnRoIFZhZGVyXCIgICAgICAgICAgXCJMYW5kbyBDYWxyaXNzaWFuXCIgICAgIFwiQm9iYSBGZXR0XCIgICAgICAgICAgIFxuWzEwXSBcIkMtM1AwXCIgICAgICAgICAgICAgICAgXCJSMiBEMlwiICAgICAgICAgICAgICAgIFwiSmFyIEphciBCaW5rc1wiICAgICAgIFxuWzEzXSBcIlBhZG1lIEFtaWRhbGFcIiAgICAgICAgXCJZb2RhXCIgICAgICAgICAgICAgICAgXG4ifQ== -->
-<pre><code> [1] &quot;Han Solo&quot;             &quot;Luke Skywalker&quot;       &quot;Princess Leia Organa&quot;
- [4] &quot;Anakin Skywalker&quot;     &quot;Obi Wan Kenobi&quot;       &quot;Emperor Palpatine&quot;   
- [7] &quot;Darth Vader&quot;          &quot;Lando Calrissian&quot;     &quot;Boba Fett&quot;           
-[10] &quot;C-3P0&quot;                &quot;R2 D2&quot;                &quot;Jar Jar Binks&quot;       
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIkhhbiBTb2xvXCIgICAgICAgICAgICAgXCJMdWtlIFNreXdhbGtlclwiICAgICAgXG4gWzNdIFwiUHJpbmNlc3MgTGVpYSBPcmdhbmFcIiBcIkFuYWtpbiBTa3l3YWxrZXJcIiAgICBcbiBbNV0gXCJPYmkgV2FuIEtlbm9iaVwiICAgICAgIFwiRW1wZXJvciBQYWxwYXRpbmVcIiAgIFxuIFs3XSBcIkRhcnRoIFZhZGVyXCIgICAgICAgICAgXCJMYW5kbyBDYWxyaXNzaWFuXCIgICAgXG4gWzldIFwiQm9iYSBGZXR0XCIgICAgICAgICAgICBcIkMtM1AwXCIgICAgICAgICAgICAgICBcblsxMV0gXCJSMiBEMlwiICAgICAgICAgICAgICAgIFwiSmFyIEphciBCaW5rc1wiICAgICAgIFxuWzEzXSBcIlBhZG1lIEFtaWRhbGFcIiAgICAgICAgXCJZb2RhXCIgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;Han Solo&quot;             &quot;Luke Skywalker&quot;      
+ [3] &quot;Princess Leia Organa&quot; &quot;Anakin Skywalker&quot;    
+ [5] &quot;Obi Wan Kenobi&quot;       &quot;Emperor Palpatine&quot;   
+ [7] &quot;Darth Vader&quot;          &quot;Lando Calrissian&quot;    
+ [9] &quot;Boba Fett&quot;            &quot;C-3P0&quot;               
+[11] &quot;R2 D2&quot;                &quot;Jar Jar Binks&quot;       
 [13] &quot;Padme Amidala&quot;        &quot;Yoda&quot;                </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
@@ -517,7 +475,7 @@ sw_joined %&gt;%
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2tpbShzd19qb2luZWQpXG5gYGAifQ== -->
 <pre class="r"><code>skim(sw_joined)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU2tpbSBzdW1tYXJ5IHN0YXRpc3RpY3NcbiBuIG9iczogOCBcbiBuIHZhcmlhYmxlczogMTQgXG5cblZhcmlhYmxlIHR5cGU6IGNoYXJhY3RlciBcbiAgIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgbiBtaW4gbWF4IGVtcHR5IG5fdW5pcXVlXG4gIGV5ZV9jb2xvciAgICAgICAwICAgICAgICA4IDggICA0ICAgNiAgICAgMCAgICAgICAgNFxuICAgICBnZW5kZXIgICAgICAgMCAgICAgICAgOCA4ICAgNCAgIDQgICAgIDAgICAgICAgIDFcbiBoYWlyX2NvbG9yICAgICAgIDAgICAgICAgIDggOCAgIDQgICA1ICAgICAwICAgICAgICA1XG4gIGhvbWV3b3JsZCAgICAgICAxICAgICAgICA3IDggICA1ICAgOCAgICAgMCAgICAgICAgNVxuICAgICAgIG5hbWUgICAgICAgMCAgICAgICAgOCA4ICAgNCAgMTYgICAgIDAgICAgICAgIDhcbiBza2luX2NvbG9yICAgICAgIDAgICAgICAgIDggOCAgIDQgICA2ICAgICAwICAgICAgICA1XG4gICAgc3BlY2llcyAgICAgICAwICAgICAgICA4IDggICA1ICAxNCAgICAgMCAgICAgICAgM1xuXG5WYXJpYWJsZSB0eXBlOiBpbnRlZ2VyIFxuICAgdmFyaWFibGUgbWlzc2luZyBjb21wbGV0ZSBuICAgbWVhbiAgICAgc2QgIHAwICAgIHAyNSBtZWRpYW4gICAgcDc1IHAxMDAgICAgIGhpc3RcbiBmYXZfcmF0aW5nICAgICAgIDAgICAgICAgIDggOCAzMzkuMjUgMjE3LjEyIDExMiAxNDEgICAgIDI3Ny41IDU2NS4yNSAgNjEwIOKWh+KWgeKWguKWguKWgeKWgeKWgeKWh1xuICAgICBoZWlnaHQgICAgICAgMCAgICAgICAgOCA4IDE3MC41ICAgNDMuMzYgIDY2IDE3NS43NSAgMTgxLjUgMTkwICAgICAyMDIg4paC4paB4paB4paB4paB4paB4paH4paGXG5cblZhcmlhYmxlIHR5cGU6IGxpc3QgXG4gIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgbiBuX3VuaXF1ZSBtaW5fbGVuZ3RoIG1lZGlhbl9sZW5ndGggbWF4X2xlbmd0aFxuICAgICBmaWxtcyAgICAgICAwICAgICAgICA4IDggICAgICAgIDggICAgICAgICAgMiAgICAgICAgICAgMy41ICAgICAgICAgIDVcbiBzdGFyc2hpcHMgICAgICAgMCAgICAgICAgOCA4ICAgICAgICA3ICAgICAgICAgIDAgICAgICAgICAgIDEgICAgICAgICAgICAzXG4gIHZlaGljbGVzICAgICAgIDAgICAgICAgIDggOCAgICAgICAgMyAgICAgICAgICAwICAgICAgICAgICAwICAgICAgICAgICAgMlxuXG5WYXJpYWJsZSB0eXBlOiBudW1lcmljIFxuICAgdmFyaWFibGUgbWlzc2luZyBjb21wbGV0ZSBuICAgbWVhbiAgICAgc2QgcDAgICBwMjUgbWVkaWFuICAgcDc1IHAxMDAgICAgIGhpc3RcbiBiaXJ0aF95ZWFyICAgICAgIDAgICAgICAgIDggOCAxNDIuNzkgMzA0LjUxIDE5IDMwLjUgICAgMzYuNyA0NC40MiAgODk2IOKWh+KWgeKWgeKWgeKWgeKWgeKWgeKWgVxuICAgICAgIG1hc3MgICAgICAgMCAgICAgICAgOCA4ICA3Ny4xNSAgMzIuMjIgMTcgNzQuMjUgICA3OC42IDgxICAgICAxMzYg4paC4paB4paB4paC4paH4paB4paB4paCXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiU2tpbSBzdW1tYXJ5IHN0YXRpc3RpY3NcbiBuIG9iczogOCBcbiBuIHZhcmlhYmxlczogMTQgXG5cblZhcmlhYmxlIHR5cGU6IGNoYXJhY3RlciBcbiAgIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgbiBtaW4gbWF4IGVtcHR5IG5fdW5pcXVlXG4gIGV5ZV9jb2xvciAgICAgICAwICAgICAgICA4IDggICA0ICAgNiAgICAgMCAgICAgICAgNFxuICAgICBnZW5kZXIgICAgICAgMCAgICAgICAgOCA4ICAgNCAgIDQgICAgIDAgICAgICAgIDFcbiBoYWlyX2NvbG9yICAgICAgIDAgICAgICAgIDggOCAgIDQgICA1ICAgICAwICAgICAgICA1XG4gIGhvbWV3b3JsZCAgICAgICAxICAgICAgICA3IDggICA1ICAgOCAgICAgMCAgICAgICAgNVxuICAgICAgIG5hbWUgICAgICAgMCAgICAgICAgOCA4ICAgNCAgMTYgICAgIDAgICAgICAgIDhcbiBza2luX2NvbG9yICAgICAgIDAgICAgICAgIDggOCAgIDQgICA2ICAgICAwICAgICAgICA1XG4gICAgc3BlY2llcyAgICAgICAwICAgICAgICA4IDggICA1ICAxNCAgICAgMCAgICAgICAgM1xuXG5WYXJpYWJsZSB0eXBlOiBpbnRlZ2VyIFxuICAgdmFyaWFibGUgbWlzc2luZyBjb21wbGV0ZSBuICAgbWVhbiAgICAgc2QgIHAwXG4gZmF2X3JhdGluZyAgICAgICAwICAgICAgICA4IDggMzM5LjI1IDIxNy4xMiAxMTJcbiAgICAgaGVpZ2h0ICAgICAgIDAgICAgICAgIDggOCAxNzAuNSAgIDQzLjM2ICA2NlxuICAgIHAyNSBtZWRpYW4gICAgcDc1IHAxMDAgICAgIGhpc3RcbiAxNDEgICAgIDI3Ny41IDU2NS4yNSAgNjEwIOKWh+KWgeKWguKWguKWgeKWgeKWgeKWh1xuIDE3NS43NSAgMTgxLjUgMTkwICAgICAyMDIg4paC4paB4paB4paB4paB4paB4paH4paGXG5cblZhcmlhYmxlIHR5cGU6IGxpc3QgXG4gIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgbiBuX3VuaXF1ZSBtaW5fbGVuZ3RoXG4gICAgIGZpbG1zICAgICAgIDAgICAgICAgIDggOCAgICAgICAgOCAgICAgICAgICAyXG4gc3RhcnNoaXBzICAgICAgIDAgICAgICAgIDggOCAgICAgICAgNyAgICAgICAgICAwXG4gIHZlaGljbGVzICAgICAgIDAgICAgICAgIDggOCAgICAgICAgMyAgICAgICAgICAwXG4gbWVkaWFuX2xlbmd0aCBtYXhfbGVuZ3RoXG4gICAgICAgICAgIDMuNSAgICAgICAgICA1XG4gICAgICAgICAgIDEgICAgICAgICAgICAzXG4gICAgICAgICAgIDAgICAgICAgICAgICAyXG5cblZhcmlhYmxlIHR5cGU6IG51bWVyaWMgXG4gICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlIG4gICBtZWFuICAgICBzZCBwMCAgIHAyNVxuIGJpcnRoX3llYXIgICAgICAgMCAgICAgICAgOCA4IDE0Mi43OSAzMDQuNTEgMTkgMzAuNSBcbiAgICAgICBtYXNzICAgICAgIDAgICAgICAgIDggOCAgNzcuMTUgIDMyLjIyIDE3IDc0LjI1XG4gbWVkaWFuICAgcDc1IHAxMDAgICAgIGhpc3RcbiAgIDM2LjcgNDQuNDIgIDg5NiDilofiloHiloHiloHiloHiloHiloHiloFcbiAgIDc4LjYgODEgICAgIDEzNiDiloLiloHiloHiloLilofiloHiloHiloJcbiJ9 -->
 <pre><code>Skim summary statistics
  n obs: 8 
  n variables: 14 
@@ -533,20 +491,30 @@ Variable type: character
     species       0        8 8   5  14     0        3
 
 Variable type: integer 
-   variable missing complete n   mean     sd  p0    p25 median    p75 p100     hist
- fav_rating       0        8 8 339.25 217.12 112 141     277.5 565.25  610 ▇▁▂▂▁▁▁▇
-     height       0        8 8 170.5   43.36  66 175.75  181.5 190     202 ▂▁▁▁▁▁▇▆
+   variable missing complete n   mean     sd  p0
+ fav_rating       0        8 8 339.25 217.12 112
+     height       0        8 8 170.5   43.36  66
+    p25 median    p75 p100     hist
+ 141     277.5 565.25  610 ▇▁▂▂▁▁▁▇
+ 175.75  181.5 190     202 ▂▁▁▁▁▁▇▆
 
 Variable type: list 
-  variable missing complete n n_unique min_length median_length max_length
-     films       0        8 8        8          2           3.5          5
- starships       0        8 8        7          0           1            3
-  vehicles       0        8 8        3          0           0            2
+  variable missing complete n n_unique min_length
+     films       0        8 8        8          2
+ starships       0        8 8        7          0
+  vehicles       0        8 8        3          0
+ median_length max_length
+           3.5          5
+           1            3
+           0            2
 
 Variable type: numeric 
-   variable missing complete n   mean     sd p0   p25 median   p75 p100     hist
- birth_year       0        8 8 142.79 304.51 19 30.5    36.7 44.42  896 ▇▁▁▁▁▁▁▁
-       mass       0        8 8  77.15  32.22 17 74.25   78.6 81     136 ▂▁▁▂▇▁▁▂</code></pre>
+   variable missing complete n   mean     sd p0   p25
+ birth_year       0        8 8 142.79 304.51 19 30.5 
+       mass       0        8 8  77.15  32.22 17 74.25
+ median   p75 p100     hist
+   36.7 44.42  896 ▇▁▁▁▁▁▁▁
+   78.6 81     136 ▂▁▁▂▇▁▁▂</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -556,7 +524,7 @@ Variable type: numeric
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2tpbShzdGFyd2FycylcbmBgYCJ9 -->
 <pre class="r"><code>skim(starwars)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU2tpbSBzdW1tYXJ5IHN0YXRpc3RpY3NcbiBuIG9iczogODcgXG4gbiB2YXJpYWJsZXM6IDEzIFxuXG5WYXJpYWJsZSB0eXBlOiBjaGFyYWN0ZXIgXG4gICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlICBuIG1pbiBtYXggZW1wdHkgbl91bmlxdWVcbiAgZXllX2NvbG9yICAgICAgIDAgICAgICAgODcgODcgICAzICAxMyAgICAgMCAgICAgICAxNVxuICAgICBnZW5kZXIgICAgICAgMyAgICAgICA4NCA4NyAgIDQgIDEzICAgICAwICAgICAgICA0XG4gaGFpcl9jb2xvciAgICAgICA1ICAgICAgIDgyIDg3ICAgNCAgMTMgICAgIDAgICAgICAgMTJcbiAgaG9tZXdvcmxkICAgICAgMTAgICAgICAgNzcgODcgICA0ICAxNCAgICAgMCAgICAgICA0OFxuICAgICAgIG5hbWUgICAgICAgMCAgICAgICA4NyA4NyAgIDMgIDIxICAgICAwICAgICAgIDg3XG4gc2tpbl9jb2xvciAgICAgICAwICAgICAgIDg3IDg3ICAgMyAgMTkgICAgIDAgICAgICAgMzFcbiAgICBzcGVjaWVzICAgICAgIDUgICAgICAgODIgODcgICAzICAxNCAgICAgMCAgICAgICAzN1xuXG5WYXJpYWJsZSB0eXBlOiBpbnRlZ2VyIFxuIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgIG4gICBtZWFuICAgIHNkIHAwIHAyNSBtZWRpYW4gcDc1IHAxMDAgICAgIGhpc3RcbiAgIGhlaWdodCAgICAgICA2ICAgICAgIDgxIDg3IDE3NC4zNiAzNC43NyA2NiAxNjcgICAgMTgwIDE5MSAgMjY0IOKWgeKWgeKWgeKWguKWh+KWg+KWgeKWgVxuXG5WYXJpYWJsZSB0eXBlOiBsaXN0IFxuICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlICBuIG5fdW5pcXVlIG1pbl9sZW5ndGggbWVkaWFuX2xlbmd0aCBtYXhfbGVuZ3RoXG4gICAgIGZpbG1zICAgICAgIDAgICAgICAgODcgODcgICAgICAgMjQgICAgICAgICAgMSAgICAgICAgICAgICAxICAgICAgICAgIDdcbiBzdGFyc2hpcHMgICAgICAgMCAgICAgICA4NyA4NyAgICAgICAxNyAgICAgICAgICAwICAgICAgICAgICAgIDAgICAgICAgICAgNVxuICB2ZWhpY2xlcyAgICAgICAwICAgICAgIDg3IDg3ICAgICAgIDExICAgICAgICAgIDAgICAgICAgICAgICAgMCAgICAgICAgICAyXG5cblZhcmlhYmxlIHR5cGU6IG51bWVyaWMgXG4gICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlICBuICBtZWFuICAgICBzZCBwMCAgcDI1IG1lZGlhbiAgcDc1IHAxMDAgICAgIGhpc3RcbiBiaXJ0aF95ZWFyICAgICAgNDQgICAgICAgNDMgODcgODcuNTcgMTU0LjY5ICA4IDM1ICAgICAgIDUyIDcyICAgIDg5NiDilofiloHiloHiloHiloHiloHiloHiloFcbiAgICAgICBtYXNzICAgICAgMjggICAgICAgNTkgODcgOTcuMzEgMTY5LjQ2IDE1IDU1LjYgICAgIDc5IDg0LjUgMTM1OCDilofiloHiloHiloHiloHiloHiloHiloFcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiU2tpbSBzdW1tYXJ5IHN0YXRpc3RpY3NcbiBuIG9iczogODcgXG4gbiB2YXJpYWJsZXM6IDEzIFxuXG5WYXJpYWJsZSB0eXBlOiBjaGFyYWN0ZXIgXG4gICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlICBuIG1pbiBtYXggZW1wdHkgbl91bmlxdWVcbiAgZXllX2NvbG9yICAgICAgIDAgICAgICAgODcgODcgICAzICAxMyAgICAgMCAgICAgICAxNVxuICAgICBnZW5kZXIgICAgICAgMyAgICAgICA4NCA4NyAgIDQgIDEzICAgICAwICAgICAgICA0XG4gaGFpcl9jb2xvciAgICAgICA1ICAgICAgIDgyIDg3ICAgNCAgMTMgICAgIDAgICAgICAgMTJcbiAgaG9tZXdvcmxkICAgICAgMTAgICAgICAgNzcgODcgICA0ICAxNCAgICAgMCAgICAgICA0OFxuICAgICAgIG5hbWUgICAgICAgMCAgICAgICA4NyA4NyAgIDMgIDIxICAgICAwICAgICAgIDg3XG4gc2tpbl9jb2xvciAgICAgICAwICAgICAgIDg3IDg3ICAgMyAgMTkgICAgIDAgICAgICAgMzFcbiAgICBzcGVjaWVzICAgICAgIDUgICAgICAgODIgODcgICAzICAxNCAgICAgMCAgICAgICAzN1xuXG5WYXJpYWJsZSB0eXBlOiBpbnRlZ2VyIFxuIHZhcmlhYmxlIG1pc3NpbmcgY29tcGxldGUgIG4gICBtZWFuICAgIHNkIHAwIHAyNVxuICAgaGVpZ2h0ICAgICAgIDYgICAgICAgODEgODcgMTc0LjM2IDM0Ljc3IDY2IDE2N1xuIG1lZGlhbiBwNzUgcDEwMCAgICAgaGlzdFxuICAgIDE4MCAxOTEgIDI2NCDiloHiloHiloHiloLilofiloPiloHiloFcblxuVmFyaWFibGUgdHlwZTogbGlzdCBcbiAgdmFyaWFibGUgbWlzc2luZyBjb21wbGV0ZSAgbiBuX3VuaXF1ZSBtaW5fbGVuZ3RoXG4gICAgIGZpbG1zICAgICAgIDAgICAgICAgODcgODcgICAgICAgMjQgICAgICAgICAgMVxuIHN0YXJzaGlwcyAgICAgICAwICAgICAgIDg3IDg3ICAgICAgIDE3ICAgICAgICAgIDBcbiAgdmVoaWNsZXMgICAgICAgMCAgICAgICA4NyA4NyAgICAgICAxMSAgICAgICAgICAwXG4gbWVkaWFuX2xlbmd0aCBtYXhfbGVuZ3RoXG4gICAgICAgICAgICAgMSAgICAgICAgICA3XG4gICAgICAgICAgICAgMCAgICAgICAgICA1XG4gICAgICAgICAgICAgMCAgICAgICAgICAyXG5cblZhcmlhYmxlIHR5cGU6IG51bWVyaWMgXG4gICB2YXJpYWJsZSBtaXNzaW5nIGNvbXBsZXRlICBuICBtZWFuICAgICBzZCBwMCAgcDI1XG4gYmlydGhfeWVhciAgICAgIDQ0ICAgICAgIDQzIDg3IDg3LjU3IDE1NC42OSAgOCAzNSAgXG4gICAgICAgbWFzcyAgICAgIDI4ICAgICAgIDU5IDg3IDk3LjMxIDE2OS40NiAxNSA1NS42XG4gbWVkaWFuICBwNzUgcDEwMCAgICAgaGlzdFxuICAgICA1MiA3MiAgICA4OTYg4paH4paB4paB4paB4paB4paB4paB4paBXG4gICAgIDc5IDg0LjUgMTM1OCDilofiloHiloHiloHiloHiloHiloHiloFcbiJ9 -->
 <pre><code>Skim summary statistics
  n obs: 87 
  n variables: 13 
@@ -572,19 +540,28 @@ Variable type: character
     species       5       82 87   3  14     0       37
 
 Variable type: integer 
- variable missing complete  n   mean    sd p0 p25 median p75 p100     hist
-   height       6       81 87 174.36 34.77 66 167    180 191  264 ▁▁▁▂▇▃▁▁
+ variable missing complete  n   mean    sd p0 p25
+   height       6       81 87 174.36 34.77 66 167
+ median p75 p100     hist
+    180 191  264 ▁▁▁▂▇▃▁▁
 
 Variable type: list 
-  variable missing complete  n n_unique min_length median_length max_length
-     films       0       87 87       24          1             1          7
- starships       0       87 87       17          0             0          5
-  vehicles       0       87 87       11          0             0          2
+  variable missing complete  n n_unique min_length
+     films       0       87 87       24          1
+ starships       0       87 87       17          0
+  vehicles       0       87 87       11          0
+ median_length max_length
+             1          7
+             0          5
+             0          2
 
 Variable type: numeric 
-   variable missing complete  n  mean     sd p0  p25 median  p75 p100     hist
- birth_year      44       43 87 87.57 154.69  8 35       52 72    896 ▇▁▁▁▁▁▁▁
-       mass      28       59 87 97.31 169.46 15 55.6     79 84.5 1358 ▇▁▁▁▁▁▁▁</code></pre>
+   variable missing complete  n  mean     sd p0  p25
+ birth_year      44       43 87 87.57 154.69  8 35  
+       mass      28       59 87 97.31 169.46 15 55.6
+ median  p75 p100     hist
+     52 72    896 ▇▁▁▁▁▁▁▁
+     79 84.5 1358 ▇▁▁▁▁▁▁▁</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -605,27 +582,27 @@ Variable type: numeric
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_484580974-container" class="ggvis-output-container">
-  <div id="plot_484580974" class="ggvis-output"></div>
+<div id="plot_356549898-container" class="ggvis-output-container">
+  <div id="plot_356549898" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_484580974_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_484580974" data-renderer="svg">SVG</a>
+          <a id="plot_356549898_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_356549898" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_484580974_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_484580974" data-renderer="canvas">Canvas</a>
+          <a id="plot_356549898_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_356549898" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_484580974_download" class="ggvis-download" data-plot-id="plot_484580974">Download</a>
+          <a id="plot_356549898_download" class="ggvis-download" data-plot-id="plot_356549898">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_484580974_spec = {
+var plot_356549898_spec = {
   "data": [
     {
       "name": ".0",
@@ -746,7 +723,7 @@ var plot_484580974_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_484580974").parseSpec(plot_484580974_spec);
+ggvis.getPlot("plot_356549898").parseSpec(plot_356549898_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -771,27 +748,27 @@ ggvis.getPlot("plot_484580974").parseSpec(plot_484580974_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_696385305-container" class="ggvis-output-container">
-  <div id="plot_696385305" class="ggvis-output"></div>
+<div id="plot_773041732-container" class="ggvis-output-container">
+  <div id="plot_773041732" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_696385305_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_696385305" data-renderer="svg">SVG</a>
+          <a id="plot_773041732_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_773041732" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_696385305_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_696385305" data-renderer="canvas">Canvas</a>
+          <a id="plot_773041732_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_773041732" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_696385305_download" class="ggvis-download" data-plot-id="plot_696385305">Download</a>
+          <a id="plot_773041732_download" class="ggvis-download" data-plot-id="plot_773041732">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_696385305_spec = {
+var plot_773041732_spec = {
   "data": [
     {
       "name": ".0/group_by1/boxplot2_flat",
@@ -1097,7 +1074,7 @@ var plot_696385305_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_696385305").parseSpec(plot_696385305_spec);
+ggvis.getPlot("plot_773041732").parseSpec(plot_773041732_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1121,27 +1098,27 @@ ggvis.getPlot("plot_696385305").parseSpec(plot_696385305_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_327922300-container" class="ggvis-output-container">
-  <div id="plot_327922300" class="ggvis-output"></div>
+<div id="plot_783993636-container" class="ggvis-output-container">
+  <div id="plot_783993636" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_327922300_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_327922300" data-renderer="svg">SVG</a>
+          <a id="plot_783993636_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_783993636" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_327922300_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_327922300" data-renderer="canvas">Canvas</a>
+          <a id="plot_783993636_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_783993636" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_327922300_download" class="ggvis-download" data-plot-id="plot_327922300">Download</a>
+          <a id="plot_783993636_download" class="ggvis-download" data-plot-id="plot_783993636">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_327922300_spec = {
+var plot_783993636_spec = {
   "data": [
     {
       "name": ".0/bin1/stack2",
@@ -1272,7 +1249,7 @@ var plot_327922300_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_327922300").parseSpec(plot_327922300_spec);
+ggvis.getPlot("plot_783993636").parseSpec(plot_783993636_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1293,27 +1270,27 @@ ggvis.getPlot("plot_327922300").parseSpec(plot_327922300_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_586988584-container" class="ggvis-output-container">
-  <div id="plot_586988584" class="ggvis-output"></div>
+<div id="plot_469373297-container" class="ggvis-output-container">
+  <div id="plot_469373297" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_586988584_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_586988584" data-renderer="svg">SVG</a>
+          <a id="plot_469373297_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_469373297" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_586988584_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_586988584" data-renderer="canvas">Canvas</a>
+          <a id="plot_469373297_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_469373297" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_586988584_download" class="ggvis-download" data-plot-id="plot_586988584">Download</a>
+          <a id="plot_469373297_download" class="ggvis-download" data-plot-id="plot_469373297">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_586988584_spec = {
+var plot_469373297_spec = {
   "data": [
     {
       "name": ".0/bin1/stack2",
@@ -1444,7 +1421,7 @@ var plot_586988584_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_586988584").parseSpec(plot_586988584_spec);
+ggvis.getPlot("plot_469373297").parseSpec(plot_469373297_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1466,27 +1443,27 @@ starwars %&gt;%
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_789836126-container" class="ggvis-output-container">
-  <div id="plot_789836126" class="ggvis-output"></div>
+<div id="plot_890395540-container" class="ggvis-output-container">
+  <div id="plot_890395540" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_789836126_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_789836126" data-renderer="svg">SVG</a>
+          <a id="plot_890395540_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_890395540" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_789836126_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_789836126" data-renderer="canvas">Canvas</a>
+          <a id="plot_890395540_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_890395540" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_789836126_download" class="ggvis-download" data-plot-id="plot_789836126">Download</a>
+          <a id="plot_890395540_download" class="ggvis-download" data-plot-id="plot_890395540">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_789836126_spec = {
+var plot_890395540_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -1614,7 +1591,7 @@ var plot_789836126_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_789836126").parseSpec(plot_789836126_spec);
+ggvis.getPlot("plot_890395540").parseSpec(plot_890395540_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1635,27 +1612,27 @@ ggvis.getPlot("plot_789836126").parseSpec(plot_789836126_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_197172681-container" class="ggvis-output-container">
-  <div id="plot_197172681" class="ggvis-output"></div>
+<div id="plot_478923437-container" class="ggvis-output-container">
+  <div id="plot_478923437" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_197172681_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_197172681" data-renderer="svg">SVG</a>
+          <a id="plot_478923437_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_478923437" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_197172681_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_197172681" data-renderer="canvas">Canvas</a>
+          <a id="plot_478923437_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_478923437" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_197172681_download" class="ggvis-download" data-plot-id="plot_197172681">Download</a>
+          <a id="plot_478923437_download" class="ggvis-download" data-plot-id="plot_478923437">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_197172681_spec = {
+var plot_478923437_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -1783,7 +1760,7 @@ var plot_197172681_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_197172681").parseSpec(plot_197172681_spec);
+ggvis.getPlot("plot_478923437").parseSpec(plot_478923437_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1800,10 +1777,10 @@ ggvis.getPlot("plot_197172681").parseSpec(plot_197172681_spec);
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGV2dG9vbHM6OnNlc3Npb25faW5mbygpXG5gYGAifQ== -->
 <pre class="r"><code>devtools::session_info()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiU2Vzc2lvbiBpbmZvIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4ifQ== -->
-<pre><code>Session info --------------------------------------------------------------------------------</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiU2Vzc2lvbiBpbmZvIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4ifQ== -->
+<pre><code>Session info -----------------------------------------</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIHNldHRpbmcgIHZhbHVlICAgICAgICAgICAgICAgICAgICAgICBcbiB2ZXJzaW9uICBSIHZlcnNpb24gMy40LjEgKDIwMTctMDYtMzApXG4gc3lzdGVtICAgeDg2XzY0LCBtaW5ndzMyICAgICAgICAgICAgIFxuIHVpICAgICAgIFJTdHVkaW8gKDEuMS4zODMpICAgICAgICAgICBcbiBsYW5ndWFnZSAoRU4pICAgICAgICAgICAgICAgICAgICAgICAgXG4gY29sbGF0ZSAgRW5nbGlzaF9Vbml0ZWQgU3RhdGVzLjEyNTIgIFxuIHR6ICAgICAgIEFtZXJpY2EvTmV3X1lvcmsgICAgICAgICAgICBcbiBkYXRlICAgICAyMDE4LTAzLTIxICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiIHNldHRpbmcgIHZhbHVlICAgICAgICAgICAgICAgICAgICAgICBcbiB2ZXJzaW9uICBSIHZlcnNpb24gMy40LjEgKDIwMTctMDYtMzApXG4gc3lzdGVtICAgeDg2XzY0LCBtaW5ndzMyICAgICAgICAgICAgIFxuIHVpICAgICAgIFJTdHVkaW8gKDEuMS4zODMpICAgICAgICAgICBcbiBsYW5ndWFnZSAoRU4pICAgICAgICAgICAgICAgICAgICAgICAgXG4gY29sbGF0ZSAgRW5nbGlzaF9Vbml0ZWQgU3RhdGVzLjEyNTIgIFxuIHR6ICAgICAgIEFtZXJpY2EvTmV3X1lvcmsgICAgICAgICAgICBcbiBkYXRlICAgICAyMDE4LTAzLTIzICAgICAgICAgICAgICAgICAgXG4ifQ== -->
 <pre><code> setting  value                       
  version  R version 3.4.1 (2017-06-30)
  system   x86_64, mingw32             
@@ -1811,86 +1788,170 @@ ggvis.getPlot("plot_197172681").parseSpec(plot_197172681_spec);
  language (EN)                        
  collate  English_United States.1252  
  tz       America/New_York            
- date     2018-03-21                  </code></pre>
+ date     2018-03-23                  </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFja2FnZXMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4ifQ== -->
-<pre><code>Packages ------------------------------------------------------------------------------------</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUGFja2FnZXMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4ifQ== -->
+<pre><code>Packages ---------------------------------------------</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIHBhY2thZ2UgICAgKiB2ZXJzaW9uICAgIGRhdGUgICAgICAgc291cmNlICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGFzc2VydHRoYXQgICAwLjIuMCAgICAgIDIwMTctMDQtMTEgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGJhc2UgICAgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGJpbmRyICAgICAgICAwLjEgICAgICAgIDIwMTYtMTEtMTMgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGJpbmRyY3BwICAgKiAwLjIgICAgICAgIDIwMTctMDYtMTcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGJyb29tICAgICAgICAwLjQuMyAgICAgIDIwMTctMTEtMjAgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGNlbGxyYW5nZXIgICAxLjEuMCAgICAgIDIwMTYtMDctMjcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGNsaSAgICAgICAgICAxLjAuMCAgICAgIDIwMTctMTEtMDUgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGNvbG9yc3BhY2UgICAxLjMtMiAgICAgIDIwMTYtMTItMTQgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGNvbXBpbGVyICAgICAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGNyYXlvbiAgICAgICAxLjMuNCAgICAgIDIwMTctMDktMTYgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGN1cmwgICAgICAgICAzLjEgICAgICAgIDIwMTctMTItMTIgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGRhdGFzZXRzICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGRldnRvb2xzICAgICAxLjEzLjUgICAgIDIwMTgtMDItMTggQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGRpZ2VzdCAgICAgICAwLjYuMTUgICAgIDIwMTgtMDEtMjggQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGRwbHlyICAgICAgKiAwLjcuNCAgICAgIDIwMTctMDktMjggQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGZvcmNhdHMgICAgKiAwLjMuMCAgICAgIDIwMTgtMDItMTkgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGZvcmVpZ24gICAgICAwLjgtNjkgICAgIDIwMTctMDYtMjIgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGdncGxvdDIgICAgKiAyLjIuMS45MDAwIDIwMTctMTItMjcgR2l0aHViICh0aWR5dmVyc2UvZ2dwbG90MkBhNjM3YzY3KVxuIGdndmlzICAgICAgKiAwLjQuMyAgICAgIDIwMTYtMDctMjIgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGdsdWUgICAgICAgICAxLjIuMCAgICAgIDIwMTctMTAtMjkgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGdyYXBoaWNzICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGdyRGV2aWNlcyAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGdyaWQgICAgICAgICAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGd0YWJsZSAgICAgICAwLjIuMCAgICAgIDIwMTYtMDItMjYgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGhhdmVuICAgICAgICAxLjEuMSAgICAgIDIwMTgtMDEtMTggQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGhtcyAgICAgICAgICAwLjQuMSAgICAgIDIwMTgtMDEtMjQgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGh0bWx0b29scyAgICAwLjMuNiAgICAgIDIwMTctMDQtMjggQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGh0dHB1diAgICAgICAxLjMuNSAgICAgIDIwMTctMDctMDQgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGh0dHIgICAgICAgICAxLjMuMSAgICAgIDIwMTctMDgtMjAgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGpzb25saXRlICAgICAxLjUgICAgICAgIDIwMTctMDYtMDEgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGtuaXRyICAgICAgICAxLjIwICAgICAgIDIwMTgtMDItMjAgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIGxhdHRpY2UgICAgICAwLjIwLTM1ICAgIDIwMTctMDMtMjUgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIGxhenlldmFsICAgICAwLjIuMSAgICAgIDIwMTctMTAtMjkgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGx1YnJpZGF0ZSAgICAxLjcuMiAgICAgIDIwMTgtMDItMDYgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIG1hZ3JpdHRyICAgICAxLjUgICAgICAgIDIwMTQtMTEtMjIgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG1lbW9pc2UgICAgICAxLjEuMCAgICAgIDIwMTctMDQtMjEgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG1ldGhvZHMgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIG1pbWUgICAgICAgICAwLjUgICAgICAgIDIwMTYtMDctMDcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG1ub3JtdCAgICAgICAxLjUtNSAgICAgIDIwMTYtMTAtMTUgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG1vZGVsciAgICAgICAwLjEuMSAgICAgIDIwMTctMDctMjQgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG11bnNlbGwgICAgICAwLjQuMyAgICAgIDIwMTYtMDItMTMgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIG5sbWUgICAgICAgICAzLjEtMTMxICAgIDIwMTctMDItMDYgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHBhbmRlciAgICAgICAwLjYuMSAgICAgIDIwMTctMDgtMDYgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHBhcmFsbGVsICAgICAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIHBpbGxhciAgICAgICAxLjIuMSAgICAgIDIwMTgtMDItMjcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHBrZ2NvbmZpZyAgICAyLjAuMSAgICAgIDIwMTctMDMtMjEgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHBseXIgICAgICAgICAxLjguNCAgICAgIDIwMTYtMDYtMDggQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHBzeWNoICAgICAgICAxLjcuOCAgICAgIDIwMTctMDktMDkgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIHB1cnJyICAgICAgKiAwLjIuNCAgICAgIDIwMTctMTAtMTggQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIFI2ICAgICAgICAgICAyLjIuMiAgICAgIDIwMTctMDYtMTcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIFJjcHAgICAgICAgICAwLjEyLjE1ICAgIDIwMTgtMDEtMjAgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHJlYWRyICAgICAgKiAxLjEuMSAgICAgIDIwMTctMDUtMTYgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHJlYWR4bCAgICAgICAxLjAuMCAgICAgIDIwMTctMDQtMTggQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHJlc2hhcGUyICAgICAxLjQuMyAgICAgIDIwMTctMTItMTEgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHJsYW5nICAgICAgICAwLjIuMCAgICAgIDIwMTgtMDItMjAgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHJzdHVkaW9hcGkgICAwLjcgICAgICAgIDIwMTctMDktMDcgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIHJ2ZXN0ICAgICAgICAwLjMuMiAgICAgIDIwMTYtMDYtMTcgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHNjYWxlcyAgICAgICAwLjUuMC45MDAwIDIwMTctMTItMjcgR2l0aHViIChoYWRsZXkvc2NhbGVzQGQ3Njc5MTUpICAgIFxuIHNoaW55ICAgICAgICAxLjAuNSAgICAgIDIwMTctMDgtMjMgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHNraW1yICAgICAgKiAxLjAuMSAgICAgIDIwMTgtMDEtMTAgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHN0YXRzICAgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIHN0cmluZ2kgICAgICAxLjEuNiAgICAgIDIwMTctMTEtMTcgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIHN0cmluZ3IgICAgKiAxLjMuMCAgICAgIDIwMTgtMDItMTkgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHRpYmJsZSAgICAgKiAxLjQuMiAgICAgIDIwMTgtMDEtMjIgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHRpZHlyICAgICAgKiAwLjguMCAgICAgIDIwMTgtMDEtMjkgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHRpZHlzZWxlY3QgICAwLjIuNCAgICAgIDIwMTgtMDItMjYgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHRpZHl2ZXJzZSAgKiAxLjIuMSAgICAgIDIwMTctMTEtMTQgQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIHRvb2xzICAgICAgICAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIHV0aWxzICAgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzAgbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIHdpdGhyICAgICAgICAyLjEuMS45MDAwIDIwMTctMTItMjcgR2l0aHViIChqaW1oZXN0ZXIvd2l0aHJAZGYxODUyMykgIFxuIHhtbDIgICAgICAgICAxLjIuMCAgICAgIDIwMTgtMDEtMjQgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIHh0YWJsZSAgICAgICAxLjgtMiAgICAgIDIwMTYtMDItMDUgQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIHlhbWwgICAgICAgICAyLjEuMTYgICAgIDIwMTctMTItMTIgQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIn0= -->
-<pre><code> package    * version    date       source                            
- assertthat   0.2.0      2017-04-11 CRAN (R 3.4.1)                    
- base       * 3.4.1      2017-06-30 local                             
- bindr        0.1        2016-11-13 CRAN (R 3.4.1)                    
- bindrcpp   * 0.2        2017-06-17 CRAN (R 3.4.1)                    
- broom        0.4.3      2017-11-20 CRAN (R 3.4.2)                    
- cellranger   1.1.0      2016-07-27 CRAN (R 3.4.1)                    
- cli          1.0.0      2017-11-05 CRAN (R 3.4.2)                    
- colorspace   1.3-2      2016-12-14 CRAN (R 3.4.1)                    
- compiler     3.4.1      2017-06-30 local                             
- crayon       1.3.4      2017-09-16 CRAN (R 3.4.2)                    
- curl         3.1        2017-12-12 CRAN (R 3.4.3)                    
- datasets   * 3.4.1      2017-06-30 local                             
- devtools     1.13.5     2018-02-18 CRAN (R 3.4.3)                    
- digest       0.6.15     2018-01-28 CRAN (R 3.4.3)                    
- dplyr      * 0.7.4      2017-09-28 CRAN (R 3.4.2)                    
- forcats    * 0.3.0      2018-02-19 CRAN (R 3.4.3)                    
- foreign      0.8-69     2017-06-22 CRAN (R 3.4.1)                    
- ggplot2    * 2.2.1.9000 2017-12-27 Github (tidyverse/ggplot2@a637c67)
- ggvis      * 0.4.3      2016-07-22 CRAN (R 3.4.1)                    
- glue         1.2.0      2017-10-29 CRAN (R 3.4.2)                    
- graphics   * 3.4.1      2017-06-30 local                             
- grDevices  * 3.4.1      2017-06-30 local                             
- grid         3.4.1      2017-06-30 local                             
- gtable       0.2.0      2016-02-26 CRAN (R 3.4.1)                    
- haven        1.1.1      2018-01-18 CRAN (R 3.4.3)                    
- hms          0.4.1      2018-01-24 CRAN (R 3.4.3)                    
- htmltools    0.3.6      2017-04-28 CRAN (R 3.4.1)                    
- httpuv       1.3.5      2017-07-04 CRAN (R 3.4.1)                    
- httr         1.3.1      2017-08-20 CRAN (R 3.4.1)                    
- jsonlite     1.5        2017-06-01 CRAN (R 3.4.1)                    
- knitr        1.20       2018-02-20 CRAN (R 3.4.3)                    
- lattice      0.20-35    2017-03-25 CRAN (R 3.4.1)                    
- lazyeval     0.2.1      2017-10-29 CRAN (R 3.4.2)                    
- lubridate    1.7.2      2018-02-06 CRAN (R 3.4.3)                    
- magrittr     1.5        2014-11-22 CRAN (R 3.4.1)                    
- memoise      1.1.0      2017-04-21 CRAN (R 3.4.1)                    
- methods    * 3.4.1      2017-06-30 local                             
- mime         0.5        2016-07-07 CRAN (R 3.4.1)                    
- mnormt       1.5-5      2016-10-15 CRAN (R 3.4.1)                    
- modelr       0.1.1      2017-07-24 CRAN (R 3.4.1)                    
- munsell      0.4.3      2016-02-13 CRAN (R 3.4.1)                    
- nlme         3.1-131    2017-02-06 CRAN (R 3.4.1)                    
- pander       0.6.1      2017-08-06 CRAN (R 3.4.3)                    
- parallel     3.4.1      2017-06-30 local                             
- pillar       1.2.1      2018-02-27 CRAN (R 3.4.1)                    
- pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.1)                    
- plyr         1.8.4      2016-06-08 CRAN (R 3.4.1)                    
- psych        1.7.8      2017-09-09 CRAN (R 3.4.2)                    
- purrr      * 0.2.4      2017-10-18 CRAN (R 3.4.2)                    
- R6           2.2.2      2017-06-17 CRAN (R 3.4.1)                    
- Rcpp         0.12.15    2018-01-20 CRAN (R 3.4.3)                    
- readr      * 1.1.1      2017-05-16 CRAN (R 3.4.1)                    
- readxl       1.0.0      2017-04-18 CRAN (R 3.4.1)                    
- reshape2     1.4.3      2017-12-11 CRAN (R 3.4.3)                    
- rlang        0.2.0      2018-02-20 CRAN (R 3.4.3)                    
- rstudioapi   0.7        2017-09-07 CRAN (R 3.4.2)                    
- rvest        0.3.2      2016-06-17 CRAN (R 3.4.1)                    
- scales       0.5.0.9000 2017-12-27 Github (hadley/scales@d767915)    
- shiny        1.0.5      2017-08-23 CRAN (R 3.4.1)                    
- skimr      * 1.0.1      2018-01-10 CRAN (R 3.4.3)                    
- stats      * 3.4.1      2017-06-30 local                             
- stringi      1.1.6      2017-11-17 CRAN (R 3.4.2)                    
- stringr    * 1.3.0      2018-02-19 CRAN (R 3.4.3)                    
- tibble     * 1.4.2      2018-01-22 CRAN (R 3.4.3)                    
- tidyr      * 0.8.0      2018-01-29 CRAN (R 3.4.3)                    
- tidyselect   0.2.4      2018-02-26 CRAN (R 3.4.1)                    
- tidyverse  * 1.2.1      2017-11-14 CRAN (R 3.4.2)                    
- tools        3.4.1      2017-06-30 local                             
- utils      * 3.4.1      2017-06-30 local                             
- withr        2.1.1.9000 2017-12-27 Github (jimhester/withr@df18523)  
- xml2         1.2.0      2018-01-24 CRAN (R 3.4.3)                    
- xtable       1.8-2      2016-02-05 CRAN (R 3.4.1)                    
- yaml         2.1.16     2017-12-12 CRAN (R 3.4.3)                    </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIHBhY2thZ2UgICAgKiB2ZXJzaW9uICAgIGRhdGUgICAgICBcbiBhc3NlcnR0aGF0ICAgMC4yLjAgICAgICAyMDE3LTA0LTExXG4gYmFja3BvcnRzICAgIDEuMS4yICAgICAgMjAxNy0xMi0xM1xuIGJhc2UgICAgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzBcbiBiaW5kciAgICAgICAgMC4xICAgICAgICAyMDE2LTExLTEzXG4gYmluZHJjcHAgICAqIDAuMiAgICAgICAgMjAxNy0wNi0xN1xuIGJyb29tICAgICAgICAwLjQuMyAgICAgIDIwMTctMTEtMjBcbiBjZWxscmFuZ2VyICAgMS4xLjAgICAgICAyMDE2LTA3LTI3XG4gY2xpICAgICAgICAgIDEuMC4wICAgICAgMjAxNy0xMS0wNVxuIGNvbG9yc3BhY2UgICAxLjMtMiAgICAgIDIwMTYtMTItMTRcbiBjb21waWxlciAgICAgMy40LjEgICAgICAyMDE3LTA2LTMwXG4gY3JheW9uICAgICAgIDEuMy40ICAgICAgMjAxNy0wOS0xNlxuIGN1cmwgICAgICAgICAzLjEgICAgICAgIDIwMTctMTItMTJcbiBkYXRhc2V0cyAgICogMy40LjEgICAgICAyMDE3LTA2LTMwXG4gZGV2dG9vbHMgICAgIDEuMTMuNSAgICAgMjAxOC0wMi0xOFxuIGRpZ2VzdCAgICAgICAwLjYuMTUgICAgIDIwMTgtMDEtMjhcbiBkcGx5ciAgICAgICogMC43LjQgICAgICAyMDE3LTA5LTI4XG4gZXZhbHVhdGUgICAgIDAuMTAuMSAgICAgMjAxNy0wNi0yNFxuIGZvcmNhdHMgICAgKiAwLjMuMCAgICAgIDIwMTgtMDItMTlcbiBmb3JlaWduICAgICAgMC44LTY5ICAgICAyMDE3LTA2LTIyXG4gZ2dwbG90MiAgICAqIDIuMi4xLjkwMDAgMjAxNy0xMi0yN1xuIGdndmlzICAgICAgKiAwLjQuMyAgICAgIDIwMTYtMDctMjJcbiBnbHVlICAgICAgICAgMS4yLjAgICAgICAyMDE3LTEwLTI5XG4gZ3JhcGhpY3MgICAqIDMuNC4xICAgICAgMjAxNy0wNi0zMFxuIGdyRGV2aWNlcyAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzBcbiBncmlkICAgICAgICAgMy40LjEgICAgICAyMDE3LTA2LTMwXG4gZ3RhYmxlICAgICAgIDAuMi4wICAgICAgMjAxNi0wMi0yNlxuIGhhdmVuICAgICAgICAxLjEuMSAgICAgIDIwMTgtMDEtMThcbiBobXMgICAgICAgICAgMC40LjEgICAgICAyMDE4LTAxLTI0XG4gaHRtbHRvb2xzICAgIDAuMy42ICAgICAgMjAxNy0wNC0yOFxuIGh0dHB1diAgICAgICAxLjMuNSAgICAgIDIwMTctMDctMDRcbiBodHRyICAgICAgICAgMS4zLjEgICAgICAyMDE3LTA4LTIwXG4ganNvbmxpdGUgICAgIDEuNSAgICAgICAgMjAxNy0wNi0wMVxuIGtuaXRyICAgICAgICAxLjIwICAgICAgIDIwMTgtMDItMjBcbiBsYXR0aWNlICAgICAgMC4yMC0zNSAgICAyMDE3LTAzLTI1XG4gbGF6eWV2YWwgICAgIDAuMi4xICAgICAgMjAxNy0xMC0yOVxuIGx1YnJpZGF0ZSAgICAxLjcuMiAgICAgIDIwMTgtMDItMDZcbiBtYWdyaXR0ciAgICAgMS41ICAgICAgICAyMDE0LTExLTIyXG4gbWVtb2lzZSAgICAgIDEuMS4wICAgICAgMjAxNy0wNC0yMVxuIG1ldGhvZHMgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzBcbiBtaW1lICAgICAgICAgMC41ICAgICAgICAyMDE2LTA3LTA3XG4gbW5vcm10ICAgICAgIDEuNS01ICAgICAgMjAxNi0xMC0xNVxuIG1vZGVsciAgICAgICAwLjEuMSAgICAgIDIwMTctMDctMjRcbiBtdW5zZWxsICAgICAgMC40LjMgICAgICAyMDE2LTAyLTEzXG4gbmxtZSAgICAgICAgIDMuMS0xMzEgICAgMjAxNy0wMi0wNlxuIHBhbmRlciAgICAgICAwLjYuMSAgICAgIDIwMTctMDgtMDZcbiBwYXJhbGxlbCAgICAgMy40LjEgICAgICAyMDE3LTA2LTMwXG4gcGlsbGFyICAgICAgIDEuMi4xICAgICAgMjAxOC0wMi0yN1xuIHBrZ2NvbmZpZyAgICAyLjAuMSAgICAgIDIwMTctMDMtMjFcbiBwbHlyICAgICAgICAgMS44LjQgICAgICAyMDE2LTA2LTA4XG4gcHN5Y2ggICAgICAgIDEuNy44ICAgICAgMjAxNy0wOS0wOVxuIHB1cnJyICAgICAgKiAwLjIuNCAgICAgIDIwMTctMTAtMThcbiBSNiAgICAgICAgICAgMi4yLjIgICAgICAyMDE3LTA2LTE3XG4gUmNwcCAgICAgICAgIDAuMTIuMTUgICAgMjAxOC0wMS0yMFxuIHJlYWRyICAgICAgKiAxLjEuMSAgICAgIDIwMTctMDUtMTZcbiByZWFkeGwgICAgICAgMS4wLjAgICAgICAyMDE3LTA0LTE4XG4gcmVzaGFwZTIgICAgIDEuNC4zICAgICAgMjAxNy0xMi0xMVxuIHJsYW5nICAgICAgICAwLjIuMCAgICAgIDIwMTgtMDItMjBcbiBybWFya2Rvd24gICAgMS44ICAgICAgICAyMDE3LTExLTE3XG4gcnByb2pyb290ICAgIDEuMy0yICAgICAgMjAxOC0wMS0wM1xuIHJzY29ubmVjdCAgICAwLjguNSAgICAgIDIwMTctMDgtMjNcbiByc3R1ZGlvYXBpICAgMC43ICAgICAgICAyMDE3LTA5LTA3XG4gcnZlc3QgICAgICAgIDAuMy4yICAgICAgMjAxNi0wNi0xN1xuIHNjYWxlcyAgICAgICAwLjUuMC45MDAwIDIwMTctMTItMjdcbiBzaGlueSAgICAgICAgMS4wLjUgICAgICAyMDE3LTA4LTIzXG4gc2tpbXIgICAgICAqIDEuMC4xICAgICAgMjAxOC0wMS0xMFxuIHN0YXRzICAgICAgKiAzLjQuMSAgICAgIDIwMTctMDYtMzBcbiBzdHJpbmdpICAgICAgMS4xLjYgICAgICAyMDE3LTExLTE3XG4gc3RyaW5nciAgICAqIDEuMy4wICAgICAgMjAxOC0wMi0xOVxuIHRpYmJsZSAgICAgKiAxLjQuMiAgICAgIDIwMTgtMDEtMjJcbiB0aWR5ciAgICAgICogMC44LjAgICAgICAyMDE4LTAxLTI5XG4gdGlkeXNlbGVjdCAgIDAuMi40ICAgICAgMjAxOC0wMi0yNlxuIHRpZHl2ZXJzZSAgKiAxLjIuMSAgICAgIDIwMTctMTEtMTRcbiB0b29scyAgICAgICAgMy40LjEgICAgICAyMDE3LTA2LTMwXG4gdXRpbHMgICAgICAqIDMuNC4xICAgICAgMjAxNy0wNi0zMFxuIHdpdGhyICAgICAgICAyLjEuMS45MDAwIDIwMTctMTItMjdcbiB4bWwyICAgICAgICAgMS4yLjAgICAgICAyMDE4LTAxLTI0XG4geHRhYmxlICAgICAgIDEuOC0yICAgICAgMjAxNi0wMi0wNVxuIHlhbWwgICAgICAgICAyLjEuMTYgICAgIDIwMTctMTItMTJcbiBzb3VyY2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBsb2NhbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4yKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjIpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjIpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIEdpdGh1YiAodGlkeXZlcnNlL2dncGxvdDJAYTYzN2M2NylcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIGxvY2FsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBsb2NhbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjIpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBsb2NhbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjIpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4yKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4xKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBHaXRodWIgKGhhZGxleS9zY2FsZXNAZDc2NzkxNSkgICAgXG4gQ1JBTiAoUiAzLjQuMSkgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBsb2NhbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMikgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjMpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4gQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4yKSAgICAgICAgICAgICAgICAgICAgXG4gbG9jYWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIGxvY2FsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBHaXRodWIgKGppbWhlc3Rlci93aXRockBkZjE4NTIzKSAgXG4gQ1JBTiAoUiAzLjQuMykgICAgICAgICAgICAgICAgICAgIFxuIENSQU4gKFIgMy40LjEpICAgICAgICAgICAgICAgICAgICBcbiBDUkFOIChSIDMuNC4zKSAgICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code> package    * version    date      
+ assertthat   0.2.0      2017-04-11
+ backports    1.1.2      2017-12-13
+ base       * 3.4.1      2017-06-30
+ bindr        0.1        2016-11-13
+ bindrcpp   * 0.2        2017-06-17
+ broom        0.4.3      2017-11-20
+ cellranger   1.1.0      2016-07-27
+ cli          1.0.0      2017-11-05
+ colorspace   1.3-2      2016-12-14
+ compiler     3.4.1      2017-06-30
+ crayon       1.3.4      2017-09-16
+ curl         3.1        2017-12-12
+ datasets   * 3.4.1      2017-06-30
+ devtools     1.13.5     2018-02-18
+ digest       0.6.15     2018-01-28
+ dplyr      * 0.7.4      2017-09-28
+ evaluate     0.10.1     2017-06-24
+ forcats    * 0.3.0      2018-02-19
+ foreign      0.8-69     2017-06-22
+ ggplot2    * 2.2.1.9000 2017-12-27
+ ggvis      * 0.4.3      2016-07-22
+ glue         1.2.0      2017-10-29
+ graphics   * 3.4.1      2017-06-30
+ grDevices  * 3.4.1      2017-06-30
+ grid         3.4.1      2017-06-30
+ gtable       0.2.0      2016-02-26
+ haven        1.1.1      2018-01-18
+ hms          0.4.1      2018-01-24
+ htmltools    0.3.6      2017-04-28
+ httpuv       1.3.5      2017-07-04
+ httr         1.3.1      2017-08-20
+ jsonlite     1.5        2017-06-01
+ knitr        1.20       2018-02-20
+ lattice      0.20-35    2017-03-25
+ lazyeval     0.2.1      2017-10-29
+ lubridate    1.7.2      2018-02-06
+ magrittr     1.5        2014-11-22
+ memoise      1.1.0      2017-04-21
+ methods    * 3.4.1      2017-06-30
+ mime         0.5        2016-07-07
+ mnormt       1.5-5      2016-10-15
+ modelr       0.1.1      2017-07-24
+ munsell      0.4.3      2016-02-13
+ nlme         3.1-131    2017-02-06
+ pander       0.6.1      2017-08-06
+ parallel     3.4.1      2017-06-30
+ pillar       1.2.1      2018-02-27
+ pkgconfig    2.0.1      2017-03-21
+ plyr         1.8.4      2016-06-08
+ psych        1.7.8      2017-09-09
+ purrr      * 0.2.4      2017-10-18
+ R6           2.2.2      2017-06-17
+ Rcpp         0.12.15    2018-01-20
+ readr      * 1.1.1      2017-05-16
+ readxl       1.0.0      2017-04-18
+ reshape2     1.4.3      2017-12-11
+ rlang        0.2.0      2018-02-20
+ rmarkdown    1.8        2017-11-17
+ rprojroot    1.3-2      2018-01-03
+ rsconnect    0.8.5      2017-08-23
+ rstudioapi   0.7        2017-09-07
+ rvest        0.3.2      2016-06-17
+ scales       0.5.0.9000 2017-12-27
+ shiny        1.0.5      2017-08-23
+ skimr      * 1.0.1      2018-01-10
+ stats      * 3.4.1      2017-06-30
+ stringi      1.1.6      2017-11-17
+ stringr    * 1.3.0      2018-02-19
+ tibble     * 1.4.2      2018-01-22
+ tidyr      * 0.8.0      2018-01-29
+ tidyselect   0.2.4      2018-02-26
+ tidyverse  * 1.2.1      2017-11-14
+ tools        3.4.1      2017-06-30
+ utils      * 3.4.1      2017-06-30
+ withr        2.1.1.9000 2017-12-27
+ xml2         1.2.0      2018-01-24
+ xtable       1.8-2      2016-02-05
+ yaml         2.1.16     2017-12-12
+ source                            
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ local                             
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.1)                    
+ local                             
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.3)                    
+ local                             
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ Github (tidyverse/ggplot2@a637c67)
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ local                             
+ local                             
+ local                             
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ local                             
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ local                             
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.1)                    
+ Github (hadley/scales@d767915)    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    
+ local                             
+ CRAN (R 3.4.2)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.2)                    
+ local                             
+ local                             
+ Github (jimhester/withr@df18523)  
+ CRAN (R 3.4.3)                    
+ CRAN (R 3.4.1)                    
+ CRAN (R 3.4.3)                    </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1901,7 +1962,7 @@ ggvis.getPlot("plot_197172681").parseSpec(plot_197172681_spec);
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkpvaW4sIFNraW0sIEVEQSwgVmlzdWFsaXplIg0KYXV0aG9yOiAiSm9obiBMaXR0bGUiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQphYnN0cmFjdDogIlRoaXMgZG9jdW1lbnQgaXMgYSB0aWR5dmVyc2UvZHBseXIgdG91ciB1c2luZyBSL1JTdHVkaW8uICBUaGUgaW5zdHJ1Y3RvciB3aWxsIGRlbW9uc3RyYXRlIGhvdyB0byB1bmRlcnRha2UgYW4gaW5pdGlhbCBpbnZlc3RpZ2F0aW9uIGludG8gdHdvIGRhdGFzZXRzLiAgTW9yZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgYXQgdGhpcyByZXBvOiBodHRwczovL2dpdGh1Yi5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLTIwMTgtZGF0YWZlc3QuIE91ciBJbnRybyB0byBSIHdvcmtzaG9wIGNhbiBiZSBmb3VuZCBhdCBodHRwczovL3JmdW4ubGlicmFyeS5kdWtlLmVkdS9pbnRybzJyLy4gIFRoaXMgZG9jdW1lbnQgaXMgY292ZXJlZCBieSB0aGUgQ0MgQlktTkMgbGljZW5zZTogIGh0dHBzOi8vY3JlYXRpdmVjb21tb25zLm9yZy9saWNlbnNlcy9ieS1uYy80LjAvbGVnYWxjb2RlLiINCm91dHB1dDogDQogIGh0bWxfbm90ZWJvb2s6DQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiB0cnVlDQotLS0NCg0KIyBMb2FkIFBhY2thZ2VzDQoNCmBgYHtyfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KHNraW1yKQ0KbGlicmFyeShnZ3ZpcykNCmBgYA0KDQojIExvYWQgRGF0YQ0KDQotIFN0YXIgV2FycyBjaGFyYWN0ZXIgZGF0YSBhcmUgYW4gb24tYm9hcmQgcGFydCBvZiBkcGx5cjogIGBkcGx5cjo6c3RhcndhcnNgDQoNCi0gU3RhciBXYXJzIHN1cnZleSBkYXRhIGFyZSBmcm9tIGZpdmV0aGlydHllaWdodC5jb20uICANCg0KICAgIC0gaHR0cHM6Ly9naXRodWIuY29tL2ZpdmV0aGlydHllaWdodC9kYXRhL3RyZWUvbWFzdGVyL3N0YXItd2Fycy1zdXJ2ZXkNCiAgICAtIGh0dHBzOi8vZGF0YS5maXZldGhpcnR5ZWlnaHQuY29tLw0KICAgIC0gVW5sZXNzIG90aGVyd2lzZSBub3RlZCwgZml2ZSB0aGlydHkgZWlnaHQgZGF0YSBzZXRzIGFyZSBhdmFpbGFibGUgdW5kZXIgdGhlIENyZWF0aXZlIENvbW1vbnMgQXR0cmlidXRpb24gNC4wIEludGVybmF0aW9uYWwgTGljZW5zZSwgYW5kIHRoZSBjb2RlIGlzIGF2YWlsYWJsZSB1bmRlciB0aGUgTUlUIExpY2Vuc2UuDQogICAgLSBodHRwczovL2ZpdmV0aGlydHllaWdodC5jb20vZmVhdHVyZXMvYW1lcmljYXMtZmF2b3JpdGUtc3Rhci13YXJzLW1vdmllcy1hbmQtbGVhc3QtZmF2b3JpdGUtY2hhcmFjdGVycy8NCg0KTG9hZCB0aGUgc3VydmV5IGRhdGEgdGhhdCBkZWFscyB3aXRoIGNoYXJhY3RlcidzIGZhdm9yYWJpbGl0eSByYXRpbmcuICANCg0KYGBge3IgbG9hZF9kYXRhfQ0Kc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkgPC0gcmVhZF9jc3YoDQogICJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvbWFzdGVyL3N0YXItd2Fycy1zdXJ2ZXkvU3RhcldhcnMuY3N2IiwgDQogIHNraXAgPSAxKVssMTY6MjldICAgIyBTa2lwIGZpcnN0IGxpbmUgZHVlIHRvIGZ1bmt5IGNvbHVtbiBoZWFkZXJzLiAgWywxNjoyOV0gaW5nZXN0cyBjb2x1bW5zIDE2IHRocm91Z2ggMjkuDQpgYGANCg0KIyBSYXcgRGF0YQ0KDQojIyBTdGFyIFdhcnMgQ2hhcmFjdGVzcg0KDQpgYGB7ciBzaG93X2RwbHlyLXN0YXJ3YXJzLXRpYmJsZX0NCnN0YXJ3YXJzDQpgYGANCg0KIyMgRmF2b3JhYmlsaXR5IERhdGENCg0KYGBge3IgY2xhc3NfZ2xpbXBzZX0NCmNsYXNzKHN3X2NoYXJhY3RlcnNfZmF2b3JhYmlsaXR5KQ0KDQpnbGltcHNlKHN3X2NoYXJhY3RlcnNfZmF2b3JhYmlsaXR5KQ0KYGBgDQoNCmBgYHtyIHNob3dfc3ctY2hhcnMtdGliYmxlfQ0Kc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkNCmBgYA0KDQojIFRyYW5zZm9ybSBGYXZvcmFiaWxpdHkgRGF0YQ0KDQpHZXQgYSBsaXN0IG9mIHRoZSBjaGFyYWN0ZXJzIHdoaWNoIGhhcHBlbiB0byBiZSB0aGUgY29sdW1uIG5hbWVzDQoNCmBgYHtyIGdldC1jb2xuYW1lc30NCnN3X2NoYXJhY3RlcnNfY29sbmFtZXMgPC0gY29sbmFtZXMoc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkpDQpzd19jaGFyYWN0ZXJzX2NvbG5hbWVzDQpgYGANCg0KQ291bnQgdGhlIGZhdm9yYWJpbGl0eSBkYXRhIGFzIGZhY3RvcnMsIHN1bW1hcml6ZSBhcyBhIGRhdGEgZnJhbWUgZm9yIGpvaW5pbmcgdG8gdGhlIG90aGVyIGRwbHlyOjpzdGFyd2FycyBjaGFyYWN0ZXIgZGF0YS4NCg0KYGBge3IgdHJhbnNmb3JtLWZhdi1kYXRhfQ0KDQpmYXZvcmFiaWxpdHlfcG9wdWxhcml0eV9yYXRpbmcgPC0gc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkgJT4lIA0KICBtYXBfZGZyKGZjdF9jb3VudCkgJT4lIA0KICBmaWx0ZXIoZiA9PSAiVmVyeSBmYXZvcmFibHkiKSAlPiUgDQogIGFkZF9jb2x1bW4obmFtZSA9IHN3X2NoYXJhY3RlcnNfY29sbmFtZXMpICU+JSANCiAgc2VsZWN0KG5hbWUsIGZhdl9yYXRpbmcgPSBuKQ0KDQpmYXZvcmFiaWxpdHlfcG9wdWxhcml0eV9yYXRpbmcNCmBgYA0KDQoNCiMgSm9pbiBEYXRhDQoNClRoZXJlIGFyZSBkaWZmZXJlbnQgdHlwZXMgb2Ygam9pbnMgKGUuZy4gaW5uZXIsIGxlZnQsIHJpZ2h0LCBmdWxsLCBldGMuKS4gIFNlZSB0aGUgYGRwbHlyOjpqb2luYCBbZG9jdW1lbnRhdGlvbl0oaHR0cDovL2RwbHlyLnRpZHl2ZXJzZS5vcmcvcmVmZXJlbmNlL2pvaW4uaHRtbCkgZm9yIGEgbW9yZSBjb21wbGV0ZSBleHBsYW5hdGlvbi4gIEkgY2hvc2UgYW4gYGlubmVyX2pvaW5gIGJlY2F1c2UgSSBvbmx5IHdhbnQgdGhlIGRhdGEgd2hlcmUgdGhlcmUgYXJlIG1hdGNoZXMuICBUaGlzIGVmZmVjdGl2ZWx5IGRyb3BzIDgwIGNoYXJhY3RlcnMgZnJvbSB0aGUgZGF0YXNldC4gIEZvciB0aGlzIHRyYW5zZm9ybWF0aW9uLCBJIG9ubHkgd2FudCB0byBhbmFseXplIHRob3NlIGRhdGEgZm9yIHdoaWNoIEkgaGF2ZSBmYXZvcmFiaWxpdHkgcmF0aW5ncy4NCg0KDQpgYGB7ciBqb2luLWRhdGF9DQpzd19qb2luZWQgPC0gc3RhcndhcnMgJT4lIA0KICBpbm5lcl9qb2luKGZhdm9yYWJpbGl0eV9wb3B1bGFyaXR5X3JhdGluZywgYnkgPSAibmFtZSIpICU+JSANCiAgc2VsZWN0KDEsIDE0LCAyOjE0KSANCg0Kc3dfam9pbmVkICU+JSANCiAgYXJyYW5nZShkZXNjKGZhdl9yYXRpbmcpKQ0KYGBgDQoNCg0KDQojICBFREENCg0KRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcyBnaXZlcyBtZSBhIGdlbmVyYWwgc2Vuc2Ugb2YgdGhlIGRhdGEuICBGb3IgZXhhbXBsZSwgd2hhdCBhcmUgdGhlIG1lYW5zLCBtZWRpYW5zLCBkaXN0cmlidXRpb25zIG9mIGVhY2ggZGF0YSB2YXJpYWJsZS4NCg0KIyMgU2tpbQ0KDQpTa2ltIHRoZSBqb2luZWQgZGF0YS4gIFRoZXNlIGRhdGEgaW5jbHVkZSB0aGUgc2VsZWN0ZWQsIHRyYW5zZm9ybWVkIGZhdm9yYWJpbGl0eSBkYXRhIEkgZ2F0aGVyZWQgZnJvbSBmaXZldGhpcnR5ZWlnaHQuY29tLg0KDQpgYGB7ciBza2ltLWpvaW5lZH0NCnNraW0oc3dfam9pbmVkKQ0KYGBgDQoNClNraW0gdGhlIGBkcGx5cjo6c3RhcndhcnNgIHJhdyBkYXRhLg0KDQpgYGB7cn0NCnNraW0oc3RhcndhcnMpDQpgYGANCg0KDQojIFZpc3VhbGl6ZQ0KDQojIyBTY2F0dGVyIFBsb3QNCg0KSXMgYSBjaGFyYWN0ZXIncyBmYXZvcmFiaWxpdHkgZGVwZW5kZW50IG9uIHRoZWlyIGluZGl2aWR1YWwgaGVpZ2h0Pw0KDQpgYGB7ciBzY2F0dGVycGxvdC1mYXZfcmF0aW5nfQ0Kc3dfam9pbmVkICU+JSANCiAgZ2d2aXMofmhlaWdodCwgfmZhdl9yYXRpbmcpICU+JSANCiAgbGF5ZXJfcG9pbnRzKCkNCmBgYA0KDQojIyBCb3ggUGxvdA0KDQpXaGF0IGlzIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIG1hc3Mgb2YgdGhyZWUgc3BlY2llczogIEh1bWFuLCBEcm9pZCwgTWlyaWFsYW4/DQoNCmBgYHtyIHNwZWNpZXMtYm94cGxvdH0NCnN0YXJ3YXJzICU+JSANCiAgZHJvcF9uYShzcGVjaWVzLCBtYXNzKSAlPiUgDQogIGZpbHRlcihzcGVjaWVzID09ICJIdW1hbiIgfA0KICAgICAgICAgICBzcGVjaWVzID09ICJEcm9pZCIgfA0KICAgICAgICAgICBzcGVjaWVzID09ICJNaXJpYWxhbiIpICU+JSANCiAgZ2d2aXMofnNwZWNpZXMsIH5tYXNzKSAlPiUgDQogIGxheWVyX2JveHBsb3RzKCkNCmBgYA0KDQojIyBIaXN0b2dyYW0NCg0KV2hhdCBpcyB0aGUgZGlzdHJpYnV0aW9uIG9mIHRoZSBiaXJ0aCB5ZWFycyBvZiBhbGwgdGhlIGNoYXJhY3RlcnM/DQoNCmBgYHtyIGJpcnRoLXllYXJfaGlzdG9ncmFtfQ0Kc3RhcndhcnMgJT4lIA0KICBnZ3Zpcyh+YmlydGhfeWVhcikgJT4lIA0KICBsYXllcl9oaXN0b2dyYW1zKCkNCmBgYA0KDQpXaGF0IGlzIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIGNoYXJhY3RlcidzIGhlaWdodD8NCg0KYGBge3IgaGVpZ2h0X2hpc3RvZ3JhbX0NCnN0YXJ3YXJzICU+JSANCiAgZ2d2aXMofmhlaWdodCkgJT4lIA0KICBsYXllcl9oaXN0b2dyYW1zKCkNCmBgYA0KDQojIyBCYXIgUGxvdA0KDQpgYGB7ciBleWUtY29sb3JfYmFycGxvdH0NCm9yZGVyX2V5ZSA8LSBhc192ZWN0b3IoZmN0X2NvdW50KHN0YXJ3YXJzJGV5ZV9jb2xvciwgc29ydCA9IFRSVUUpICU+JSBzZWxlY3QoZikpDQoNCnN0YXJ3YXJzICU+JSAgIA0KICBnZ3Zpcyh+ZXllX2NvbG9yKSAlPiUgDQogIGxheWVyX2JhcnMoKSAlPiUgDQogIHNjYWxlX29yZGluYWwoIngiLCBkb21haW4gPSBvcmRlcl9leWUpDQpgYGANCg0KYGBge3IgcmVmaW5lX2JhcnBsb3R9DQpmY3RfY291bnQoc3RhcndhcnMkZXllX2NvbG9yLCBzb3J0ID0gVFJVRSkgJT4lIA0KICBoZWFkKCkgJT4lIA0KICBnZ3Zpcyh+Ziwgfm4pICU+JSANCiAgbGF5ZXJfYmFycygpICU+JSANCiAgYWRkX2F4aXMoIngiLCB0aXRsZSA9ICJFeWUgQ29sb3IiKSAlPiUgDQogIGFkZF9heGlzKCJ5IiwgdGl0bGUgPSAiRnJlcXVlbmN5IikgJT4lIA0KICBzY2FsZV9vcmRpbmFsKCd4JywgZG9tYWluPWMoImJyb3duIiwgImJsdWUiLCAieWVsbG93IiwgImJsYWNrIiwgIm9yYW5nZSIsICJyZWQiKSkgDQpgYGANCg0KDQojIFNlc3Npb24gSW5mbw0KDQpGb3IgcmVwcm9kdWNpYmlsaXR5LCBpdCdzIGFsd2F5cyBnb29kIHRvIGRvY3VtZW50IHRoZSBzZXNzaW9uIGluZm8uDQoNCmBgYHtyIHNlc3Npb25faW5mb30NCmRldnRvb2xzOjpzZXNzaW9uX2luZm8oKQ0KYGBgDQoNCiMgTGljZW5zZQ0KDQpDcmVhdGl2ZSBDb21tb25zLiAgQ0MgQnktTkMgIGh0dHBzOi8vY3JlYXRpdmVjb21tb25zLm9yZy9saWNlbnNlcy9ieS1uYy80LjAvbGVnYWxjb2RlDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkpvaW4sIFNraW0sIEVEQSwgVmlzdWFsaXplIg0KYXV0aG9yOiAiSm9obiBMaXR0bGUiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQphYnN0cmFjdDogIlRoaXMgZG9jdW1lbnQgaXMgYSB0aWR5dmVyc2UvZHBseXIgdG91ciB1c2luZyBSL1JTdHVkaW8uICBUaGUgaW5zdHJ1Y3RvciB3aWxsIGRlbW9uc3RyYXRlIGhvdyB0byB1bmRlcnRha2UgYW4gaW5pdGlhbCBpbnZlc3RpZ2F0aW9uIGludG8gdHdvIGRhdGFzZXRzLiAgTW9yZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgYXQgdGhpcyByZXBvOiBodHRwczovL2dpdGh1Yi5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLTIwMTgtZGF0YWZlc3QuIE91ciBJbnRybyB0byBSIHdvcmtzaG9wIGNhbiBiZSBmb3VuZCBhdCBodHRwczovL3JmdW4ubGlicmFyeS5kdWtlLmVkdS9pbnRybzJyLy4gIFRoaXMgZG9jdW1lbnQgaXMgY292ZXJlZCBieSB0aGUgQ0MgQlktTkMgbGljZW5zZTogIGh0dHBzOi8vY3JlYXRpdmVjb21tb25zLm9yZy9saWNlbnNlcy9ieS1uYy80LjAvbGVnYWxjb2RlLiINCm91dHB1dDogDQogIGh0bWxfbm90ZWJvb2s6DQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiB0cnVlDQotLS0NCg0KIyBMb2FkIFBhY2thZ2VzDQoNCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KGdndmlzKQ0KYGBgDQoNCiMgTG9hZCBEYXRhDQoNCi0gU3RhciBXYXJzIGNoYXJhY3RlciBkYXRhIGFyZSBhbiBvbi1ib2FyZCBwYXJ0IG9mIGRwbHlyOiAgYGRwbHlyOjpzdGFyd2Fyc2ANCg0KLSBTdGFyIFdhcnMgc3VydmV5IGRhdGEgYXJlIGZyb20gZml2ZXRoaXJ0eWVpZ2h0LmNvbS4gIA0KDQogICAgLSBodHRwczovL2dpdGh1Yi5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvdHJlZS9tYXN0ZXIvc3Rhci13YXJzLXN1cnZleQ0KICAgIC0gaHR0cHM6Ly9kYXRhLmZpdmV0aGlydHllaWdodC5jb20vDQogICAgLSBVbmxlc3Mgb3RoZXJ3aXNlIG5vdGVkLCBmaXZlIHRoaXJ0eSBlaWdodCBkYXRhIHNldHMgYXJlIGF2YWlsYWJsZSB1bmRlciB0aGUgQ3JlYXRpdmUgQ29tbW9ucyBBdHRyaWJ1dGlvbiA0LjAgSW50ZXJuYXRpb25hbCBMaWNlbnNlLCBhbmQgdGhlIGNvZGUgaXMgYXZhaWxhYmxlIHVuZGVyIHRoZSBNSVQgTGljZW5zZS4NCiAgICAtIGh0dHBzOi8vZml2ZXRoaXJ0eWVpZ2h0LmNvbS9mZWF0dXJlcy9hbWVyaWNhcy1mYXZvcml0ZS1zdGFyLXdhcnMtbW92aWVzLWFuZC1sZWFzdC1mYXZvcml0ZS1jaGFyYWN0ZXJzLw0KDQpMb2FkIHRoZSBzdXJ2ZXkgZGF0YSB0aGF0IGRlYWxzIHdpdGggY2hhcmFjdGVyJ3MgZmF2b3JhYmlsaXR5IHJhdGluZy4gIA0KDQpgYGB7ciBsb2FkX2RhdGEsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9DQpzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSA8LSByZWFkX2NzdigNCiAgImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9maXZldGhpcnR5ZWlnaHQvZGF0YS9tYXN0ZXIvc3Rhci13YXJzLXN1cnZleS9TdGFyV2Fycy5jc3YiLCANCiAgc2tpcCA9IDEpWywxNjoyOV0gICAjIFNraXAgZmlyc3QgbGluZSBkdWUgdG8gZnVua3kgY29sdW1uIGhlYWRlcnMuICBbLDE2OjI5XSBpbmdlc3RzIGNvbHVtbnMgMTYgdGhyb3VnaCAyOS4NCmBgYA0KDQojIFJhdyBEYXRhDQoNCiMjIFN0YXIgV2FycyBDaGFyYWN0ZXNyDQoNCmBgYHtyIHNob3dfZHBseXItc3RhcndhcnMtdGliYmxlfQ0Kc3RhcndhcnMNCmBgYA0KDQojIyBGYXZvcmFiaWxpdHkgRGF0YQ0KDQpgYGB7ciBjbGFzc19nbGltcHNlfQ0KY2xhc3Moc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkpDQoNCmdsaW1wc2Uoc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkpDQpgYGANCg0KYGBge3Igc2hvd19zdy1jaGFycy10aWJibGV9DQpzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eQ0KYGBgDQoNCiMgVHJhbnNmb3JtIEZhdm9yYWJpbGl0eSBEYXRhDQoNCkdldCBhIGxpc3Qgb2YgdGhlIGNoYXJhY3RlcnMgd2hpY2ggaGFwcGVuIHRvIGJlIHRoZSBjb2x1bW4gbmFtZXMNCg0KYGBge3IgZ2V0LWNvbG5hbWVzfQ0Kc3dfY2hhcmFjdGVyc19jb2xuYW1lcyA8LSBjb2xuYW1lcyhzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSkNCnN3X2NoYXJhY3RlcnNfY29sbmFtZXMNCmBgYA0KDQpDb3VudCB0aGUgZmF2b3JhYmlsaXR5IGRhdGEgYXMgZmFjdG9ycywgc3VtbWFyaXplIGFzIGEgZGF0YSBmcmFtZSBmb3Igam9pbmluZyB0byB0aGUgb3RoZXIgZHBseXI6OnN0YXJ3YXJzIGNoYXJhY3RlciBkYXRhLg0KDQpgYGB7ciB0cmFuc2Zvcm0tZmF2LWRhdGF9DQoNCmZhdm9yYWJpbGl0eV9wb3B1bGFyaXR5X3JhdGluZyA8LSBzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSAlPiUgDQogIG1hcF9kZnIoZmN0X2NvdW50KSAlPiUgDQogIGZpbHRlcihmID09ICJWZXJ5IGZhdm9yYWJseSIpICU+JSANCiAgYWRkX2NvbHVtbihuYW1lID0gc3dfY2hhcmFjdGVyc19jb2xuYW1lcykgJT4lIA0KICBzZWxlY3QobmFtZSwgZmF2X3JhdGluZyA9IG4pDQoNCmZhdm9yYWJpbGl0eV9wb3B1bGFyaXR5X3JhdGluZw0KYGBgDQoNCg0KIyBKb2luIERhdGENCg0KVGhlcmUgYXJlIGRpZmZlcmVudCB0eXBlcyBvZiBqb2lucyAoZS5nLiBpbm5lciwgbGVmdCwgcmlnaHQsIGZ1bGwsIGV0Yy4pLiAgU2VlIHRoZSBgZHBseXI6OmpvaW5gIFtkb2N1bWVudGF0aW9uXShodHRwOi8vZHBseXIudGlkeXZlcnNlLm9yZy9yZWZlcmVuY2Uvam9pbi5odG1sKSBmb3IgYSBtb3JlIGNvbXBsZXRlIGV4cGxhbmF0aW9uLiAgSSBjaG9zZSBhbiBgaW5uZXJfam9pbmAgYmVjYXVzZSBJIG9ubHkgd2FudCB0aGUgZGF0YSB3aGVyZSB0aGVyZSBhcmUgbWF0Y2hlcy4gIFRoaXMgZWZmZWN0aXZlbHkgZHJvcHMgODAgY2hhcmFjdGVycyBmcm9tIHRoZSBkYXRhc2V0LiAgRm9yIHRoaXMgdHJhbnNmb3JtYXRpb24sIEkgb25seSB3YW50IHRvIGFuYWx5emUgdGhvc2UgZGF0YSBmb3Igd2hpY2ggSSBoYXZlIGZhdm9yYWJpbGl0eSByYXRpbmdzLg0KDQoNCmBgYHtyIGpvaW4tZGF0YX0NCnN3X2pvaW5lZCA8LSBzdGFyd2FycyAlPiUgDQogIGlubmVyX2pvaW4oZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nLCBieSA9ICJuYW1lIikgJT4lIA0KICBzZWxlY3QoMSwgMTQsIDI6MTQpIA0KDQpzd19qb2luZWQgJT4lIA0KICBhcnJhbmdlKGRlc2MoZmF2X3JhdGluZykpDQpgYGANCg0KDQoNCiMgIEVEQQ0KDQpFeHBsb3JhdG9yeSBEYXRhIEFuYWx5c2lzIGdpdmVzIG1lIGEgZ2VuZXJhbCBzZW5zZSBvZiB0aGUgZGF0YS4gIEZvciBleGFtcGxlLCB3aGF0IGFyZSB0aGUgbWVhbnMsIG1lZGlhbnMsIGRpc3RyaWJ1dGlvbnMgb2YgZWFjaCBkYXRhIHZhcmlhYmxlLg0KDQojIyBTa2ltDQoNClNraW0gdGhlIGpvaW5lZCBkYXRhLiAgVGhlc2UgZGF0YSBpbmNsdWRlIHRoZSBzZWxlY3RlZCwgdHJhbnNmb3JtZWQgZmF2b3JhYmlsaXR5IGRhdGEgSSBnYXRoZXJlZCBmcm9tIGZpdmV0aGlydHllaWdodC5jb20uDQoNCmBgYHtyIHNraW0tam9pbmVkfQ0Kc2tpbShzd19qb2luZWQpDQpgYGANCg0KU2tpbSB0aGUgYGRwbHlyOjpzdGFyd2Fyc2AgcmF3IGRhdGEuDQoNCmBgYHtyfQ0Kc2tpbShzdGFyd2FycykNCmBgYA0KDQoNCiMgVmlzdWFsaXplDQoNCiMjIFNjYXR0ZXIgUGxvdA0KDQpJcyBhIGNoYXJhY3RlcidzIGZhdm9yYWJpbGl0eSBkZXBlbmRlbnQgb24gdGhlaXIgaW5kaXZpZHVhbCBoZWlnaHQ/DQoNCmBgYHtyIHNjYXR0ZXJwbG90LWZhdl9yYXRpbmd9DQpzd19qb2luZWQgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0LCB+ZmF2X3JhdGluZykgJT4lIA0KICBsYXllcl9wb2ludHMoKQ0KYGBgDQoNCiMjIEJveCBQbG90DQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgbWFzcyBvZiB0aHJlZSBzcGVjaWVzOiAgSHVtYW4sIERyb2lkLCBNaXJpYWxhbj8NCg0KYGBge3Igc3BlY2llcy1ib3hwbG90fQ0Kc3RhcndhcnMgJT4lIA0KICBkcm9wX25hKHNwZWNpZXMsIG1hc3MpICU+JSANCiAgZmlsdGVyKHNwZWNpZXMgPT0gIkh1bWFuIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIkRyb2lkIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIk1pcmlhbGFuIikgJT4lIA0KICBnZ3Zpcyh+c3BlY2llcywgfm1hc3MpICU+JSANCiAgbGF5ZXJfYm94cGxvdHMoKQ0KYGBgDQoNCiMjIEhpc3RvZ3JhbQ0KDQpXaGF0IGlzIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIGJpcnRoIHllYXJzIG9mIGFsbCB0aGUgY2hhcmFjdGVycz8NCg0KYGBge3IgYmlydGgteWVhcl9oaXN0b2dyYW19DQpzdGFyd2FycyAlPiUgDQogIGdndmlzKH5iaXJ0aF95ZWFyKSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgY2hhcmFjdGVyJ3MgaGVpZ2h0Pw0KDQpgYGB7ciBoZWlnaHRfaGlzdG9ncmFtfQ0Kc3RhcndhcnMgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0KSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCiMjIEJhciBQbG90DQoNCmBgYHtyIGV5ZS1jb2xvcl9iYXJwbG90fQ0Kb3JkZXJfZXllIDwtIGFzX3ZlY3RvcihmY3RfY291bnQoc3RhcndhcnMkZXllX2NvbG9yLCBzb3J0ID0gVFJVRSkgJT4lIHNlbGVjdChmKSkNCg0Kc3RhcndhcnMgJT4lICAgDQogIGdndmlzKH5leWVfY29sb3IpICU+JSANCiAgbGF5ZXJfYmFycygpICU+JSANCiAgc2NhbGVfb3JkaW5hbCgieCIsIGRvbWFpbiA9IG9yZGVyX2V5ZSkNCmBgYA0KDQpgYGB7ciByZWZpbmVfYmFycGxvdH0NCmZjdF9jb3VudChzdGFyd2FycyRleWVfY29sb3IsIHNvcnQgPSBUUlVFKSAlPiUgDQogIGhlYWQoKSAlPiUgDQogIGdndmlzKH5mLCB+bikgJT4lIA0KICBsYXllcl9iYXJzKCkgJT4lIA0KICBhZGRfYXhpcygieCIsIHRpdGxlID0gIkV5ZSBDb2xvciIpICU+JSANCiAgYWRkX2F4aXMoInkiLCB0aXRsZSA9ICJGcmVxdWVuY3kiKSAlPiUgDQogIHNjYWxlX29yZGluYWwoJ3gnLCBkb21haW49YygiYnJvd24iLCAiYmx1ZSIsICJ5ZWxsb3ciLCAiYmxhY2siLCAib3JhbmdlIiwgInJlZCIpKSANCmBgYA0KDQoNCiMgU2Vzc2lvbiBJbmZvDQoNCkZvciByZXByb2R1Y2liaWxpdHksIGl0J3MgYWx3YXlzIGdvb2QgdG8gZG9jdW1lbnQgdGhlIHNlc3Npb24gaW5mby4NCg0KYGBge3Igc2Vzc2lvbl9pbmZvfQ0KZGV2dG9vbHM6OnNlc3Npb25faW5mbygpDQpgYGANCg0KIyBMaWNlbnNlDQoNCkNyZWF0aXZlIENvbW1vbnMuICBDQyBCeS1OQyAgaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLzQuMC9sZWdhbGNvZGUNCg==</div>
 
 
 </div>

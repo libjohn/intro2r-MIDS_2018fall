@@ -11,7 +11,7 @@ output:
 
 # Load Packages
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(skimr)
 library(ggvis)
@@ -30,7 +30,7 @@ library(ggvis)
 
 Load the survey data that deals with character's favorability rating.  
 
-```{r load_data}
+```{r load_data, message=FALSE, warning=FALSE}
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
   skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
