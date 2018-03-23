@@ -24,19 +24,20 @@ This repository contains [supporting datasets and files](https://rfun.library.du
 Outline
 -------
 
-1.  New R Notebook
+1.  Download data by cloning repository: <https://is.gd/datafest_r>
+2.  New Project
+3.  New R Notebook
 
-    1.  Render
-    2.  Literate Coding
+    1.  Literate Coding: brief explanation
         1.  New Code Chunk: *Ctrl+Alt+I*
         2.  R Markdown: brief explanation
-    3.  [`library(tidyverse)`](https://tidyverse.org)
+    2.  [`library(tidyverse)`](https://tidyverse.org)
 
-2.  Load & View Tibble (data frame)
+4.  Load & View Tibble (data frame)
 
-3.  Data Structure & Data Types (brief)
+5.  Data Structure & Data Types (brief)
 
-4.  [`dplyr`](http://dplyr.tidyverse.org/) -- part of tidyverse
+6.  [`dplyr`](http://dplyr.tidyverse.org/) -- part of tidyverse
 
     1.  `filter` rows
     2.  `arrange` rows by variables
@@ -45,29 +46,28 @@ Outline
     5.  `count` column totals
     6.  `summarize` grouping reports
 
-5.  **Now You Try It.** Hands on exercises.
+7.  **Now You Try It.** Hands on exercises.
 
     1.  [exercise\_01.Rmd](exercise_01.Rmd)
     2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
-6.  More on `dplyr` -- joint two datasets
+8.  More on `dplyr` -- join two datasets
 
     1.  Read in new datasets
-    2.  Transform for join
-    3.  `left_join` to add data
+    2.  `left_join` to add data
 
-7.  Basic Exploratory Data Analysis
+9.  Basic Exploratory Data Analysis
 
     1.  `library(skimr)`
     2.  Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
 
-8.  More Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
+10. More Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
     1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
     2.  Take the ggplot2 workshop, or see the [materials](https://github.com/data-and-visualization/ggplot2-S18)
 
-9.  Our Training Materials
+11. Our Training Materials
 
     1.  R we having fun yet‽ <https://rfun.library.duke.edu>. Training materials for R.
 
@@ -75,7 +75,7 @@ Outline
 
     2.  Full DVS [workshop series](https://library.duke.edu/data/news/past-workshops)
 
-10. Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
+12. Questions: [Walk-in schedule](https://library.duke.edu/data/about/schedule) and by appointment [Data Science Consulting](https://library.duke.edu/data/about)
 
 License
 -------
