@@ -30,11 +30,19 @@ library(ggvis)
 
 Load the survey data that deals with character's favorability rating.  
 
-```{r load_data, message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE}
+favorability_popularity_rating <- read_csv("data/538_favorability_popularity.csv")
+```
+
+```{r ignore_this_chunk, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# IGNORE THISE
+# This chunk loaded the data from fivethirtyeight.com iniially but we are simplifying 
+# the data load for ease for instruction.
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
   skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
 ```
+
 
 # Raw Data
 
@@ -46,35 +54,23 @@ starwars
 
 ## Favorability Data
 
-```{r class_glimpse}
-class(sw_characters_favorability)
-
-glimpse(sw_characters_favorability)
-```
-
-```{r show_sw-chars-tibble}
-sw_characters_favorability
-```
-
-# Transform Favorability Data
-
-Get a list of the characters which happen to be the column names
-
-```{r get-colnames}
-sw_characters_colnames <- colnames(sw_characters_favorability)
-sw_characters_colnames
-```
-
-Count the favorability data as factors, summarize as a data frame for joining to the other dplyr::starwars character data.
-
-```{r transform-fav-data}
-
+```{r transform_538-data, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# IGNORE THIS
+# This chucnk, when it ran, transformed the initial 538 data and then wrote it to the data directory.
 favorability_popularity_rating <- sw_characters_favorability %>% 
   map_dfr(fct_count) %>% 
   filter(f == "Very favorably") %>% 
-  add_column(name = sw_characters_colnames) %>% 
+  add_column(name = colnames(sw_characters_favorability)) %>% 
   select(name, fav_rating = n)
 
+library(here)
+write_csv(favorability_popularity_rating, 
+          here("data", "538_favorability_popularity.csv"))
+```
+
+I have transformed the *Five Thirty Eight* [data](https://github.com/fivethirtyeight/data/tree/master/star-wars-survey).  It's ready to merge with the other dataset.
+
+```{r show_favorability-rating}
 favorability_popularity_rating
 ```
 
@@ -86,7 +82,7 @@ There are different types of joins (e.g. inner, left, right, full, etc.).  See t
 
 ```{r join-data}
 sw_joined <- starwars %>% 
-  inner_join(favorability_popularity_rating, by = "name") %>% 
+  left_join(favorability_popularity_rating, by = "name") %>% 
   select(1, 14, 2:14) 
 
 sw_joined %>% 
@@ -104,7 +100,9 @@ Exploratory Data Analysis gives me a general sense of the data.  For example, wh
 Skim the joined data.  These data include the selected, transformed favorability data I gathered from fivethirtyeight.com.
 
 ```{r skim-joined}
-skim(sw_joined)
+sw_joined %>% 
+  drop_na(fav_rating) %>% 
+  skim()
 ```
 
 Skim the `dplyr::starwars` raw data.
@@ -122,6 +120,7 @@ Is a character's favorability dependent on their individual height?
 
 ```{r scatterplot-fav_rating}
 sw_joined %>% 
+  drop_na(fav_rating) %>% 
   ggvis(~height, ~fav_rating) %>% 
   layer_points()
 ```
