@@ -325,8 +325,10 @@ library(ggvis)</code></pre>
 <p>Load the survey data that deals with character’s favorability rating.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIHJlYWRfY3N2KFwiZGF0YS81MzhfZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHkuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code>favorability_popularity_rating &lt;- read_csv(&quot;data/538_favorability_popularity.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIFxuICByZWFkX2NzdihcImRhdGEvNTM4X2Zhdm9yYWJpbGl0eV9wb3B1bGFyaXR5LmNzdlwiLFxuICAgICAgICAgICBza2lwID0gMTEpXG5gYGAifQ== -->
+<pre class="r"><code>favorability_popularity_rating &lt;- 
+  read_csv(&quot;data/538_favorability_popularity.csv&quot;,
+           skip = 11)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -497,27 +499,27 @@ Variable type: numeric
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_365724460-container" class="ggvis-output-container">
-  <div id="plot_365724460" class="ggvis-output"></div>
+<div id="plot_349113940-container" class="ggvis-output-container">
+  <div id="plot_349113940" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_365724460_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_365724460" data-renderer="svg">SVG</a>
+          <a id="plot_349113940_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_349113940" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_365724460_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_365724460" data-renderer="canvas">Canvas</a>
+          <a id="plot_349113940_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_349113940" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_365724460_download" class="ggvis-download" data-plot-id="plot_365724460">Download</a>
+          <a id="plot_349113940_download" class="ggvis-download" data-plot-id="plot_349113940">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_365724460_spec = {
+var plot_349113940_spec = {
   "data": [
     {
       "name": ".0",
@@ -638,7 +640,7 @@ var plot_365724460_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_365724460").parseSpec(plot_365724460_spec);
+ggvis.getPlot("plot_349113940").parseSpec(plot_349113940_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -663,27 +665,27 @@ ggvis.getPlot("plot_365724460").parseSpec(plot_365724460_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_648647017-container" class="ggvis-output-container">
-  <div id="plot_648647017" class="ggvis-output"></div>
+<div id="plot_530511952-container" class="ggvis-output-container">
+  <div id="plot_530511952" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_648647017_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_648647017" data-renderer="svg">SVG</a>
+          <a id="plot_530511952_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_530511952" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_648647017_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_648647017" data-renderer="canvas">Canvas</a>
+          <a id="plot_530511952_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_530511952" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_648647017_download" class="ggvis-download" data-plot-id="plot_648647017">Download</a>
+          <a id="plot_530511952_download" class="ggvis-download" data-plot-id="plot_530511952">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_648647017_spec = {
+var plot_530511952_spec = {
   "data": [
     {
       "name": ".0/group_by1/boxplot2_flat",
@@ -989,7 +991,7 @@ var plot_648647017_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_648647017").parseSpec(plot_648647017_spec);
+ggvis.getPlot("plot_530511952").parseSpec(plot_530511952_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1013,27 +1015,27 @@ ggvis.getPlot("plot_648647017").parseSpec(plot_648647017_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_402323012-container" class="ggvis-output-container">
-  <div id="plot_402323012" class="ggvis-output"></div>
+<div id="plot_267570136-container" class="ggvis-output-container">
+  <div id="plot_267570136" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_402323012_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_402323012" data-renderer="svg">SVG</a>
+          <a id="plot_267570136_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_267570136" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_402323012_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_402323012" data-renderer="canvas">Canvas</a>
+          <a id="plot_267570136_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_267570136" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_402323012_download" class="ggvis-download" data-plot-id="plot_402323012">Download</a>
+          <a id="plot_267570136_download" class="ggvis-download" data-plot-id="plot_267570136">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_402323012_spec = {
+var plot_267570136_spec = {
   "data": [
     {
       "name": ".0/bin1/stack2",
@@ -1164,7 +1166,7 @@ var plot_402323012_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_402323012").parseSpec(plot_402323012_spec);
+ggvis.getPlot("plot_267570136").parseSpec(plot_267570136_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1185,27 +1187,27 @@ ggvis.getPlot("plot_402323012").parseSpec(plot_402323012_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_558478741-container" class="ggvis-output-container">
-  <div id="plot_558478741" class="ggvis-output"></div>
+<div id="plot_713812619-container" class="ggvis-output-container">
+  <div id="plot_713812619" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_558478741_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_558478741" data-renderer="svg">SVG</a>
+          <a id="plot_713812619_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_713812619" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_558478741_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_558478741" data-renderer="canvas">Canvas</a>
+          <a id="plot_713812619_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_713812619" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_558478741_download" class="ggvis-download" data-plot-id="plot_558478741">Download</a>
+          <a id="plot_713812619_download" class="ggvis-download" data-plot-id="plot_713812619">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_558478741_spec = {
+var plot_713812619_spec = {
   "data": [
     {
       "name": ".0/bin1/stack2",
@@ -1336,7 +1338,7 @@ var plot_558478741_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_558478741").parseSpec(plot_558478741_spec);
+ggvis.getPlot("plot_713812619").parseSpec(plot_713812619_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1358,27 +1360,27 @@ starwars %&gt;%
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_762660696-container" class="ggvis-output-container">
-  <div id="plot_762660696" class="ggvis-output"></div>
+<div id="plot_617001021-container" class="ggvis-output-container">
+  <div id="plot_617001021" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_762660696_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_762660696" data-renderer="svg">SVG</a>
+          <a id="plot_617001021_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_617001021" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_762660696_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_762660696" data-renderer="canvas">Canvas</a>
+          <a id="plot_617001021_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_617001021" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_762660696_download" class="ggvis-download" data-plot-id="plot_762660696">Download</a>
+          <a id="plot_617001021_download" class="ggvis-download" data-plot-id="plot_617001021">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_762660696_spec = {
+var plot_617001021_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -1506,7 +1508,7 @@ var plot_762660696_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_762660696").parseSpec(plot_762660696_spec);
+ggvis.getPlot("plot_617001021").parseSpec(plot_617001021_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1527,27 +1529,27 @@ ggvis.getPlot("plot_762660696").parseSpec(plot_762660696_spec);
 
 <!-- rnb-htmlwidget-begin eyJkZXBlbmRlbmNpZXMiOlt7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5In0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS4xMS4wIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJkZXRlY3QtcmVzaXplIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImpxdWVyeS5yZXNpemUuanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi9kZXRlY3QtcmVzaXplIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMC41LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImpxdWVyeS11aSIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcXVlcnktdWkubWluLmpzIiwic3JjIjp7ImZpbGUiOiJDOi9Vc2Vycy9qcmwvRG9jdW1lbnRzL1Ivd2luLWxpYnJhcnkvMy40L2dndmlzL3d3dy9saWIvanF1ZXJ5LXVpIn0sInN0eWxlc2hlZXQiOiJqcXVlcnktdWkubWluLmNzcyIsInZlcnNpb24iOiIxLjExLjQifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6ImQzIiwicGFja2FnZSI6W10sInNjcmlwdCI6ImQzLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2QzIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMy41LjIifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOltdLCJtZXRhIjpbXSwibmFtZSI6InZlZ2EiLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoidmVnYS5taW4uanMiLCJzcmMiOnsiZmlsZSI6IkM6L1VzZXJzL2pybC9Eb2N1bWVudHMvUi93aW4tbGlicmFyeS8zLjQvZ2d2aXMvd3d3L2xpYi92ZWdhIn0sInN0eWxlc2hlZXQiOltdLCJ2ZXJzaW9uIjoiMS40LjMifSx7ImFsbF9maWxlcyI6dHJ1ZSwiYXR0YWNobWVudCI6W10sImhlYWQiOiI8c2NyaXB0PnZhciBsb2Rhc2ggPSBfLm5vQ29uZmxpY3QoKTs8XC9zY3JpcHQ+IiwibWV0YSI6W10sIm5hbWUiOiJsb2Rhc2giLCJwYWNrYWdlIjpbXSwic2NyaXB0IjoibG9kYXNoLm1pbi5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvbGliL2xvZGFzaCJ9LCJzdHlsZXNoZWV0IjpbXSwidmVyc2lvbiI6IjIuMi4xIn0seyJhbGxfZmlsZXMiOnRydWUsImF0dGFjaG1lbnQiOltdLCJoZWFkIjpbXSwibWV0YSI6W10sIm5hbWUiOiJnZ3ZpcyIsInBhY2thZ2UiOltdLCJzY3JpcHQiOiJqcy9nZ3Zpcy5qcyIsInNyYyI6eyJmaWxlIjoiQzovVXNlcnMvanJsL0RvY3VtZW50cy9SL3dpbi1saWJyYXJ5LzMuNC9nZ3Zpcy93d3cvZ2d2aXMifSwic3R5bGVzaGVldCI6ImNzcy9nZ3Zpcy5jc3MiLCJ2ZXJzaW9uIjoiMC40LjMifV0sIm1ldGFkYXRhIjp7ImNsYXNzZXMiOlsic2hpbnkudGFnLmxpc3QiLCJsaXN0Il0sInNpemluZ1BvbGljeSI6W119fQ== -->
 
-<div id="plot_498259514-container" class="ggvis-output-container">
-  <div id="plot_498259514" class="ggvis-output"></div>
+<div id="plot_647623869-container" class="ggvis-output-container">
+  <div id="plot_647623869" class="ggvis-output"></div>
   <div class="plot-gear-icon">
     <nav class="ggvis-control">
       <a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
       <ul class="ggvis-dropdown">
         <li>
           Renderer: 
-          <a id="plot_498259514_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_498259514" data-renderer="svg">SVG</a>
+          <a id="plot_647623869_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_647623869" data-renderer="svg">SVG</a>
            | 
-          <a id="plot_498259514_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_498259514" data-renderer="canvas">Canvas</a>
+          <a id="plot_647623869_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_647623869" data-renderer="canvas">Canvas</a>
         </li>
         <li>
-          <a id="plot_498259514_download" class="ggvis-download" data-plot-id="plot_498259514">Download</a>
+          <a id="plot_647623869_download" class="ggvis-download" data-plot-id="plot_647623869">Download</a>
         </li>
       </ul>
     </nav>
   </div>
 </div>
 <script type="text/javascript">
-var plot_498259514_spec = {
+var plot_647623869_spec = {
   "data": [
     {
       "name": ".0/count1/stack2",
@@ -1675,7 +1677,7 @@ var plot_498259514_spec = {
   },
   "handlers": null
 };
-ggvis.getPlot("plot_498259514").parseSpec(plot_498259514_spec);
+ggvis.getPlot("plot_647623869").parseSpec(plot_647623869_spec);
 </script>
 
 <!-- rnb-htmlwidget-end -->
@@ -1792,7 +1794,7 @@ ggvis.getPlot("plot_498259514").parseSpec(plot_498259514_spec);
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkpvaW4sIFNraW0sIEVEQSwgVmlzdWFsaXplIg0KYXV0aG9yOiAiSm9obiBMaXR0bGUiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQphYnN0cmFjdDogIlRoaXMgZG9jdW1lbnQgaXMgYSB0aWR5dmVyc2UvZHBseXIgdG91ciB1c2luZyBSL1JTdHVkaW8uICBUaGUgaW5zdHJ1Y3RvciB3aWxsIGRlbW9uc3RyYXRlIGhvdyB0byB1bmRlcnRha2UgYW4gaW5pdGlhbCBpbnZlc3RpZ2F0aW9uIGludG8gdHdvIGRhdGFzZXRzLiAgTW9yZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgYXQgdGhpcyByZXBvOiBodHRwczovL2dpdGh1Yi5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLTIwMTgtZGF0YWZlc3QuIE91ciBJbnRybyB0byBSIHdvcmtzaG9wIGNhbiBiZSBmb3VuZCBhdCBodHRwczovL3JmdW4ubGlicmFyeS5kdWtlLmVkdS9pbnRybzJyLy4gIFRoaXMgZG9jdW1lbnQgaXMgY292ZXJlZCBieSB0aGUgQ0MgQlktTkMgbGljZW5zZTogIGh0dHBzOi8vY3JlYXRpdmVjb21tb25zLm9yZy9saWNlbnNlcy9ieS1uYy80LjAvbGVnYWxjb2RlLiINCm91dHB1dDogDQogIGh0bWxfbm90ZWJvb2s6DQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiB0cnVlDQotLS0NCg0KIyBMb2FkIFBhY2thZ2VzDQoNCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KGdndmlzKQ0KYGBgDQoNCiMgTG9hZCBEYXRhDQoNCi0gU3RhciBXYXJzIGNoYXJhY3RlciBkYXRhIGFyZSBhbiBvbi1ib2FyZCBwYXJ0IG9mIGRwbHlyOiAgYGRwbHlyOjpzdGFyd2Fyc2ANCg0KLSBTdGFyIFdhcnMgc3VydmV5IGRhdGEgYXJlIGZyb20gZml2ZXRoaXJ0eWVpZ2h0LmNvbS4gIA0KDQogICAgLSBodHRwczovL2dpdGh1Yi5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvdHJlZS9tYXN0ZXIvc3Rhci13YXJzLXN1cnZleQ0KICAgIC0gaHR0cHM6Ly9kYXRhLmZpdmV0aGlydHllaWdodC5jb20vDQogICAgLSBVbmxlc3Mgb3RoZXJ3aXNlIG5vdGVkLCBmaXZlIHRoaXJ0eSBlaWdodCBkYXRhIHNldHMgYXJlIGF2YWlsYWJsZSB1bmRlciB0aGUgQ3JlYXRpdmUgQ29tbW9ucyBBdHRyaWJ1dGlvbiA0LjAgSW50ZXJuYXRpb25hbCBMaWNlbnNlLCBhbmQgdGhlIGNvZGUgaXMgYXZhaWxhYmxlIHVuZGVyIHRoZSBNSVQgTGljZW5zZS4NCiAgICAtIGh0dHBzOi8vZml2ZXRoaXJ0eWVpZ2h0LmNvbS9mZWF0dXJlcy9hbWVyaWNhcy1mYXZvcml0ZS1zdGFyLXdhcnMtbW92aWVzLWFuZC1sZWFzdC1mYXZvcml0ZS1jaGFyYWN0ZXJzLw0KDQpMb2FkIHRoZSBzdXJ2ZXkgZGF0YSB0aGF0IGRlYWxzIHdpdGggY2hhcmFjdGVyJ3MgZmF2b3JhYmlsaXR5IHJhdGluZy4gIA0KDQpgYGB7ciBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfQ0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIHJlYWRfY3N2KCJkYXRhLzUzOF9mYXZvcmFiaWxpdHlfcG9wdWxhcml0eS5jc3YiKQ0KYGBgDQoNCmBgYHtyIGlnbm9yZV90aGlzX2NodW5rLCBldmFsPUZBTFNFLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBpbmNsdWRlPUZBTFNFfQ0KIyBJR05PUkUgVEhJU0UNCiMgVGhpcyBjaHVuayBsb2FkZWQgdGhlIGRhdGEgZnJvbSBmaXZldGhpcnR5ZWlnaHQuY29tIGluaWlhbGx5IGJ1dCB3ZSBhcmUgc2ltcGxpZnlpbmcgDQojIHRoZSBkYXRhIGxvYWQgZm9yIGVhc2UgZm9yIGluc3RydWN0aW9uLg0Kc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkgPC0gcmVhZF9jc3YoDQogICJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvbWFzdGVyL3N0YXItd2Fycy1zdXJ2ZXkvU3RhcldhcnMuY3N2IiwgDQogIHNraXAgPSAxKVssMTY6MjldICAgIyBTa2lwIGZpcnN0IGxpbmUgZHVlIHRvIGZ1bmt5IGNvbHVtbiBoZWFkZXJzLiAgWywxNjoyOV0gaW5nZXN0cyBjb2x1bW5zIDE2IHRocm91Z2ggMjkuDQpgYGANCg0KDQojIFJhdyBEYXRhDQoNCiMjIFN0YXIgV2FycyBDaGFyYWN0ZXNyDQoNCmBgYHtyIHNob3dfZHBseXItc3RhcndhcnMtdGliYmxlfQ0Kc3RhcndhcnMNCmBgYA0KDQojIyBGYXZvcmFiaWxpdHkgRGF0YQ0KDQpgYGB7ciB0cmFuc2Zvcm1fNTM4LWRhdGEsIGV2YWw9RkFMU0UsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGluY2x1ZGU9RkFMU0V9DQojIElHTk9SRSBUSElTDQojIFRoaXMgY2h1Y25rLCB3aGVuIGl0IHJhbiwgdHJhbnNmb3JtZWQgdGhlIGluaXRpYWwgNTM4IGRhdGEgYW5kIHRoZW4gd3JvdGUgaXQgdG8gdGhlIGRhdGEgZGlyZWN0b3J5Lg0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIHN3X2NoYXJhY3RlcnNfZmF2b3JhYmlsaXR5ICU+JSANCiAgbWFwX2RmcihmY3RfY291bnQpICU+JSANCiAgZmlsdGVyKGYgPT0gIlZlcnkgZmF2b3JhYmx5IikgJT4lIA0KICBhZGRfY29sdW1uKG5hbWUgPSBjb2xuYW1lcyhzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSkpICU+JSANCiAgc2VsZWN0KG5hbWUsIGZhdl9yYXRpbmcgPSBuKQ0KDQpsaWJyYXJ5KGhlcmUpDQp3cml0ZV9jc3YoZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nLCANCiAgICAgICAgICBoZXJlKCJkYXRhIiwgIjUzOF9mYXZvcmFiaWxpdHlfcG9wdWxhcml0eS5jc3YiKSkNCmBgYA0KDQpJIGhhdmUgdHJhbnNmb3JtZWQgdGhlICpGaXZlIFRoaXJ0eSBFaWdodCogW2RhdGFdKGh0dHBzOi8vZ2l0aHViLmNvbS9maXZldGhpcnR5ZWlnaHQvZGF0YS90cmVlL21hc3Rlci9zdGFyLXdhcnMtc3VydmV5KS4gIEl0J3MgcmVhZHkgdG8gbWVyZ2Ugd2l0aCB0aGUgb3RoZXIgZGF0YXNldC4NCg0KYGBge3Igc2hvd19mYXZvcmFiaWxpdHktcmF0aW5nfQ0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nDQpgYGANCg0KDQojIEpvaW4gRGF0YQ0KDQpUaGVyZSBhcmUgZGlmZmVyZW50IHR5cGVzIG9mIGpvaW5zIChlLmcuIGlubmVyLCBsZWZ0LCByaWdodCwgZnVsbCwgZXRjLikuICBTZWUgdGhlIGBkcGx5cjo6am9pbmAgW2RvY3VtZW50YXRpb25dKGh0dHA6Ly9kcGx5ci50aWR5dmVyc2Uub3JnL3JlZmVyZW5jZS9qb2luLmh0bWwpIGZvciBhIG1vcmUgY29tcGxldGUgZXhwbGFuYXRpb24uICBJIGNob3NlIGFuIGBpbm5lcl9qb2luYCBiZWNhdXNlIEkgb25seSB3YW50IHRoZSBkYXRhIHdoZXJlIHRoZXJlIGFyZSBtYXRjaGVzLiAgVGhpcyBlZmZlY3RpdmVseSBkcm9wcyA4MCBjaGFyYWN0ZXJzIGZyb20gdGhlIGRhdGFzZXQuICBGb3IgdGhpcyB0cmFuc2Zvcm1hdGlvbiwgSSBvbmx5IHdhbnQgdG8gYW5hbHl6ZSB0aG9zZSBkYXRhIGZvciB3aGljaCBJIGhhdmUgZmF2b3JhYmlsaXR5IHJhdGluZ3MuDQoNCg0KYGBge3Igam9pbi1kYXRhfQ0Kc3dfam9pbmVkIDwtIHN0YXJ3YXJzICU+JSANCiAgbGVmdF9qb2luKGZhdm9yYWJpbGl0eV9wb3B1bGFyaXR5X3JhdGluZywgYnkgPSAibmFtZSIpICU+JSANCiAgc2VsZWN0KDEsIDE0LCAyOjE0KSANCg0Kc3dfam9pbmVkICU+JSANCiAgYXJyYW5nZShkZXNjKGZhdl9yYXRpbmcpKQ0KYGBgDQoNCg0KDQojICBFREENCg0KRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcyBnaXZlcyBtZSBhIGdlbmVyYWwgc2Vuc2Ugb2YgdGhlIGRhdGEuICBGb3IgZXhhbXBsZSwgd2hhdCBhcmUgdGhlIG1lYW5zLCBtZWRpYW5zLCBkaXN0cmlidXRpb25zIG9mIGVhY2ggZGF0YSB2YXJpYWJsZS4NCg0KIyMgU2tpbQ0KDQpTa2ltIHRoZSBqb2luZWQgZGF0YS4gIFRoZXNlIGRhdGEgaW5jbHVkZSB0aGUgc2VsZWN0ZWQsIHRyYW5zZm9ybWVkIGZhdm9yYWJpbGl0eSBkYXRhIEkgZ2F0aGVyZWQgZnJvbSBmaXZldGhpcnR5ZWlnaHQuY29tLg0KDQpgYGB7ciBza2ltLWpvaW5lZH0NCnN3X2pvaW5lZCAlPiUgDQogIGRyb3BfbmEoZmF2X3JhdGluZykgJT4lIA0KICBza2ltKCkNCmBgYA0KDQpTa2ltIHRoZSBgZHBseXI6OnN0YXJ3YXJzYCByYXcgZGF0YS4NCg0KYGBge3J9DQpza2ltKHN0YXJ3YXJzKQ0KYGBgDQoNCg0KIyBWaXN1YWxpemUNCg0KIyMgU2NhdHRlciBQbG90DQoNCklzIGEgY2hhcmFjdGVyJ3MgZmF2b3JhYmlsaXR5IGRlcGVuZGVudCBvbiB0aGVpciBpbmRpdmlkdWFsIGhlaWdodD8NCg0KYGBge3Igc2NhdHRlcnBsb3QtZmF2X3JhdGluZ30NCnN3X2pvaW5lZCAlPiUgDQogIGRyb3BfbmEoZmF2X3JhdGluZykgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0LCB+ZmF2X3JhdGluZykgJT4lIA0KICBsYXllcl9wb2ludHMoKQ0KYGBgDQoNCiMjIEJveCBQbG90DQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgbWFzcyBvZiB0aHJlZSBzcGVjaWVzOiAgSHVtYW4sIERyb2lkLCBNaXJpYWxhbj8NCg0KYGBge3Igc3BlY2llcy1ib3hwbG90fQ0Kc3RhcndhcnMgJT4lIA0KICBkcm9wX25hKHNwZWNpZXMsIG1hc3MpICU+JSANCiAgZmlsdGVyKHNwZWNpZXMgPT0gIkh1bWFuIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIkRyb2lkIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIk1pcmlhbGFuIikgJT4lIA0KICBnZ3Zpcyh+c3BlY2llcywgfm1hc3MpICU+JSANCiAgbGF5ZXJfYm94cGxvdHMoKQ0KYGBgDQoNCiMjIEhpc3RvZ3JhbQ0KDQpXaGF0IGlzIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIGJpcnRoIHllYXJzIG9mIGFsbCB0aGUgY2hhcmFjdGVycz8NCg0KYGBge3IgYmlydGgteWVhcl9oaXN0b2dyYW19DQpzdGFyd2FycyAlPiUgDQogIGdndmlzKH5iaXJ0aF95ZWFyKSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgY2hhcmFjdGVyJ3MgaGVpZ2h0Pw0KDQpgYGB7ciBoZWlnaHRfaGlzdG9ncmFtfQ0Kc3RhcndhcnMgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0KSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCiMjIEJhciBQbG90DQoNCmBgYHtyIGV5ZS1jb2xvcl9iYXJwbG90fQ0Kb3JkZXJfZXllIDwtIGFzX3ZlY3RvcihmY3RfY291bnQoc3RhcndhcnMkZXllX2NvbG9yLCBzb3J0ID0gVFJVRSkgJT4lIHNlbGVjdChmKSkNCg0Kc3RhcndhcnMgJT4lICAgDQogIGdndmlzKH5leWVfY29sb3IpICU+JSANCiAgbGF5ZXJfYmFycygpICU+JSANCiAgc2NhbGVfb3JkaW5hbCgieCIsIGRvbWFpbiA9IG9yZGVyX2V5ZSkNCmBgYA0KDQpgYGB7ciByZWZpbmVfYmFycGxvdH0NCmZjdF9jb3VudChzdGFyd2FycyRleWVfY29sb3IsIHNvcnQgPSBUUlVFKSAlPiUgDQogIGhlYWQoKSAlPiUgDQogIGdndmlzKH5mLCB+bikgJT4lIA0KICBsYXllcl9iYXJzKCkgJT4lIA0KICBhZGRfYXhpcygieCIsIHRpdGxlID0gIkV5ZSBDb2xvciIpICU+JSANCiAgYWRkX2F4aXMoInkiLCB0aXRsZSA9ICJGcmVxdWVuY3kiKSAlPiUgDQogIHNjYWxlX29yZGluYWwoJ3gnLCBkb21haW49YygiYnJvd24iLCAiYmx1ZSIsICJ5ZWxsb3ciLCAiYmxhY2siLCAib3JhbmdlIiwgInJlZCIpKSANCmBgYA0KDQoNCiMgU2Vzc2lvbiBJbmZvDQoNCkZvciByZXByb2R1Y2liaWxpdHksIGl0J3MgYWx3YXlzIGdvb2QgdG8gZG9jdW1lbnQgdGhlIHNlc3Npb24gaW5mby4NCg0KYGBge3Igc2Vzc2lvbl9pbmZvfQ0KZGV2dG9vbHM6OnNlc3Npb25faW5mbygpDQpgYGANCg0KIyBMaWNlbnNlDQoNCkNyZWF0aXZlIENvbW1vbnMuICBDQyBCeS1OQyAgaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLzQuMC9sZWdhbGNvZGUNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkpvaW4sIFNraW0sIEVEQSwgVmlzdWFsaXplIg0KYXV0aG9yOiAiSm9obiBMaXR0bGUiDQpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiDQphYnN0cmFjdDogIlRoaXMgZG9jdW1lbnQgaXMgYSB0aWR5dmVyc2UvZHBseXIgdG91ciB1c2luZyBSL1JTdHVkaW8uICBUaGUgaW5zdHJ1Y3RvciB3aWxsIGRlbW9uc3RyYXRlIGhvdyB0byB1bmRlcnRha2UgYW4gaW5pdGlhbCBpbnZlc3RpZ2F0aW9uIGludG8gdHdvIGRhdGFzZXRzLiAgTW9yZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgYXQgdGhpcyByZXBvOiBodHRwczovL2dpdGh1Yi5jb20vZGF0YS1hbmQtdmlzdWFsaXphdGlvbi9pbnRybzJyLTIwMTgtZGF0YWZlc3QuIE91ciBJbnRybyB0byBSIHdvcmtzaG9wIGNhbiBiZSBmb3VuZCBhdCBodHRwczovL3JmdW4ubGlicmFyeS5kdWtlLmVkdS9pbnRybzJyLy4gIFRoaXMgZG9jdW1lbnQgaXMgY292ZXJlZCBieSB0aGUgQ0MgQlktTkMgbGljZW5zZTogIGh0dHBzOi8vY3JlYXRpdmVjb21tb25zLm9yZy9saWNlbnNlcy9ieS1uYy80LjAvbGVnYWxjb2RlLiINCm91dHB1dDogDQogIGh0bWxfbm90ZWJvb2s6DQogICAgdG9jOiB0cnVlDQogICAgdG9jX2Zsb2F0OiB0cnVlDQotLS0NCg0KIyBMb2FkIFBhY2thZ2VzDQoNCmBgYHtyIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KGdndmlzKQ0KYGBgDQoNCiMgTG9hZCBEYXRhDQoNCi0gU3RhciBXYXJzIGNoYXJhY3RlciBkYXRhIGFyZSBhbiBvbi1ib2FyZCBwYXJ0IG9mIGRwbHlyOiAgYGRwbHlyOjpzdGFyd2Fyc2ANCg0KLSBTdGFyIFdhcnMgc3VydmV5IGRhdGEgYXJlIGZyb20gZml2ZXRoaXJ0eWVpZ2h0LmNvbS4gIA0KDQogICAgLSBodHRwczovL2dpdGh1Yi5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvdHJlZS9tYXN0ZXIvc3Rhci13YXJzLXN1cnZleQ0KICAgIC0gaHR0cHM6Ly9kYXRhLmZpdmV0aGlydHllaWdodC5jb20vDQogICAgLSBVbmxlc3Mgb3RoZXJ3aXNlIG5vdGVkLCBmaXZlIHRoaXJ0eSBlaWdodCBkYXRhIHNldHMgYXJlIGF2YWlsYWJsZSB1bmRlciB0aGUgQ3JlYXRpdmUgQ29tbW9ucyBBdHRyaWJ1dGlvbiA0LjAgSW50ZXJuYXRpb25hbCBMaWNlbnNlLCBhbmQgdGhlIGNvZGUgaXMgYXZhaWxhYmxlIHVuZGVyIHRoZSBNSVQgTGljZW5zZS4NCiAgICAtIGh0dHBzOi8vZml2ZXRoaXJ0eWVpZ2h0LmNvbS9mZWF0dXJlcy9hbWVyaWNhcy1mYXZvcml0ZS1zdGFyLXdhcnMtbW92aWVzLWFuZC1sZWFzdC1mYXZvcml0ZS1jaGFyYWN0ZXJzLw0KDQpMb2FkIHRoZSBzdXJ2ZXkgZGF0YSB0aGF0IGRlYWxzIHdpdGggY2hhcmFjdGVyJ3MgZmF2b3JhYmlsaXR5IHJhdGluZy4gIA0KDQpgYGB7ciBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFfQ0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIA0KICByZWFkX2NzdigiZGF0YS81MzhfZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHkuY3N2IiwNCiAgICAgICAgICAgc2tpcCA9IDExKQ0KYGBgDQoNCmBgYHtyIGlnbm9yZV90aGlzX2NodW5rLCBldmFsPUZBTFNFLCBtZXNzYWdlPUZBTFNFLCB3YXJuaW5nPUZBTFNFLCBpbmNsdWRlPUZBTFNFfQ0KIyBJR05PUkUgVEhJU0UNCiMgVGhpcyBjaHVuayBsb2FkZWQgdGhlIGRhdGEgZnJvbSBmaXZldGhpcnR5ZWlnaHQuY29tIGluaWlhbGx5IGJ1dCB3ZSBhcmUgc2ltcGxpZnlpbmcgDQojIHRoZSBkYXRhIGxvYWQgZm9yIGVhc2UgZm9yIGluc3RydWN0aW9uLg0Kc3dfY2hhcmFjdGVyc19mYXZvcmFiaWxpdHkgPC0gcmVhZF9jc3YoDQogICJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vZml2ZXRoaXJ0eWVpZ2h0L2RhdGEvbWFzdGVyL3N0YXItd2Fycy1zdXJ2ZXkvU3RhcldhcnMuY3N2IiwgDQogIHNraXAgPSAxKVssMTY6MjldICAgIyBTa2lwIGZpcnN0IGxpbmUgZHVlIHRvIGZ1bmt5IGNvbHVtbiBoZWFkZXJzLiAgWywxNjoyOV0gaW5nZXN0cyBjb2x1bW5zIDE2IHRocm91Z2ggMjkuDQpgYGANCg0KDQojIFJhdyBEYXRhDQoNCiMjIFN0YXIgV2FycyBDaGFyYWN0ZXNyDQoNCmBgYHtyIHNob3dfZHBseXItc3RhcndhcnMtdGliYmxlfQ0Kc3RhcndhcnMNCmBgYA0KDQojIyBGYXZvcmFiaWxpdHkgRGF0YQ0KDQpgYGB7ciB0cmFuc2Zvcm1fNTM4LWRhdGEsIGV2YWw9RkFMU0UsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0UsIGluY2x1ZGU9RkFMU0V9DQojIElHTk9SRSBUSElTDQojIFRoaXMgY2h1Y25rLCB3aGVuIGl0IHJhbiwgdHJhbnNmb3JtZWQgdGhlIGluaXRpYWwgNTM4IGRhdGEgYW5kIHRoZW4gd3JvdGUgaXQgdG8gdGhlIGRhdGEgZGlyZWN0b3J5Lg0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nIDwtIHN3X2NoYXJhY3RlcnNfZmF2b3JhYmlsaXR5ICU+JSANCiAgbWFwX2RmcihmY3RfY291bnQpICU+JSANCiAgZmlsdGVyKGYgPT0gIlZlcnkgZmF2b3JhYmx5IikgJT4lIA0KICBhZGRfY29sdW1uKG5hbWUgPSBjb2xuYW1lcyhzd19jaGFyYWN0ZXJzX2Zhdm9yYWJpbGl0eSkpICU+JSANCiAgc2VsZWN0KG5hbWUsIGZhdl9yYXRpbmcgPSBuKQ0KDQpsaWJyYXJ5KGhlcmUpDQp3cml0ZV9jc3YoZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nLCANCiAgICAgICAgICBoZXJlKCJkYXRhIiwgIjUzOF9mYXZvcmFiaWxpdHlfcG9wdWxhcml0eS5jc3YiKSkNCmBgYA0KDQpJIGhhdmUgdHJhbnNmb3JtZWQgdGhlICpGaXZlIFRoaXJ0eSBFaWdodCogW2RhdGFdKGh0dHBzOi8vZ2l0aHViLmNvbS9maXZldGhpcnR5ZWlnaHQvZGF0YS90cmVlL21hc3Rlci9zdGFyLXdhcnMtc3VydmV5KS4gIEl0J3MgcmVhZHkgdG8gbWVyZ2Ugd2l0aCB0aGUgb3RoZXIgZGF0YXNldC4NCg0KYGBge3Igc2hvd19mYXZvcmFiaWxpdHktcmF0aW5nfQ0KZmF2b3JhYmlsaXR5X3BvcHVsYXJpdHlfcmF0aW5nDQpgYGANCg0KDQojIEpvaW4gRGF0YQ0KDQpUaGVyZSBhcmUgZGlmZmVyZW50IHR5cGVzIG9mIGpvaW5zIChlLmcuIGlubmVyLCBsZWZ0LCByaWdodCwgZnVsbCwgZXRjLikuICBTZWUgdGhlIGBkcGx5cjo6am9pbmAgW2RvY3VtZW50YXRpb25dKGh0dHA6Ly9kcGx5ci50aWR5dmVyc2Uub3JnL3JlZmVyZW5jZS9qb2luLmh0bWwpIGZvciBhIG1vcmUgY29tcGxldGUgZXhwbGFuYXRpb24uICBJIGNob3NlIGFuIGBpbm5lcl9qb2luYCBiZWNhdXNlIEkgb25seSB3YW50IHRoZSBkYXRhIHdoZXJlIHRoZXJlIGFyZSBtYXRjaGVzLiAgVGhpcyBlZmZlY3RpdmVseSBkcm9wcyA4MCBjaGFyYWN0ZXJzIGZyb20gdGhlIGRhdGFzZXQuICBGb3IgdGhpcyB0cmFuc2Zvcm1hdGlvbiwgSSBvbmx5IHdhbnQgdG8gYW5hbHl6ZSB0aG9zZSBkYXRhIGZvciB3aGljaCBJIGhhdmUgZmF2b3JhYmlsaXR5IHJhdGluZ3MuDQoNCg0KYGBge3Igam9pbi1kYXRhfQ0Kc3dfam9pbmVkIDwtIHN0YXJ3YXJzICU+JSANCiAgbGVmdF9qb2luKGZhdm9yYWJpbGl0eV9wb3B1bGFyaXR5X3JhdGluZywgYnkgPSAibmFtZSIpICU+JSANCiAgc2VsZWN0KDEsIDE0LCAyOjE0KSANCg0Kc3dfam9pbmVkICU+JSANCiAgYXJyYW5nZShkZXNjKGZhdl9yYXRpbmcpKQ0KYGBgDQoNCg0KDQojICBFREENCg0KRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcyBnaXZlcyBtZSBhIGdlbmVyYWwgc2Vuc2Ugb2YgdGhlIGRhdGEuICBGb3IgZXhhbXBsZSwgd2hhdCBhcmUgdGhlIG1lYW5zLCBtZWRpYW5zLCBkaXN0cmlidXRpb25zIG9mIGVhY2ggZGF0YSB2YXJpYWJsZS4NCg0KIyMgU2tpbQ0KDQpTa2ltIHRoZSBqb2luZWQgZGF0YS4gIFRoZXNlIGRhdGEgaW5jbHVkZSB0aGUgc2VsZWN0ZWQsIHRyYW5zZm9ybWVkIGZhdm9yYWJpbGl0eSBkYXRhIEkgZ2F0aGVyZWQgZnJvbSBmaXZldGhpcnR5ZWlnaHQuY29tLg0KDQpgYGB7ciBza2ltLWpvaW5lZH0NCnN3X2pvaW5lZCAlPiUgDQogIGRyb3BfbmEoZmF2X3JhdGluZykgJT4lIA0KICBza2ltKCkNCmBgYA0KDQpTa2ltIHRoZSBgZHBseXI6OnN0YXJ3YXJzYCByYXcgZGF0YS4NCg0KYGBge3J9DQpza2ltKHN0YXJ3YXJzKQ0KYGBgDQoNCg0KIyBWaXN1YWxpemUNCg0KIyMgU2NhdHRlciBQbG90DQoNCklzIGEgY2hhcmFjdGVyJ3MgZmF2b3JhYmlsaXR5IGRlcGVuZGVudCBvbiB0aGVpciBpbmRpdmlkdWFsIGhlaWdodD8NCg0KYGBge3Igc2NhdHRlcnBsb3QtZmF2X3JhdGluZ30NCnN3X2pvaW5lZCAlPiUgDQogIGRyb3BfbmEoZmF2X3JhdGluZykgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0LCB+ZmF2X3JhdGluZykgJT4lIA0KICBsYXllcl9wb2ludHMoKQ0KYGBgDQoNCiMjIEJveCBQbG90DQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgbWFzcyBvZiB0aHJlZSBzcGVjaWVzOiAgSHVtYW4sIERyb2lkLCBNaXJpYWxhbj8NCg0KYGBge3Igc3BlY2llcy1ib3hwbG90fQ0Kc3RhcndhcnMgJT4lIA0KICBkcm9wX25hKHNwZWNpZXMsIG1hc3MpICU+JSANCiAgZmlsdGVyKHNwZWNpZXMgPT0gIkh1bWFuIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIkRyb2lkIiB8DQogICAgICAgICAgIHNwZWNpZXMgPT0gIk1pcmlhbGFuIikgJT4lIA0KICBnZ3Zpcyh+c3BlY2llcywgfm1hc3MpICU+JSANCiAgbGF5ZXJfYm94cGxvdHMoKQ0KYGBgDQoNCiMjIEhpc3RvZ3JhbQ0KDQpXaGF0IGlzIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIGJpcnRoIHllYXJzIG9mIGFsbCB0aGUgY2hhcmFjdGVycz8NCg0KYGBge3IgYmlydGgteWVhcl9oaXN0b2dyYW19DQpzdGFyd2FycyAlPiUgDQogIGdndmlzKH5iaXJ0aF95ZWFyKSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCldoYXQgaXMgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgY2hhcmFjdGVyJ3MgaGVpZ2h0Pw0KDQpgYGB7ciBoZWlnaHRfaGlzdG9ncmFtfQ0Kc3RhcndhcnMgJT4lIA0KICBnZ3Zpcyh+aGVpZ2h0KSAlPiUgDQogIGxheWVyX2hpc3RvZ3JhbXMoKQ0KYGBgDQoNCiMjIEJhciBQbG90DQoNCmBgYHtyIGV5ZS1jb2xvcl9iYXJwbG90fQ0Kb3JkZXJfZXllIDwtIGFzX3ZlY3RvcihmY3RfY291bnQoc3RhcndhcnMkZXllX2NvbG9yLCBzb3J0ID0gVFJVRSkgJT4lIHNlbGVjdChmKSkNCg0Kc3RhcndhcnMgJT4lICAgDQogIGdndmlzKH5leWVfY29sb3IpICU+JSANCiAgbGF5ZXJfYmFycygpICU+JSANCiAgc2NhbGVfb3JkaW5hbCgieCIsIGRvbWFpbiA9IG9yZGVyX2V5ZSkNCmBgYA0KDQpgYGB7ciByZWZpbmVfYmFycGxvdH0NCmZjdF9jb3VudChzdGFyd2FycyRleWVfY29sb3IsIHNvcnQgPSBUUlVFKSAlPiUgDQogIGhlYWQoKSAlPiUgDQogIGdndmlzKH5mLCB+bikgJT4lIA0KICBsYXllcl9iYXJzKCkgJT4lIA0KICBhZGRfYXhpcygieCIsIHRpdGxlID0gIkV5ZSBDb2xvciIpICU+JSANCiAgYWRkX2F4aXMoInkiLCB0aXRsZSA9ICJGcmVxdWVuY3kiKSAlPiUgDQogIHNjYWxlX29yZGluYWwoJ3gnLCBkb21haW49YygiYnJvd24iLCAiYmx1ZSIsICJ5ZWxsb3ciLCAiYmxhY2siLCAib3JhbmdlIiwgInJlZCIpKSANCmBgYA0KDQoNCiMgU2Vzc2lvbiBJbmZvDQoNCkZvciByZXByb2R1Y2liaWxpdHksIGl0J3MgYWx3YXlzIGdvb2QgdG8gZG9jdW1lbnQgdGhlIHNlc3Npb24gaW5mby4NCg0KYGBge3Igc2Vzc2lvbl9pbmZvfQ0KZGV2dG9vbHM6OnNlc3Npb25faW5mbygpDQpgYGANCg0KIyBMaWNlbnNlDQoNCkNyZWF0aXZlIENvbW1vbnMuICBDQyBCeS1OQyAgaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLzQuMC9sZWdhbGNvZGUNCg==</div>
 
 
 </div>

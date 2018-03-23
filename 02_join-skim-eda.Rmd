@@ -31,7 +31,9 @@ library(ggvis)
 Load the survey data that deals with character's favorability rating.  
 
 ```{r message=FALSE, warning=FALSE}
-favorability_popularity_rating <- read_csv("data/538_favorability_popularity.csv")
+favorability_popularity_rating <- 
+  read_csv("data/538_favorability_popularity.csv",
+           skip = 11)
 ```
 
 ```{r ignore_this_chunk, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
