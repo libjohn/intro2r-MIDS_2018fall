@@ -101,7 +101,7 @@ starwars
 
 ```{r}
 starwars_small <- starwars %>% 
-  filter(!is.na(mass), !is.na(height))
+  drop_na(mass, height)
 ```
 
 ## Arrange
