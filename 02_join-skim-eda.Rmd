@@ -79,7 +79,7 @@ favorability_popularity_rating
 
 # Join Data
 
-There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation.  I chose an `inner_join` because I only want the data where there are matches.  This effectively drops 80 characters from the dataset.  For this transformation, I only want to analyze those data for which I have favorability ratings.
+There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation. Also note that not all the data joined as might be expected.  Joining on alphanumeric keys can be problematic.  There are several issues tha complicate this type of join, including diacritical characters, case sensitivity, and spaces. Ideally, match on consistent numeric keys.
 
 
 ```{r join-data}
