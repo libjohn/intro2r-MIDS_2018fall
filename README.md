@@ -1,7 +1,7 @@
-Intro to R; Revised
+Intro to R; DataFest 2018
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-03-23
+2018-03-26
 
 README
 ======

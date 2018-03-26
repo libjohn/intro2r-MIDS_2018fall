@@ -1,5 +1,5 @@
 ---
-title: "Intro to R; Revised"
+title: "Intro to R; DataFest 2018"
 author: "John Little (@libjohn) & Joel Herndon (@herndonj)"
 date: "`r Sys.Date()`"
 output: github_document
