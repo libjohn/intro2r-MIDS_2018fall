@@ -56,8 +56,6 @@ My^[Your Name Here ;-j] *favorite **search** engines* are
 
 ### Hurricane data from github
 
-(Do you want to copy/paste the code?  https://is.gd/rcode)
-
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 canes <- read_csv("https://is.gd/bigstorms")
 ```
@@ -101,7 +99,7 @@ starwars
 
 ```{r}
 starwars_small <- starwars %>% 
-  drop_na(mass, height)
+  filter(!is.na(mass), !is.na(height))
 ```
 
 ## Arrange
