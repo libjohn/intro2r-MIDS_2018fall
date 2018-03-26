@@ -37,9 +37,10 @@ favorability_popularity_rating <-
 ```
 
 ```{r ignore_this_chunk, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-# IGNORE THISE
+# IGNORE THIS
 # This chunk loaded the data from fivethirtyeight.com iniially but we are simplifying 
 # the data load for ease for instruction.
+#
 sw_characters_favorability <- read_csv(
   "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
   skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
