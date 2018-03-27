@@ -57,7 +57,7 @@ Outline
     1.  Read in new datasets
     2.  `library(skimr)`
 
-9.  More on `dplyr` -- join two datasets
+9.  More `dplyr` -- join two datasets
 
     1.  `left_join` to merge data
 

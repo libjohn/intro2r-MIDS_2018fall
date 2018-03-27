@@ -96,10 +96,6 @@ Skim the transformed favorability data gathered from fivethirtyeight.com.
 skim(favorability_popularity_rating)
 ```
 
-sw_joined %>% 
-  drop_na(fav_rating) %>% 
-
-
 # Join Data
 
 There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation. Note that the join key plays a critical role in the success rate of the join.  Joining on alphanumeric keys can be problematic due to complications such as diacritical characters, case sensitivity, and spaces. Ideally, match on consistent numeric keys.
@@ -113,6 +109,14 @@ sw_joined <- starwars %>%
 sw_joined %>% 
   arrange(desc(fav_rating))
 ```
+
+```{r}
+sw_joined %>% 
+  drop_na(fav_rating) %>% 
+  skim()
+```
+
+
 
 # Visualize
 
