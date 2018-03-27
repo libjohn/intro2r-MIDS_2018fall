@@ -1,7 +1,7 @@
 Intro to R; DataFest 2018
 ================
 John Little (@libjohn) & Joel Herndon (@herndonj)
-2018-03-26
+2018-03-27
 
 README
 ======
@@ -52,20 +52,20 @@ Outline
     2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
-8.  More on `dplyr` -- join two datasets
+8.  Basic Exploratory Data Analysis
 
     1.  Read in new datasets
-    2.  `left_join` to add data
+    2.  `library(skimr)`
 
-9.  Basic Exploratory Data Analysis
+9.  More on `dplyr` -- join two datasets
 
-    1.  `library(skimr)`
-    2.  Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
+    1.  `left_join` to merge data
 
 10. More Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
-    1.  <https://rfun.library.duke.edu/intro2r/visualization.html>
+    1.  Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
     2.  Take the ggplot2 workshop, or see the [materials](https://github.com/data-and-visualization/ggplot2-S18)
+    3.  Resource: <https://rfun.library.duke.edu/intro2r/visualization.html>
 
 11. Our Training Materials
 

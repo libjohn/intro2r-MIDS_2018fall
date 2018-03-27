@@ -1,12 +1,11 @@
 ---
-title: "Join, Skim, EDA, Visualize"
+title: "EDA (Skim), Join, Visualize"
 author: "John Little"
 date: "`r Sys.Date()`"
-abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. Our Intro to R workshop can be found at https://rfun.library.duke.edu/intro2r/.  This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode."
-output: 
+abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. Our Intro to R workshop can be found at https://rfun.library.duke.edu/intro2r/.  This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode.\n"
+output:  
   html_notebook:
     toc: true
-    toc_float: true
 ---
 
 # Load Packages
@@ -59,16 +58,16 @@ starwars
 
 ```{r transform_538-data, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # IGNORE THIS
-# This chucnk, when it ran, transformed the initial 538 data and then wrote it to the data directory.
+# This chunk, when it ran, transformed the initial 
+# 538 data and then wrote it to the data directory.
+#
+# IGNORE THIS code chunk
+#
 favorability_popularity_rating <- sw_characters_favorability %>% 
   map_dfr(fct_count) %>% 
   filter(f == "Very favorably") %>% 
   add_column(name = colnames(sw_characters_favorability)) %>% 
   select(name, fav_rating = n)
-
-library(here)
-write_csv(favorability_popularity_rating, 
-          here("data", "538_favorability_popularity.csv"))
 ```
 
 I have transformed the *Five Thirty Eight* [data](https://github.com/fivethirtyeight/data/tree/master/star-wars-survey).  It's ready to merge with the other dataset.
@@ -76,6 +75,29 @@ I have transformed the *Five Thirty Eight* [data](https://github.com/fivethirtye
 ```{r show_favorability-rating}
 favorability_popularity_rating
 ```
+
+
+#  EDA
+
+Exploratory Data Analysis gives me a general sense of the data.  For example, what are the means, medians, distributions of each data variable.
+
+## Skim
+
+Skim the `dplyr::starwars` raw data.
+
+```{r}
+skim(starwars)
+```
+
+
+Skim the transformed favorability data gathered from fivethirtyeight.com.
+
+```{r skim-joined}
+skim(favorability_popularity_rating)
+```
+
+sw_joined %>% 
+  drop_na(fav_rating) %>% 
 
 
 # Join Data
@@ -92,29 +114,6 @@ sw_joined %>%
   arrange(desc(fav_rating))
 ```
 
-
-
-#  EDA
-
-Exploratory Data Analysis gives me a general sense of the data.  For example, what are the means, medians, distributions of each data variable.
-
-## Skim
-
-Skim the joined data.  These data include the selected, transformed favorability data I gathered from fivethirtyeight.com.
-
-```{r skim-joined}
-sw_joined %>% 
-  drop_na(fav_rating) %>% 
-  skim()
-```
-
-Skim the `dplyr::starwars` raw data.
-
-```{r}
-skim(starwars)
-```
-
-
 # Visualize
 
 ## Scatter Plot
@@ -127,6 +126,7 @@ sw_joined %>%
   ggvis(~height, ~fav_rating) %>% 
   layer_points()
 ```
+
 
 ## Box Plot
 

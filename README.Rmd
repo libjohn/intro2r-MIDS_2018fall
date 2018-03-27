@@ -53,21 +53,21 @@ Outline
     2.  [exercise\_02.Rmd](exercise_02.Rmd)
     3.  [answers.Rmd](answers.Rmd)
 
-5.  More on `dplyr` -- join two datasets
-
-    1. Read in new datasets
-    5. `left_join` to add data
-
-
 5.  Basic Exploratory Data Analysis
 
+    1. Read in new datasets
     1. `library(skimr)`
-    2. Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
-    
+
+5.  More on `dplyr` -- join two datasets
+
+    1. `left_join` to merge data
+
+
 7.  More Visualize with `ggvis` (syntactically simpler than ggplot2, but...)
 
-    1. https://rfun.library.duke.edu/intro2r/visualization.html
+    1. Basic visualization (Scatter Plot, Box Plot, Histogram, Bar Chart)
     1. Take the ggplot2 workshop, or see the [materials](https://github.com/data-and-visualization/ggplot2-S18)
+    1. Resource:  https://rfun.library.duke.edu/intro2r/visualization.html
 
 
 
