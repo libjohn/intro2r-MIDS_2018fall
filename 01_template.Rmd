@@ -144,6 +144,7 @@ starwars_small %>%
 ```{r}
 starwars %>% 
   count(mass) %>% 
+  drop_na() %>% 
   arrange(desc(n))
 ```
 
