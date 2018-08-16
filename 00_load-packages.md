@@ -1,0 +1,22 @@
+Load Packages
+================
+August 16, 2018
+
+The following package libraries should be loaded in advance of the workshop
+
+-   tidyverse
+-   skimr
+-   ggvis
+
+How To
+------
+
+If you are unfamiliar with installing and loading package libraies in R, please watch the first 60 seconds of this training video.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/u1r5XTqrCTQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+Otherwise, if you are familiar with installing packages via the Console...
+
+-   `install.packages("tidyverse")`
+-   `install.packages("skimr")`
+-   `install.packages("ggvis")`
