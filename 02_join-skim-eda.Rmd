@@ -179,12 +179,11 @@ starwars %>%
 fct_count(starwars$eye_color, sort = TRUE) %>% 
   head() %>% 
   ggvis(~f, ~n) %>% 
-  layer_bars() %>% 
+  layer_bars(fill := ~f, stroke := ~f) %>% 
   add_axis("x", title = "Eye Color") %>% 
   add_axis("y", title = "Frequency") %>% 
   scale_ordinal('x', domain=c("brown", "blue", "yellow", "black", "orange", "red")) 
 ```
-
 
 # Session Info
 
