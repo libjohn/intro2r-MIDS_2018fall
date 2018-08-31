@@ -195,11 +195,20 @@ $(document).ready(function () {
 <li><code>install.packages(&quot;tidyverse&quot;)</code></li>
 <li><code>install.packages(&quot;skimr&quot;)</code></li>
 <li><code>install.packages(&quot;ggvis&quot;)</code></li>
+<li><code>install.packages(&quot;sf&quot;)</code></li>
+<li><code>install.packages(&quot;viridis&quot;)</code></li>
+<li><code>install.packages(&quot;devtools&quot;)</code></li>
 </ul>
+<p>Alternatively, useing this file (<code>00_load-packages.Rmd</code>), execute the code-chunk below.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhjKFwidGlkeXZlcnNlXCIsIFwic2tpbXJcIiwgXCJnZ3Zpc1wiLCBcInNmXCIsIFwidmlyaWRpc1wiLCBcImRldnRvb2xzXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>install.packages(c(&quot;tidyverse&quot;, &quot;skimr&quot;, &quot;ggvis&quot;, &quot;sf&quot;, &quot;viridis&quot;, &quot;devtools&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxvYWQgUGFja2FnZXMiDQpkYXRlOiAiQXVndXN0IDE2LCAyMDE4Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KVGhlIGZvbGxvd2luZyBwYWNrYWdlIGxpYnJhcmllcyBzaG91bGQgYmUgbG9hZGVkIGluIGFkdmFuY2Ugb2YgdGhlIHdvcmtzaG9wDQoNCi0gdGlkeXZlcnNlDQotIHNraW1yDQotIGdndmlzDQoNCiMjIEhvdyBUbw0KDQpJZiB5b3UgYXJlIHVuZmFtaWxpYXIgd2l0aCBpbnN0YWxsaW5nIGFuZCBsb2FkaW5nIHBhY2thZ2UgbGlicmFpZXMgaW4gUiwgcGxlYXNlIHdhdGNoIHRoZSBmaXJzdCA2MCBzZWNvbmRzIG9mIHRoaXMgdHJhaW5pbmcgdmlkZW8uDQoNCjxpZnJhbWUgd2lkdGg9IjU2MCIgaGVpZ2h0PSIzMTUiIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvdTFyNVhUcXJDVFEiIGZyYW1lYm9yZGVyPSIwIiBhbGxvdz0iYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYSIgYWxsb3dmdWxsc2NyZWVuPjwvaWZyYW1lPg0KDQombmJzcDsNCg0KT3RoZXJ3aXNlLCBpZiB5b3UgYXJlIGZhbWlsaWFyIHdpdGggaW5zdGFsbGluZyBwYWNrYWdlcyB2aWEgdGhlIENvbnNvbGUuLi4NCg0KLSBgaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIilgDQotIGBpbnN0YWxsLnBhY2thZ2VzKCJza2ltciIpYA0KLSBgaW5zdGFsbC5wYWNrYWdlcygiZ2d2aXMiKWA=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxvYWQgUGFja2FnZXMiDQpkYXRlOiAiQXVndXN0IDE2LCAyMDE4Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KVGhlIGZvbGxvd2luZyBwYWNrYWdlIGxpYnJhcmllcyBzaG91bGQgYmUgbG9hZGVkIGluIGFkdmFuY2Ugb2YgdGhlIHdvcmtzaG9wDQoNCi0gdGlkeXZlcnNlDQotIHNraW1yDQotIGdndmlzDQoNCiMjIEhvdyBUbw0KDQpJZiB5b3UgYXJlIHVuZmFtaWxpYXIgd2l0aCBpbnN0YWxsaW5nIGFuZCBsb2FkaW5nIHBhY2thZ2UgbGlicmFpZXMgaW4gUiwgcGxlYXNlIHdhdGNoIHRoZSBmaXJzdCA2MCBzZWNvbmRzIG9mIHRoaXMgdHJhaW5pbmcgdmlkZW8uDQoNCjxpZnJhbWUgd2lkdGg9IjU2MCIgaGVpZ2h0PSIzMTUiIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvdTFyNVhUcXJDVFEiIGZyYW1lYm9yZGVyPSIwIiBhbGxvdz0iYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYSIgYWxsb3dmdWxsc2NyZWVuPjwvaWZyYW1lPg0KDQombmJzcDsNCg0KT3RoZXJ3aXNlLCBpZiB5b3UgYXJlIGZhbWlsaWFyIHdpdGggaW5zdGFsbGluZyBwYWNrYWdlcyB2aWEgdGhlIENvbnNvbGUuLi4NCg0KLSBgaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIilgDQotIGBpbnN0YWxsLnBhY2thZ2VzKCJza2ltciIpYA0KLSBgaW5zdGFsbC5wYWNrYWdlcygiZ2d2aXMiKWANCi0gYGluc3RhbGwucGFja2FnZXMoInNmIilgDQotIGBpbnN0YWxsLnBhY2thZ2VzKCJ2aXJpZGlzIilgDQotIGBpbnN0YWxsLnBhY2thZ2VzKCJkZXZ0b29scyIpYA0KDQpBbHRlcm5hdGl2ZWx5LCB1c2VpbmcgdGhpcyBmaWxlIChgMDBfbG9hZC1wYWNrYWdlcy5SbWRgKSwgZXhlY3V0ZSB0aGUgY29kZS1jaHVuayBiZWxvdy4NCg0KYGBge3J9DQppbnN0YWxsLnBhY2thZ2VzKGMoInRpZHl2ZXJzZSIsICJza2ltciIsICJnZ3ZpcyIsICJzZiIsICJ2aXJpZGlzIiwgImRldnRvb2xzIikpDQpgYGA=</div>
 
 
 

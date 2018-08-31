@@ -23,3 +23,12 @@ Otherwise, if you are familiar with installing packages via the Console...
 - `install.packages("tidyverse")`
 - `install.packages("skimr")`
 - `install.packages("ggvis")`
+- `install.packages("sf")`
+- `install.packages("viridis")`
+- `install.packages("devtools")`
+
+Alternatively, useing this file (`00_load-packages.Rmd`), execute the code-chunk below.
+
+```{r}
+install.packages(c("tidyverse", "skimr", "ggvis", "sf", "viridis", "devtools"))
+```
