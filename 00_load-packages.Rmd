@@ -1,6 +1,6 @@
 ---
-title: "Load Packages"
-date: "August 16, 2018"
+title: "Install Packages"
+date: "August 31, 2018"
 output: html_notebook
 ---
 
@@ -9,6 +9,9 @@ The following package libraries should be loaded in advance of the workshop
 - tidyverse
 - skimr
 - ggvis
+- sf
+- viridis
+- devtools
 
 ## How To
 
