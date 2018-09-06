@@ -35,16 +35,6 @@ favorability_popularity_rating <-
            skip = 11)
 ```
 
-```{r ignore_this_chunk, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-# IGNORE THIS
-# This chunk loaded the data from fivethirtyeight.com iniially but we are simplifying 
-# the data load for ease for instruction.
-#
-sw_characters_favorability <- read_csv(
-  "https://raw.githubusercontent.com/fivethirtyeight/data/master/star-wars-survey/StarWars.csv", 
-  skip = 1)[,16:29]   # Skip first line due to funky column headers.  [,16:29] ingests columns 16 through 29.
-```
-
 
 # Raw Data
 
@@ -55,20 +45,6 @@ starwars
 ```
 
 ## Favorability Data
-
-```{r transform_538-data, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-# IGNORE THIS
-# This chunk, when it ran, transformed the initial 
-# 538 data and then wrote it to the data directory.
-#
-# IGNORE THIS code chunk
-#
-favorability_popularity_rating <- sw_characters_favorability %>% 
-  map_dfr(fct_count) %>% 
-  filter(f == "Very favorably") %>% 
-  add_column(name = colnames(sw_characters_favorability)) %>% 
-  select(name, fav_rating = n)
-```
 
 I have transformed the *Five Thirty Eight* [data](https://github.com/fivethirtyeight/data/tree/master/star-wars-survey).  It's ready to merge with the other dataset.
 
@@ -104,7 +80,7 @@ There are different types of joins (e.g. inner, left, right, full, etc.).  See t
 ```{r join-data}
 sw_joined <- starwars %>% 
   left_join(favorability_popularity_rating, by = "name") %>% 
-  select(1, 14, 2:14) 
+  select(name, fav_rating, everything()) 
 
 sw_joined %>% 
   arrange(desc(fav_rating))
@@ -167,12 +143,12 @@ starwars %>%
 ## Bar Plot
 
 ```{r eye-color_barplot}
-order_eye <- as_vector(fct_count(starwars$eye_color, sort = TRUE) %>% select(f))
-
+# order_eye <- as_vector(fct_count(starwars$eye_color, sort = TRUE) %>% select(f))
+# fct_count(starwars$eye_color, sort = TRUE)$f
 starwars %>%   
   ggvis(~eye_color) %>% 
   layer_bars() %>% 
-  scale_ordinal("x", domain = order_eye)
+  scale_ordinal("x", domain = fct_count(starwars$eye_color, sort = TRUE)$f)
 ```
 
 ```{r refine_barplot}
