@@ -12,6 +12,7 @@ For the workshop, we've prebuilt a data set that has information about menus in 
 1. Insert a code chunk and load the practice data:  `read_csv("data/brodheadCenter.csv")`
 
     - Remember to assign the imported data to an object name, e.g. "brodhead"
+    
 1. Now you are ready to make new code chunks and follow the steps in Exercise 1 (below).
 
 In this exercise you'll practice the `dplyr` verbs (i.e. *functions*) mentioned in the demonstration.
