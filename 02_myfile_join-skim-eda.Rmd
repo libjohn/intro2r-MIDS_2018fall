@@ -1,0 +1,172 @@
+---
+title: "EDA (Skim), Join, Visualize"
+author: "Your Name"
+date: "`r Sys.Date()`"
+abstract: "This document is a tidyverse/dplyr tour using R/RStudio.  The instructor will demonstrate how to undertake an initial investigation into two datasets.  More information can be found at this repo: https://github.com/data-and-visualization/intro2r-2018-datafest. Our Intro to R workshop can be found at https://rfun.library.duke.edu/intro2r/.  This document is covered by the CC BY-NC license:  https://creativecommons.org/licenses/by-nc/4.0/legalcode.\n"
+output: html_notebook
+---
+
+# Load Packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(skimr)
+library(ggvis)
+```
+
+# Load Data
+
+- Star Wars character data are an on-board part of dplyr:  `dplyr::starwars`
+
+- Star Wars survey data are from fivethirtyeight.com.  
+
+    - https://github.com/fivethirtyeight/data/tree/master/star-wars-survey
+    - https://data.fivethirtyeight.com/
+    - Unless otherwise noted, five thirty eight data sets are available under the Creative Commons Attribution 4.0 International License, and the code is available under the MIT License.
+    - https://fivethirtyeight.com/features/americas-favorite-star-wars-movies-and-least-favorite-characters/
+
+Load the survey data that deals with character's favorability rating.  
+
+```{r message=FALSE, warning=FALSE}
+favorability_popularity_rating <- 
+  read_csv("data/538_favorability_popularity.csv",
+           skip = 11)
+```
+
+
+# Raw Data
+
+## Star Wars Charactesr
+
+```{r show_dplyr-starwars-tibble}
+starwars
+```
+
+## Favorability Data
+
+I have transformed the *Five Thirty Eight* [data](https://github.com/fivethirtyeight/data/tree/master/star-wars-survey).  It's ready to merge with the other dataset.
+
+```{r show_favorability-rating}
+favorability_popularity_rating
+```
+
+
+#  EDA
+
+Exploratory Data Analysis gives me a general sense of the data.  For example, what are the means, medians, distributions of each data variable.
+
+## Skim
+
+Skim the `dplyr::starwars` raw data.
+
+```{r}
+skim(starwars)
+```
+
+
+Skim the transformed favorability data gathered from fivethirtyeight.com.
+
+```{r skim-joined}
+skim(favorability_popularity_rating)
+```
+
+# Join Data
+
+There are different types of joins (e.g. inner, left, right, full, etc.).  See the `dplyr::join` [documentation](http://dplyr.tidyverse.org/reference/join.html) for a more complete explanation. Note that the join key plays a critical role in the success rate of the join.  Joining on alphanumeric keys can be problematic due to complications such as diacritical marks, case sensitivity, and spaces. Ideally, match on consistent numeric keys.
+
+
+```{r join-data}
+sw_joined <- starwars %>% 
+  left_join(favorability_popularity_rating, by = "name") %>% 
+  select(name, fav_rating, everything()) 
+
+sw_joined %>% 
+  arrange(desc(fav_rating))
+```
+
+```{r}
+sw_joined %>% 
+  drop_na(fav_rating) %>% 
+  skim()
+```
+
+
+
+# Visualize
+
+## Scatter Plot
+
+Is a character's favorability dependent on their individual height?
+
+```{r scatterplot-fav_rating}
+sw_joined %>% 
+  drop_na(fav_rating) %>% 
+  ggvis(~height, ~fav_rating) %>% 
+  layer_points()
+```
+
+
+## Box Plot
+
+What is the distribution of the mass of three species:  Human, Droid, Mirialan?
+
+```{r species-boxplot}
+starwars %>% 
+  drop_na(species, mass) %>% 
+  filter(species == "Human" |
+           species == "Droid" |
+           species == "Mirialan") %>% 
+  ggvis(~species, ~mass) %>% 
+  layer_boxplots()
+```
+
+## Histogram
+
+What is the distribution of the birth years of all the characters?
+
+```{r birth-year_histogram}
+starwars %>% 
+  ggvis(~birth_year) %>% 
+  layer_histograms()
+```
+
+What is the distribution of the character's height?
+
+```{r height_histogram}
+starwars %>% 
+  ggvis(~height) %>% 
+  layer_histograms()
+```
+
+## Bar Plot
+
+```{r eye-color_barplot}
+# order_eye <- as_vector(fct_count(starwars$eye_color, sort = TRUE) %>% select(f))
+# fct_count(starwars$eye_color, sort = TRUE)$f
+starwars %>%   
+  ggvis(~eye_color) %>% 
+  layer_bars() %>% 
+  scale_ordinal("x", domain = fct_count(starwars$eye_color, sort = TRUE)$f)
+```
+
+```{r refine_barplot}
+fct_count(starwars$eye_color, sort = TRUE) %>% 
+  head() %>% 
+  ggvis(~f, ~n) %>% 
+  layer_bars(fill := ~f, stroke := ~f) %>% 
+  add_axis("x", title = "Eye Color") %>% 
+  add_axis("y", title = "Frequency") %>% 
+  scale_ordinal('x', domain=c("brown", "blue", "yellow", "black", "orange", "red")) 
+```
+
+# Session Info
+
+For reproducibility, it's always good to document the session info.
+
+```{r session_info}
+devtools::session_info()
+```
+
+# License
+
+Creative Commons.  CC By-NC  https://creativecommons.org/licenses/by-nc/4.0/legalcode
